@@ -1,0 +1,61 @@
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    form {
+        display: flex;
+        flex-flow: column wrap;
+        gap: .5em;
+
+        .input-w {
+            display: flex;
+            flex-direction: column;
+
+            label {
+                font-size: 20px;
+            }
+
+            #email-l,
+            #password-l{
+                position: relative;
+                font-size: 24px;
+                padding: .5em 1em;
+            }
+
+        }
+
+        #login-account-btn {
+            cursor: pointer;
+            appearance: none;
+            border: none;
+            padding: 1rem 1rem;
+            font-size: 20px;
+            color: white;
+            background-color: #59595c;
+            transition: background-color 0.15s ease-in-out;
+
+            &:hover {
+                background-color: #59595c90;
+            }
+        }
+    }
+    
+    #join-instead-btn,
+    #forgot-password-btn {
+        margin-top: .5em;
+        width: 100%;
+        cursor: pointer;
+        appearance: none;
+        border: none;
+        padding: 1rem 1rem;
+        font-size: 20px;
+        color: white;
+        background-color: #59595c;
+        transition: background-color 0.15s ease-in-out;
+
+        &:hover {
+            background-color: #59595c90;
+        }
+    }
+}

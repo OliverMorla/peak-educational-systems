@@ -1,0 +1,67 @@
+.contact-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5em;
+
+    .contact-title {
+        font-size: 24px;
+        font-weight: bolder;
+    }
+
+    .contact-title-sub{
+        font-size: 12px;
+    }
+
+    form {
+        display: flex;
+        flex-flow: column wrap;
+        gap: .5em;
+        flex-grow: 1;
+
+        .name-wrapper-c {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-between;
+            gap: .5em;
+
+            #first-name-c {
+                flex-grow: 1;
+                font-size: 24px;
+                padding: .5em 1em;
+            }
+
+            #last-name-c {
+                flex-grow: 1;
+                font-size: 24px;
+                padding: .5em 1em;
+            }
+        }
+
+        #email-c {
+            font-size: 24px;
+            padding: .5em 1em;
+        }
+
+        #message-c {
+            font-size: 24px;
+            padding: .5em 1em;
+            height: 200px;
+        }
+
+        #contact-msg-btn {
+            cursor: pointer;
+            appearance: none;
+            border: none;
+            padding: 1rem 1rem;
+            font-size: 20px;
+            color: white;
+            background-color: #59595c;
+            transition: background-color 0.15s ease-in-out;
+
+            &:hover {
+                background-color: #59595c90;
+            }
+        }
+    }
+}

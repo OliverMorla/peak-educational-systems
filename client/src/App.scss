@@ -1,0 +1,13 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        background-color: var(--blueWood);
+    }
+}

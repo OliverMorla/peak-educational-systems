@@ -1,0 +1,24 @@
+.dashboard-wrapper {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 4px 0 grey;
+    padding: 4em;
+
+    .member-label-w {
+        display: flex;
+        gap: .2em;
+
+        &:nth-child(1) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            font-weight: bolder;
+        }
+    }
+
+    .member-photo {
+        width: 200px;
+    }
+}
