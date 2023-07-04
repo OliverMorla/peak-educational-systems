@@ -32,9 +32,9 @@ Your contributions are always welcome! Please have a look at the contribution gu
 
 ### Fork the Repository
 
-Fork the project [on GitHub](https://github.com/[YourUsername]/peak-educational-systems) and clone your copy.
+Fork the project [on GitHub](https://github.com/OliverMorla/peak-educational-systems) and clone your copy.
 
-$ git clone https://github.com/[YourUsername]/peak-educational-systems.git
+$ git clone https://github.com/OliverMorla/peak-educational-systems.git
 $ cd peak-educational-systems
 $ npm install
 
