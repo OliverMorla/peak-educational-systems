@@ -4,6 +4,10 @@ Peak Educational Systems is a comprehensive online platform designed to cater to
 
 This prototype was built using a stack comprising of Next.js 13, TypeScript, React, HTML, CSS, JS, MySQL, and AWS. For emailing functionalities, the application integrates with Mailchimp and EmailJS.
 
+## Project Status
+
+The project is currently in progress and under active development.
+
 ## Features
 
 - **Membership**: Visitors can sign up and become a member for free.
