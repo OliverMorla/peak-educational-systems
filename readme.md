@@ -44,4 +44,7 @@ Pull Requests are always welcome. When you are ready to submit, push your change
 ## Contact
 If you have any questions, comments, or feedback, feel free to reach out to us!
 
+## License
+This project is licensed under the MIT License. Feel free to use and modify this project for your own purposes.
+
 Happy Coding!
