@@ -1,4 +1,6 @@
-const Login: React.FunctionComponent = () => {
+import { FunctionComponent } from "react";
+
+const Login: FunctionComponent = () => {
   return (
     <main>
       <h1>Login</h1>
