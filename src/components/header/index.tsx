@@ -1,105 +1,49 @@
 "use client";
 
-import { FunctionComponent, useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import "./style.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { useRef } from "react";
 
-const Header: FunctionComponent = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showLink, setShowLink] = useState(false);
-  const [SignedIn, setSignedIn] = useState(false);
-  const [signedInModal, setSignedInModal] = useState(false);
+const Header: React.FunctionComponent = (): JSX.Element => {
+  const navRef = useRef<HTMLDivElement>(null);
   return (
-    <header>
-      <nav className="navbar-wrapper">
-        <h1 className="navbar-title">
-          <Link href={"/"}>Peak Educational Systems</Link>
-        </h1>
-        <div className="navbar-link-wrapper">
-          <Link className="" href="/">
-            Home{" "}
-          </Link>
-          <Link className="" href="/services">
-            Services
-          </Link>
-          <div
-            className="navbar-link"
-            onMouseEnter={() => setShowDropdown(true)}
-            onMouseLeave={() => setShowDropdown(false)}
-          >
-            <Link className="" href="/about">
-              About
-            </Link>
-            <div
-              className="about-dropdown-dialog"
-              style={
-                showDropdown
-                  ? { opacity: 1, pointerEvents: "auto" }
-                  : { opacity: 0, pointerEvents: "none" }
-              }
-              onMouseEnter={() => setShowDropdown(true)}
-              onMouseLeave={() => setShowDropdown(false)}
-            >
-              <Link href={""} className="about-dropdown-item">
-                Specialties
-              </Link>
-              <Link href={""} className="about-dropdown-item">
-                Our Team
-              </Link>
-            </div>
-          </div>
-          <Link className="" href="/blog">
-            Blog
-          </Link>
-          <Link className="" href="/contact">
-            Contact
-          </Link>
-          {showLink && (
-            <motion.div initial={{ x: 180 }} animate={{ x: 0 }}>
-              <Link className="navbar-link" href="/user/join">
-                Become a Member
-              </Link>
-            </motion.div>
-          )}
-          {SignedIn && (
-            <Link
-              className="navbar-link"
-              href={"/user/dashboard"}
-              onMouseEnter={() => setSignedInModal(true)}
-              onMouseLeave={() => setSignedInModal(false)}
-            >
-              Oliver M
-            </Link>
-          )}
-          <div
-            className="signed-in-dialog"
-            style={
-              signedInModal
-                ? { opacity: 1, pointerEvents: "auto" }
-                : { opacity: 0, pointerEvents: "none" }
-            }
-            onMouseEnter={() => setSignedInModal(true)}
-            onMouseLeave={() => setSignedInModal(false)}
-          >
-            <Link
-              className="signed-dropdown-item"
-              href={"/user/schedule-a-meeting"}
-            >
-              Schedule a Meeting
-            </Link>
-            <Link className="signed-dropdown-item" href={"/user/dashboard"}>
-              Dashboard
-            </Link>
-            <Link className="signed-dropdown-item" href={"/events"}>
-              Events
-            </Link>
-            <Link className="signed-dropdown-item" href={"/user/logout"}>
-              Log Out
-            </Link>
-          </div>
-        </div>
+    <header className="header">
+      <section className="header__title-section">
+        <Image
+          src={"/assets/logos/logo-3-nobg_small.webp"}
+          alt="header__logo"
+          width={125}
+          height={75}
+          className="header__logo"
+        />
+        <h1 className="header__title">Peak Educational Systems</h1>
+      </section>
+      <FontAwesomeIcon
+        icon={faBars}
+        className="header__toggle-btn"
+        onClick={() => navRef.current?.classList.toggle("open")}
+      />
+      <nav className="header__nav" ref={navRef}>
+        <Link href="/" className="nav__item">
+          Home
+        </Link>
+        <Link href="/services" className="nav__item">
+          Services
+        </Link>
+        <Link href="/about" className="nav__item">
+          About
+        </Link>
+        <Link href="/blog" className="nav__item">
+          Blog
+        </Link>
+        <Link href="/contact" className="nav__item">
+          Contact
+        </Link>
       </nav>
+      {/* <DropdownMenu /> */}
     </header>
   );
 };

@@ -1,157 +1,168 @@
-@import '/src/styles/mixins.scss';
+// mixins.scss is used to easily manage media queries.
+@import "@/styles/mixins.scss";
 
-.footer-wrapper {
-    position: relative;
+//  Using BEM as a class naming convention (Block, Element, Modifier)
+.footer {
+  min-height: 400px;
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--senary);
+
+  @include sm-down {
+    min-height: auto;
+  }
+
+  .footer__section-top {
+    margin-top: 80px;
+    margin-bottom: 80px;
     display: flex;
-    flex-flow: column wrap;
-    background-color: #28282b;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    width: 100%;
+    align-items: center;
 
+    @include sm-down {
+      gap: 25px;
+      width: 375px;
+    }
 
-    .footer-wrapper-top,
-    .footer-wrapper-bottom {
+    .footer__about {
+      display: flex;
+      flex-direction: column;
+      width: 350px;
+
+      .about__title {
         display: flex;
-        flex-flow: row wrap;
-        justify-content: space-evenly;
         align-items: center;
-    }
 
-    .about-us-wrapper {
-        align-self: flex-start;
-        width: 300px;
-
-        .about-us-title {
-            color: white;
-            font-weight: bolder;
+        .header-logo {
         }
 
-        .about-us-info {
-            color: grey;
-            font-size: 16px;
+        h3 {
+          color: white;
+          transition: all 0.15s ease-in-out;
+          text-decoration: underline;
+          text-decoration-color: transparent;
+
+          &:hover {
+            color: var(--primary);
+            text-decoration-color: var(--primary);
+          }
         }
-    }
+      }
 
-    .features-wrapper {
-        align-self: flex-start;
-        width: 200px;
+      .about__slogan {
+        color: var(--white);
+        font-weight: 300;
+      }
 
-        .features-title {
-            color: white;
-        }
-
-        .features-list-w {
-            display: flex;
-            flex-direction: column;
-            gap: 0.4em;
-
-            .feature-item {
-                color: grey;
-                cursor: pointer;
-                font-size: 16px;
-                color: grey;
-                transition: all .15s ease-in-out;
-
-                &:hover {
-                    font-size: 18px;
-                    color: rgb(160, 160, 160);
-                }
-            }
-        }
-    }
-
-    .contact-us-wrapper {
-        align-self: flex-start;
+      .about__links {
         display: flex;
-        flex-direction: column;
-        gap: 2em;
+        justify-content: space-between;
+        color: white;
 
-        .contact-us-section {
-            .contact-us-title {
-                color: white;
-                font-weight: bolder;
-            }
+        .links__entry {
+          transition: all 0.15s ease-in-out;
 
-            .contact-icon-wrapper {
-                display: flex;
-                gap: 1em;
-
-                .contact-icon {
-                    cursor: pointer;
-                    font-size: 16px;
-                    color: grey;
-                    transition: all .15s ease-in-out;
-
-                    &:hover {
-                        font-size: 20px;
-                        color: rgb(160, 160, 160);
-                    }
-                }
-            }
+          &:hover {
+            color: var(--primary);
+          }
         }
-
-        .newsletter-wrapper {
-            display: flex;
-            flex-direction: column;
-
-            .newsletter-title {
-                color: white;
-                font-weight: bolder;
-            }
-
-            form {
-                display: flex;
-                flex-flow: row wrap;
-                gap: .4em;
-
-                @include xs {
-                    flex-flow: column wrap;
-                }
-
-                #email-n {
-                    padding: 1rem 1rem;
-                    font-size: 20px;
-                }
-
-                .sub-btn {
-                    cursor: pointer;
-                    appearance: none;
-                    border: none;
-                    padding: 1rem 1rem;
-                    font-size: 20px;
-                    color: white;
-                    background-color: #59595c;
-                    transition: background-color 0.15s ease-in-out;
-
-                    &:hover {
-                        background-color: #59595c92;
-                    }
-                }
-            }
-        }
+      }
     }
 
-    .footer-wrapper-top,
-    .footer-wrapper-bottom {
-        padding-top: 4rem;
-        padding-bottom: 4rem;
-    }
+    .footer__features {
+      display: flex;
+      flex-direction: column;
 
-    .footer-wrapper-top {
-        @include xs {
-            gap: 1rem;
-            flex-flow: column wrap;
-            align-content: center;
-        }
-    }
+      span {
+        color: var(--white);
+        font-weight: 900;
+      }
 
-    .copyright-wrapper {
-        border-top: 1px solid grey;
-        color: grey;
-        padding-top: 2rem;
-        transition: all .15s ease-in-out;
+      .features__item {
+        font-weight: 300;
+        color: var(--white);
+        transition: all 0.15s ease-in-out;
 
         &:hover {
-            font-size: 18px;
-            color: rgb(160, 160, 160);
+          color: var(--primary);
         }
+      }
     }
+
+    .footer__socials {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 152px;
+
+      @include sm-down {
+        gap: 25px;
+      }
+
+      .socials__contact {
+        .contact__title {
+          font-weight: 500;
+          color: var(--white);
+        }
+
+        .contact__wrapper {
+          display: flex;
+          gap: 10px;
+
+          .socials__btn {
+            cursor: pointer;
+            color: var(--primary);
+            font-size: 24px;
+            transition: all 0.15s ease-in-out;
+
+            &:hover {
+              color: var(--primary-hover);
+            }
+          }
+        }
+      }
+
+      .socials__newsletter {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        #newsletter-text {
+          height: 50px;
+          width: 180px;
+          padding: 14px;
+        }
+
+        .newsletter__btn {
+          background-color: var(--primary);
+          height: 50px;
+          width: 100px;
+          border: none;
+          appearance: none;
+          cursor: pointer;
+          transition: all 0.15s ease-in-out;
+
+          &:hover {
+            background-color: var(--primary-hover);
+          }
+        }
+      }
+    }
+  }
+
+  .footer__section-bottom {
+    display: flex;
+    margin-bottom: 20px;
+
+    .bottom__text {
+      border-top: 1px solid var(--white);
+      padding-top: 10px;
+      color: var(--white);
+    }
+  }
 }
