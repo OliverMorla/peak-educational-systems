@@ -7,7 +7,6 @@ import {
   faSchool,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFaceGrinBeam } from "@fortawesome/free-regular-svg-icons";
-import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import Modal from "@/components/Modal";
 import "./page.scss";
@@ -97,20 +96,14 @@ const Home: React.FunctionComponent = (): JSX.Element => {
             </div>
           </div>
         </div>
-        <Image
-          src={"/assets/logos/logo-3-nobg.png"}
-          alt="logo-3-nobg"
-          width={2550}
-          height={1650}
-          className="about__logo"
-        />
         <div className="home__marquee">
           <Marquee
             style={{
               fontSize: "36px",
               fontWeight: "300",
               display: "flex",
-              gap: "10px",
+              justifyContent: "space-between",
+              gap: "20px"
             }}
           >
             NEWS NEWS NEWS NEWS NEWS NEWS NEWS NEWS NEWS NEWS NEWS NEWS NEWS
@@ -128,16 +121,6 @@ const Home: React.FunctionComponent = (): JSX.Element => {
         </div>
       </section>
       <section className="home__contact">
-        <Image
-          src={"/assets/logos/logo-3-nobg.png"}
-          alt="logo-3-nobg"
-          width={2550}
-          height={1650}
-          className="contact__logo"
-          style={{
-            objectFit: "contain",
-          }}
-        />
         <div className="contact_wrapper">
           <h1>Schedule a session!</h1>
           <p>

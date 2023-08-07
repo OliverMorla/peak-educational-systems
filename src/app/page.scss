@@ -114,8 +114,13 @@
     align-items: center;
     justify-content: flex-start;
     height: 100vh;
+    width: 100%;
     color: var(--secondary);
     background-color: var(--tertiary);
+    background-image: url("/assets/logos/logo-3-nobg.png");
+    background-repeat: no-repeat;
+    background-position: right -175% bottom 0;
+    background-size: contain;
 
     .home__about {
       display: flex;
@@ -159,13 +164,21 @@
 
     .about__logo {
       position: absolute;
-      transform: translateX(50%);
+      // transform: translateX(50%);
       right: 0;
-      z-index: 0;
-      opacity: .8;
+      // width: 100%;
+      // overflow: hidden;
+      // z-index: 0;
+      // opacity: 0.8;
+
+      .logo{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
 
-    .home__marquee{
+    .home__marquee {
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -182,6 +195,7 @@
     position: relative;
     height: 100vh;
     background-color: var(--secondary);
+    z-index: 1;
 
     .home__news {
       .news__title {
@@ -211,6 +225,10 @@
     align-items: center;
     height: 100vh;
     background-color: var(--tertiary);
+    background-image: url("/assets/logos/logo-3-nobg.png");
+    background-repeat: no-repeat;
+    background-position: left -175% bottom 0;
+    background-size: contain;
 
     .contact__logo {
       position: absolute;
