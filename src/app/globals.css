@@ -23,6 +23,7 @@
   --quinary: #1a3258;
   --senary: #1d293c;
   --octonary: #141b2c;
+  --nonary: #37455C;
   --primary-hover: #97b335;
 
   --color: ;
@@ -53,9 +54,13 @@ html,
 body {
   display: flex;
   flex-direction: column;
+  scroll-snap-type: y proximity;
   flex-grow: 1;
   width: 100%;
   height: 100%;
+}
+
+body {
 }
 
 a {

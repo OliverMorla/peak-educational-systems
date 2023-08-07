@@ -5,7 +5,7 @@
   flex-direction: column;
   height: auto;
 
-  .home__section-one {
+  .home__intro-section {
     position: relative;
     flex-direction: column;
     display: flex;
@@ -33,13 +33,18 @@
         gap: 10px;
 
         @include sm-down {
-          width: 90%;
+          width: 95%;
         }
 
         h1 {
           font-size: 48px;
           font-weight: bolder;
           position: relative;
+
+          @include sm-down {
+            text-align: center;
+            font-size: 42px;
+          }
         }
 
         .content__border {
@@ -76,6 +81,10 @@
           font-size: 48px;
           font-weight: 100;
           position: relative;
+
+          @include sm-down {
+            font-size: 42px;
+          }
         }
 
         .content__arrows {
@@ -87,7 +96,11 @@
           width: 100%;
           opacity: 0.8;
 
-          .arrows__btn {
+          @include sm-down {
+            position: relative;
+          }
+
+          .arrow__btn {
             cursor: pointer;
             transition: all 0.3s ease-in-out;
 
@@ -108,7 +121,7 @@
     }
   }
 
-  .home__section-two {
+  .home__about-section {
     position: relative;
     display: flex;
     align-items: center;
@@ -119,15 +132,31 @@
     background-color: var(--tertiary);
     background-image: url("/assets/logos/logo-3-nobg.png");
     background-repeat: no-repeat;
-    background-position: right -175% bottom 0;
+    background-position: 275% 50%;
+    background-origin: border-box;
     background-size: contain;
 
-    .home__about {
+    @include sm-down {
+      background-position: 5% -5%;
+      background-size: contain;
+    }
+
+    .about {
       display: flex;
       flex-direction: column;
       margin-left: 160px;
       z-index: 1;
       width: 565px;
+
+      @include sm-down {
+        margin-left: 80px;
+      }
+
+      @include xs {
+        margin-left: 10px;
+        margin-right: 10px;
+        width: 100%;
+      }
 
       .about__title {
         font-size: 64px;
@@ -135,6 +164,11 @@
 
       .about__info {
         font-size: 18px;
+
+        @include sm-down {
+          font-size: 14px;
+          width: 95%;
+        }
       }
 
       .about__badges {
@@ -162,22 +196,6 @@
       }
     }
 
-    .about__logo {
-      position: absolute;
-      // transform: translateX(50%);
-      right: 0;
-      // width: 100%;
-      // overflow: hidden;
-      // z-index: 0;
-      // opacity: 0.8;
-
-      .logo{
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
-
     .home__marquee {
       position: absolute;
       bottom: 0;
@@ -191,13 +209,17 @@
     }
   }
 
-  .home__section-three {
+  .home__news-section {
     position: relative;
     height: 100vh;
     background-color: var(--secondary);
     z-index: 1;
 
-    .home__news {
+    @include sm-down {
+      height: auto;
+    }
+
+    .news {
       .news__title {
         margin-top: 40px;
         display: flex;
@@ -216,9 +238,110 @@
         }
       }
     }
+
+    .news__cards {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      flex-flow: row wrap;
+      gap: 20px;
+
+      .cards__content {
+        cursor: pointer;
+        position: relative;
+        width: 500px;
+        height: 550px;
+        background-color: var(--octonary);
+        border-radius: 20px;
+        color: var(--white);
+        transition: all 0.15s ease-in-out;
+
+        .content__header {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          justify-content: center;
+          top: 0;
+          height: 120px;
+          width: 100%;
+          background-color: var(--primary);
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+
+          h2 {
+            width: 300px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 900;
+          }
+        }
+        .content__view-all-btn {
+          position: absolute;
+          bottom: 0;
+          border: none;
+          border-radius: 5px;
+          padding: 10px 25px;
+          right: 50%;
+          margin-bottom: 40px;
+          transform: translateX(50%);
+          background-color: var(--primary);
+          transition: all 0.15s ease-in-out;
+
+          &:hover {
+            background-color: var(--primary-hover);
+          }
+        }
+      }
+    }
+    .home__event-modal {
+      display: flex;
+      width: 650px;
+      height: 400px;
+      bottom: 0;
+      margin-left: 240px;
+      transform: translateY(50%);
+      background-color: var(--nonary);
+      box-shadow: 0 0 4px var(--black);
+      position: absolute;
+      opacity: 0.9;
+
+      @include sm-down {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        margin-left: 80px;
+        transform: translateX(0);
+      }
+
+      .event__header {
+        font-weight: 300;
+        color: var(--white);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 170px;
+        height: 100%;
+        background-color: var(--senary);
+
+        :nth-child(2) {
+          font-weight: 900;
+        }
+      }
+
+      .event__body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        color: var(--white);
+      }
+    }
   }
 
-  .home__contact {
+  .home__contact-section {
     position: relative;
     display: flex;
     justify-content: flex-end;
@@ -230,15 +353,7 @@
     background-position: left -175% bottom 0;
     background-size: contain;
 
-    .contact__logo {
-      position: absolute;
-      transform: translateX(-50%);
-      opacity: 0.8;
-      z-index: 0;
-      left: 0;
-    }
-
-    .contact_wrapper {
+    .contact {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -249,6 +364,10 @@
       width: 700px;
       margin-right: 120px;
       z-index: 1;
+
+      @include sm-down {
+        margin-right: 40px;
+      }
 
       h1 {
         font-size: 64px;
