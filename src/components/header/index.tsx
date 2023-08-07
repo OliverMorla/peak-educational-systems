@@ -24,6 +24,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
       <FontAwesomeIcon
         icon={faBars}
         className="header__toggle-btn"
+        width={25}
         onClick={() => navRef.current?.classList.toggle("open")}
       />
       <nav className="header__nav" ref={navRef}>

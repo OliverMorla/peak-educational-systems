@@ -1,0 +1,26 @@
+.dialog {
+  left: 50%;
+  top: 15%;
+  transform: translateX(-50%);
+  border: none;
+  padding: 25px;
+
+  form {
+    .dialog__button {
+      cursor: pointer;
+      margin-top: 15px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      border: none;
+      appearance: none;
+      padding: 10px;
+      background-color: var(--matteGrey);
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: var(--primary);
+      }
+    }
+  }
+}
