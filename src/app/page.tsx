@@ -48,7 +48,7 @@ const NewsDB: News[] = [
 const Home: React.FunctionComponent = (): JSX.Element => {
   const getQuotes = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/quotes", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/quotes`, {
         method: "GET",
       });
       const response = await res.json();
