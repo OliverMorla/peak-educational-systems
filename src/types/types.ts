@@ -10,3 +10,9 @@ interface News {
   comments: number;
   photo_cover: string;
 }
+
+interface Quote {
+  id: number;
+  quote: string;
+  author: string;
+}

@@ -16,6 +16,7 @@ import { motion } from "framer-motion";
 import { fadeEffect } from "@/config/framer.config";
 import Modal from "@/components/Modal";
 import "./page.scss";
+import { useState } from "react";
 
 const NewsDB: News[] = [
   {
@@ -45,6 +46,28 @@ const NewsDB: News[] = [
 ];
 
 const Home: React.FunctionComponent = (): JSX.Element => {
+  const getQuotes = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/quotes", {
+        method: "GET",
+      });
+      const response = await res.json();
+      return response;
+    } catch (err) {
+      if (err instanceof Error) return console.log(err.message);
+    }
+  };
+
+  const [quotes, setQuotes] = useState<Quote[]>((): any => {
+    getQuotes().then((data) => setQuotes(data));
+  });
+
+  const [currentQuote, setCurrentQuote] = useState(0);
+
+  const handleQuote = async () => {
+    setCurrentQuote((prevCurrentQuote) => prevCurrentQuote + 1);
+  };
+
   return (
     <main className="home">
       <Modal
@@ -56,11 +79,15 @@ const Home: React.FunctionComponent = (): JSX.Element => {
           <div className="home__content">
             <h1>Discover, Learn, Explore</h1>
             <div className="content__border"></div>
-            <p className="content__quote">
-              "Be dedicated to change the way in which people see mental illness
-              at all levels of society. If not for yourself, advocate for those
-              who are struggling in silence.” — Germany Kent
-            </p>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              key={currentQuote}
+              className="content__quote"
+            >
+              "{quotes && quotes[currentQuote]?.quote}" -{" "}
+              {quotes && quotes[currentQuote]?.author}
+            </motion.p>
             <div className="content__arrows">
               <FontAwesomeIcon
                 icon={faArrowLeft}
@@ -71,6 +98,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
                 icon={faArrowRight}
                 className="arrow__btn"
                 width={68}
+                onClick={handleQuote}
               />
             </div>
             <div className="content__border"></div>
@@ -143,15 +171,21 @@ const Home: React.FunctionComponent = (): JSX.Element => {
             className="news__cards"
           >
             {NewsDB.map((news) => (
-              <>
+              <li
+                key={news.id}
+                style={{
+                  listStyle: "none",
+                }}
+              >
                 <Card
+                  key={news.id}
                   id={news.id}
                   title={news.title}
                   author={news.author}
                   comments={news.comments}
                   photo_cover={news.photo_cover}
                 />
-              </>
+              </li>
             ))}
           </motion.div>
         </div>

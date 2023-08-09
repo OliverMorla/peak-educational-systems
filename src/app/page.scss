@@ -215,7 +215,7 @@
     background-color: var(--secondary);
     z-index: 1;
 
-    @include sm-down {
+    @include md-down {
       height: auto;
     }
 
@@ -308,11 +308,21 @@
       position: absolute;
       opacity: 0.9;
 
-      @include sm-down {
+      @include md-down {
         margin-top: 20px;
         margin-bottom: 20px;
         position: relative;
+        width: 550px;
         margin-left: 80px;
+        transform: translateX(0);
+      }
+
+      @include xs {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        margin-left: 20px;
+        width: 350px;
         transform: translateX(0);
       }
 
@@ -327,6 +337,10 @@
         height: 100%;
         background-color: var(--senary);
 
+        @include xs {
+          min-width: 80px;
+        }
+
         :nth-child(2) {
           font-weight: 900;
         }
@@ -335,8 +349,21 @@
       .event__body {
         display: flex;
         flex-direction: column;
+        align-items: center;
+        width: 100%;
         justify-content: space-evenly;
         color: var(--white);
+
+        span {
+          display: flex;
+          align-items: center;
+          gap: 40px;
+          width: 400px;
+
+          @include xs {
+            width: 250px;
+          }
+        }
       }
     }
   }
@@ -353,6 +380,12 @@
     background-position: left -175% bottom 0;
     background-size: contain;
 
+    @include xs {
+      margin-top: 20px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
     .contact {
       display: flex;
       flex-direction: column;
@@ -365,20 +398,31 @@
       margin-right: 120px;
       z-index: 1;
 
-      @include sm-down {
-        margin-right: 40px;
+      @include xs {
+        position: relative;
+        margin-right: 0px;
+        width: 375px;
+        transform: translateX(0);
       }
 
       h1 {
         font-size: 64px;
         font-weight: 900;
         color: var(--primary);
+
+        @include xs {
+          width: 350px;
+        }
       }
 
       p {
         width: 550px;
         font-size: 18px;
         color: var(--white);
+
+        @include xs {
+          width: 350px;
+        }
       }
 
       form {
@@ -393,6 +437,10 @@
           border-radius: 5px;
           padding: 10px;
           margin-bottom: 10px;
+
+          @include xs {
+            width: 350px;
+          }
         }
 
         textarea {
@@ -402,6 +450,10 @@
           border-radius: 5px;
           padding: 10px;
           margin-bottom: 10px;
+
+          @include xs {
+            width: 350px;
+          }
         }
 
         button {
@@ -417,6 +469,10 @@
           font-weight: 900;
           cursor: pointer;
           transition: all 0.3s ease-in-out;
+
+          @include xs {
+            width: 350px;
+          }
 
           &:hover {
             background-color: var(--secondary);
