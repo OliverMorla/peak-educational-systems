@@ -130,15 +130,27 @@
     width: 100%;
     color: var(--secondary);
     background-color: var(--tertiary);
-    background-image: url("/assets/logos/logo-3-nobg.png");
-    background-repeat: no-repeat;
-    background-position: 275% 50%;
-    background-origin: border-box;
-    background-size: contain;
+    overflow: hidden;
 
     @include sm-down {
-      background-position: 5% -5%;
-      background-size: contain;
+      flex-flow: row wrap;
+    }
+
+    .about__logo {
+      position: absolute;
+      right: 0;
+      transform: translateX(50%);
+      opacity: 0.5;
+
+      @include sm-down {
+        position: relative;
+        height: auto;
+        object-fit: contain;
+        opacity: 0.8;
+        width: 100%;
+        margin-bottom: 20px;
+        transform: translateX(0);
+      }
     }
 
     .about {
@@ -203,7 +215,6 @@
       height: 75px;
       display: flex;
       align-items: center;
-      transform: translateY(50%);
       z-index: 2;
       background-color: var(--octonary);
     }
@@ -215,7 +226,11 @@
     background-color: var(--secondary);
     z-index: 1;
 
-    @include md-down {
+    @include sm-down {
+      height: auto;
+    }
+
+    @include lg-down {
       height: auto;
     }
 
@@ -245,6 +260,16 @@
       justify-content: center;
       flex-flow: row wrap;
       gap: 20px;
+
+      @include lg-down {
+        margin-bottom: 240px;
+      }
+
+      @include md-down {
+        margin-bottom: 40px;
+        flex-direction: column;
+        align-items: center;
+      }
 
       .cards__content {
         cursor: pointer;
@@ -278,6 +303,7 @@
             font-weight: 900;
           }
         }
+
         .content__view-all-btn {
           position: absolute;
           bottom: 0;
@@ -296,9 +322,11 @@
         }
       }
     }
+
     .home__event-modal {
       display: flex;
-      width: 650px;
+      max-width: 650px;
+      width: 100%;
       height: 400px;
       bottom: 0;
       margin-left: 240px;
@@ -309,21 +337,15 @@
       opacity: 0.9;
 
       @include md-down {
-        margin-top: 20px;
+        margin-left: unset;
         margin-bottom: 20px;
         position: relative;
-        width: 550px;
-        margin-left: 80px;
         transform: translateX(0);
       }
 
       @include xs {
-        margin-top: 20px;
-        margin-bottom: 20px;
-        position: relative;
-        margin-left: 20px;
-        width: 350px;
-        transform: translateX(0);
+        margin-left: 10px;
+        width: 100%;
       }
 
       .event__header {
@@ -341,6 +363,10 @@
           min-width: 80px;
         }
 
+        @include sm-down {
+          min-width: 100px;
+        }
+
         :nth-child(2) {
           font-weight: 900;
         }
@@ -353,6 +379,7 @@
         width: 100%;
         justify-content: space-evenly;
         color: var(--white);
+        
 
         span {
           display: flex;
@@ -361,6 +388,10 @@
           width: 400px;
 
           @include xs {
+            width: 250px;
+          }
+
+          @include sm-down {
             width: 250px;
           }
         }
@@ -375,15 +406,31 @@
     align-items: center;
     height: 100vh;
     background-color: var(--tertiary);
-    background-image: url("/assets/logos/logo-3-nobg.png");
-    background-repeat: no-repeat;
-    background-position: left -175% bottom 0;
-    background-size: contain;
 
-    @include xs {
-      margin-top: 20px;
-      align-items: flex-start;
-      justify-content: center;
+    @include sm-down {
+      flex-direction: column;
+      height: auto;
+    }
+
+    .contact__logo {
+      position: absolute;
+      left: 0;
+      transform: translateX(-50%);
+      opacity: 0.5;
+
+      @include xs{
+        margin-top: 40px;
+      }
+      
+      @include sm-down {
+        position: relative;
+        margin-bottom: 20px;
+        height: auto;
+        width: 100%;
+        opacity: 0.8;
+        object-fit: contain;
+        transform: translateX(0);
+      }
     }
 
     .contact {
@@ -400,9 +447,13 @@
 
       @include xs {
         position: relative;
-        margin-right: 0px;
-        width: 375px;
         transform: translateX(0);
+        width: 385px;
+      }
+
+      @include sm-down {
+        margin-right: unset;
+        margin-bottom: 40px;
       }
 
       h1 {

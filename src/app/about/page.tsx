@@ -1,10 +1,36 @@
+import HomeAbout from "@/components/home/sections/about";
+import Intro from "@/components/home/sections/intro";
 import "./page.scss";
 
 const About: React.FunctionComponent = (): JSX.Element => {
   return (
-    <main className="about">
-      <h1> About page </h1>
-    </main>
+    <>
+      <main className="about">
+        <Intro>
+          <img
+            src={"/assets/logos/logo-3-nobg2.png"}
+            alt="logo"
+            width={965}
+            className="content__logo"
+          />
+          <div className="content__text">
+            <div className="text">
+              <h1>Visual</h1>
+              <p>Truth in Every Story</p>
+            </div>
+            <div className="text">
+              <h1>Tactile</h1>
+              <p>Empowering Citizens with Knowledge</p>
+            </div>
+            <div className="text">
+              <h1>Auditory</h1>
+              <p>News You Can Trust, Voices You Can Believe</p>
+            </div>
+          </div>
+        </Intro>
+        <HomeAbout />
+      </main>
+    </>
   );
 };
 

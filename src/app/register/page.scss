@@ -1,0 +1,45 @@
+.register {
+  display: flex;
+  background-color: var(--secondary);
+  padding: 75px 0px;
+  height: auto;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  form {
+    .form__group {
+      display: flex;
+      flex-direction: column;
+      label {
+        color: var(--primary);
+        font-weight: 900;
+      }
+
+      input[type="text"],
+      input[type="password"],
+      input[type="date"] {
+        width: 300px;
+        height: 50px;
+        font-size: 18px;
+        padding: 0px 10px;
+      }
+    }
+
+    .form__register-btn {
+      background-color: var(--primary);
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 900;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s ease-in-out;
+      &:hover {
+        background-color: var(--primary-hover);
+      }
+    }
+  }
+}

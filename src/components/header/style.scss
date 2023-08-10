@@ -18,6 +18,13 @@
     flex-direction: column;
   }
 
+  @include md-down {
+    position: relative;
+    height: auto;
+    background-color: var(--secondary);
+    flex-direction: column;
+  }
+
   .header__title-section {
     display: flex;
     align-items: center;
@@ -27,6 +34,10 @@
       object-fit: cover;
 
       @include sm-down {
+        margin-left: unset;
+      }
+
+      @include md-down {
         margin-left: unset;
       }
     }
@@ -78,6 +89,10 @@
       border-bottom: 1px solid var(--tertiary);
     }
 
+    @include md-down {
+      margin-right: unset;
+    }
+
     &.open {
       max-height: 165px;
     }
@@ -87,6 +102,23 @@
 
       &:hover {
         color: var(--primary);
+      }
+
+      &.admin-btn,
+      &.profile-btn {
+        background-color: var(--primary);
+        color: var(--white);
+        font-size: 18px;
+        font-weight: 900;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: all 0.3s ease-in-out;
+        &:hover {
+          background-color: var(--primary-hover);
+        }
       }
 
       @include sm-down {

@@ -15,6 +15,7 @@ import Card from "@/components/News/Card";
 import { motion } from "framer-motion";
 import { fadeEffect } from "@/config/framer.config";
 import Modal from "@/components/Modal";
+import Image from "next/image";
 import "./page.scss";
 import { useState } from "react";
 
@@ -48,9 +49,12 @@ const NewsDB: News[] = [
 const Home: React.FunctionComponent = (): JSX.Element => {
   const getQuotes = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/quotes`, {
-        method: "GET",
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/quotes`,
+        {
+          method: "GET",
+        }
+      );
       const response = await res.json();
       return response;
     } catch (err) {
@@ -142,6 +146,13 @@ const Home: React.FunctionComponent = (): JSX.Element => {
             </div>
           </div>
         </motion.div>
+        <Image
+          src={"/assets/logos/logo-3-nobg2.png"}
+          alt="logo"
+          width={975}
+          height={475}
+          className="about__logo"
+        />
         <div className="home__marquee">
           <Marquee
             style={{
@@ -213,6 +224,13 @@ const Home: React.FunctionComponent = (): JSX.Element => {
         </section>
       </section>
       <section className="home__contact-section">
+      <Image
+          src={"/assets/logos/logo-3-nobg2.png"}
+          alt="logo"
+          width={975}
+          height={475}
+          className="contact__logo"
+        />
         <motion.div
           variants={fadeEffect}
           initial="hidden"

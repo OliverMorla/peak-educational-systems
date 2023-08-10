@@ -1,0 +1,45 @@
+@import "/src/styles/mixins.scss";
+
+.intro__section {
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url("/assets/backgrounds/books-6.webp");
+
+  .section__bg {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    opacity: 0.95;
+    background-color: var(--secondary);
+
+    .section__content {
+      color: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      // gap: 10px;
+
+      @include sm-down {
+        width: 95%;
+      }
+
+      h1 {
+        font-size: 48px;
+        font-weight: bolder;
+        position: relative;
+
+        @include sm-down {
+          text-align: center;
+          font-size: 42px;
+        }
+      }
+    }
+  }
+}

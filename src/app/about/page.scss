@@ -1,1 +1,63 @@
 @import "@/styles/mixins.scss";
+
+.about {
+  .intro__section {
+    .section__bg {
+      justify-content: unset;
+      .section__content {
+        width: 100%;
+        flex-flow: row wrap;
+
+        @include sm-down {
+          .content__logo {
+            width: 665px;
+          }
+        }
+
+        @include xs {
+          flex-flow: column wrap;
+          gap: 10px;
+          .content__logo {
+            width: 400px;
+          }
+        }
+
+        .content__text {
+          transform: translateX(-100px);
+
+          @include sm-down {
+            transform: translateX(0px);
+          }
+
+          .text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            &:nth-child(1) {
+              margin-left: -40px;
+            }
+            &:nth-child(2) {
+              margin-left: 0px;
+            }
+            &:nth-child(3) {
+              margin-left: 40px;
+            }
+
+            @include sm-down {
+              &:nth-child(1) {
+                margin-left: 0px;
+              }
+              &:nth-child(2) {
+                margin-left: 0px;
+              }
+              &:nth-child(3) {
+                margin-left: 0px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
