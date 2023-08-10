@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable react/no-unescaped-entities */
 import { motion } from "framer-motion";
 import { fadeEffect } from "@/config/framer.config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
