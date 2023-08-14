@@ -12,6 +12,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
             src={"/assets/logos/logo-3-nobg2.png"}
             alt="logo"
             width={965}
+            height={477.55}
             className="content__logo"
           />
           <div className="content__text">

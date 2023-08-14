@@ -15,11 +15,11 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const path = usePathname();
 
-  const currentUser = {
-    id: 1,
-    name: "Sydney",
-    email: "admin@peakeducationalsystems.com",
-  };
+  // const currentUser = {
+  //   id: 1,
+  //   name: "Sydney",
+  //   email: "admin@peakeducationalsystems.com",
+  // };
 
   // const currentUser = {
   //   id: 1,
@@ -27,7 +27,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   //   email: "guest@gmail.com",
   // };
 
-  // const currentUser = undefined;
+  const currentUser = undefined;
 
   return (
     <header className="header">
@@ -71,7 +71,10 @@ const Header: React.FunctionComponent = (): JSX.Element => {
           Contact
         </Link>
         {currentUser === undefined && path !== "/about" && (
-          <div className="nav__item login-btn" onClick={() => setIsLoginOpen(!isLoginOpen)}>
+          <div
+            className="nav__item login-btn"
+            onClick={() => setIsLoginOpen(!isLoginOpen)}
+          >
             Sign In
           </div>
         )}
@@ -105,8 +108,10 @@ const Header: React.FunctionComponent = (): JSX.Element => {
             </Link>
           </motion.div>
         )}
-        <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
       </nav>
+      {currentUser === undefined && (
+        <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
+      )}
     </header>
   );
 };
