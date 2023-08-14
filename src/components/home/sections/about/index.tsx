@@ -1,4 +1,5 @@
 "use client";
+
 /* eslint-disable react/no-unescaped-entities */
 import { motion } from "framer-motion";
 import { fadeEffect } from "@/config/framer.config";
@@ -8,14 +9,15 @@ import { faFaceGrinBeam } from "@fortawesome/free-regular-svg-icons";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import "./style.scss";
+
 const HomeAbout = () => {
   return (
     <section className="home__about-section">
       <motion.div
-        className="about"
         variants={fadeEffect}
         initial="hidden"
         whileInView="visible"
+        className="about"
         viewport={{ margin: "-150px -150px -150px -150px", once: true }}
       >
         <h1 className="about__title">About the company</h1>

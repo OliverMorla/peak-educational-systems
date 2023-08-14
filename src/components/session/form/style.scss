@@ -1,0 +1,100 @@
+@import "/src/styles/mixins.scss";
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--octonary);
+    border-radius: 10px;
+    height: 750px;
+    width: 700px;
+    margin-right: 120px;
+    z-index: 1;
+
+    @include xs {
+        position: relative;
+        transform: translateX(0);
+        width: 385px;
+    }
+
+    @include sm-down {
+        margin-right: unset;
+        margin-bottom: 40px;
+    }
+
+    h1 {
+        font-size: 64px;
+        font-weight: 900;
+        color: var(--primary);
+
+        @include xs {
+            width: 350px;
+        }
+    }
+
+    p {
+        width: 550px;
+        font-size: 18px;
+        color: var(--white);
+
+        @include xs {
+            width: 350px;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        input {
+            width: 550px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+
+            @include xs {
+                width: 350px;
+            }
+        }
+
+        textarea {
+            width: 550px;
+            height: 150px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+
+            @include xs {
+                width: 350px;
+            }
+        }
+
+        button {
+            width: 550px;
+            height: 50px;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: var(--primary);
+            color: var(--white);
+            font-size: 18px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+            @include xs {
+                width: 350px;
+            }
+
+            &:hover {
+                background-color: var(--secondary);
+            }
+        }
+    }
+}

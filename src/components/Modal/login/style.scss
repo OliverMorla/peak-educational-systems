@@ -1,0 +1,68 @@
+.login__modal {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    top: 0;
+    right: 0;
+    height: 100%;
+    background-color: var(--octonary);
+    width: 300px;
+    max-width: 0;
+    z-index: 2;
+    transition: all .15s ease-in-out;
+
+    .login__form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .magic__btn {
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--primary);
+        color: var(--secondary);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .15s ease-in-out;
+
+        &:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+    }
+
+    .google__btn {
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--primary);
+        color: var(--secondary);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .15s ease-in-out;
+
+        &:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+    }
+
+    .facebook__btn {
+        padding: 10px;
+        border-radius: 5px;
+        background-color: var(--primary);
+        color: var(--secondary);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .15s ease-in-out;
+
+        &:hover {
+            background-color: var(--secondary);
+            color: var(--primary);
+        }
+    }
+}
+
+.login__modal.active{
+    max-width: 300px;
+}

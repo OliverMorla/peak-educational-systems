@@ -1,40 +1,55 @@
 "use client";
-import "./page.scss";
 import { motion } from "framer-motion";
+import Link from "next/link";
+import "./page.scss";
 
 const Register = () => {
   const handleSubmit = async () => {};
 
   return (
     <main className="register">
-      <motion.form initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-        <div className="form__group" onSubmit={handleSubmit}>
-          <label htmlFor="">First Name*</label>
-          <input type="text" name="first_name" id="fname" />
-        </div>
+      <motion.form
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        onSubmit={handleSubmit}
+      >
         <div className="form__group">
-          <label htmlFor="">Last Name*</label>
-          <input type="text" name="first_name" id="lname" />
+          <div className="group">
+            <label htmlFor="">First Name*</label>
+            <input type="text" name="first_name" id="fname" />
+          </div>
+          <div className="group">
+            <label htmlFor="">Last Name*</label>
+            <input type="text" name="first_name" id="lname" />
+          </div>
+          <div className="group">
+            <label htmlFor="">Email*</label>
+            <input type="text" name="first_name" id="email" />
+          </div>
         </div>
+
         <div className="form__group">
-          <label htmlFor="">Email*</label>
-          <input type="text" name="first_name" id="email" />
+          <div className="group">
+            <label htmlFor="">Password*</label>
+            <input type="password" name="password" id="password" />
+          </div>
+          <div className="group">
+            <label htmlFor="">Password Confirm*</label>
+            <input
+              type="password"
+              name="password_confirm"
+              id="password-confirm"
+            />
+          </div>
         </div>
-        <div className="form__group">
-          <label htmlFor="">Password*</label>
-          <input type="password" name="first_name" id="password" />
-        </div>
-        <div className="form__group">
-          <label htmlFor="">Password Confirm*</label>
-          <input type="password" name="first_name" id="password-confirm" />
-        </div>
+
         <div className="form__group">
           <label htmlFor="">Date of Birth*</label>
-          <input type="date" name="first_name" id="fname" />
+          <input type="date" name="date_of_birth" id="date_of_birth" />
         </div>
         <div className="form__group">
           <label htmlFor="">Title*</label>
-          <input type="text" name="first_name" id="fname" />
+          <input type="text" name="title" id="title" />
         </div>
         <div className="form__group">
           <label htmlFor="">Employment Type*</label>
@@ -60,6 +75,9 @@ const Register = () => {
           Register
         </button>
       </motion.form>
+      <Link href="/login" className="register__login-btn">
+        Already a member, Click here to login!
+      </Link>
     </main>
   );
 };

@@ -25,17 +25,11 @@
   --octonary: #141b2c;
   --nonary: #37455C;
   --primary-hover: #97b335;
-
-  --color: ;
-  --bgColor: ;
-  --textColor: ;
-  --primaryColor: ;
-  --secondaryColor: ;
-  --accentColor: ;
-
   --black: #000000;
   --white: #ffffff;
   --matteGrey: #e1e1e8;
+  --matteBlack: #28282B;
+  --matteBlack-hover: #141414;
 }
 
 *,

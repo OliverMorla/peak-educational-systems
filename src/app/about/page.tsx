@@ -1,5 +1,6 @@
 import HomeAbout from "@/components/home/sections/about";
 import Intro from "@/components/home/sections/intro";
+import Image from "next/image";
 import "./page.scss";
 
 const About: React.FunctionComponent = (): JSX.Element => {
@@ -7,7 +8,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
     <>
       <main className="about">
         <Intro>
-          <img
+          <Image
             src={"/assets/logos/logo-3-nobg2.png"}
             alt="logo"
             width={965}

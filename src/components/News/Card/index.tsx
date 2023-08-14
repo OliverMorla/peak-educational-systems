@@ -22,11 +22,11 @@ const Card: React.FunctionComponent<News> = ({
       <h1> {title} </h1>
       <div className="card__footer">
         <h3>
-          <FontAwesomeIcon icon={faUser} width={20}/>
+          <FontAwesomeIcon icon={faUser} width={20} />
           Author: {author}
         </h3>
         <h3>
-          <FontAwesomeIcon icon={faComment} width={20}/>
+          <FontAwesomeIcon icon={faComment} width={20} />
           {comments} Comments
         </h3>
       </div>

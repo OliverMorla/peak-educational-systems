@@ -1,30 +1,31 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
+import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-
-import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { useRef } from "react";
 import { motion } from "framer-motion";
+import Login from "../modal/login";
+import Image from "next/image";
+import Link from "next/link";
+import "./style.scss";
 
 const Header: React.FunctionComponent = (): JSX.Element => {
   const navRef = useRef<HTMLDivElement>(null);
+  const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const path = usePathname();
-  
-  // const currentUser = {
-  //   id: 1,
-  //   name: "Sydney",
-  //   email: "admin@peakeducationalsystems.com",
-  // };
 
   const currentUser = {
     id: 1,
-    name: "John Doe",
-    email: "guest@gmail.com",
+    name: "Sydney",
+    email: "admin@peakeducationalsystems.com",
   };
+
+  // const currentUser = {
+  //   id: 1,
+  //   name: "John Doe",
+  //   email: "guest@gmail.com",
+  // };
 
   // const currentUser = undefined;
 
@@ -56,12 +57,24 @@ const Header: React.FunctionComponent = (): JSX.Element => {
         <Link href="/about" className="nav__item">
           About
         </Link>
-        <Link href="/blog" className="nav__item">
-          Blog
-        </Link>
+        {currentUser && (
+          <Link href="/blog" className="nav__item">
+            Blog
+          </Link>
+        )}
+        {currentUser && (
+          <Link href="/news" className="nav__item">
+            News
+          </Link>
+        )}
         <Link href="/contact" className="nav__item">
           Contact
         </Link>
+        {currentUser === undefined && path !== "/about" && (
+          <div className="nav__item login-btn" onClick={() => setIsLoginOpen(!isLoginOpen)}>
+            Sign In
+          </div>
+        )}
         {path === "/about" && currentUser === undefined && (
           <motion.div
             initial={{ opacity: 0, x: 40 }}
@@ -88,10 +101,11 @@ const Header: React.FunctionComponent = (): JSX.Element => {
             animate={{ opacity: 1, x: 0 }}
           >
             <Link href={"/auth/dashboard"} className="nav__item profile-btn">
-              {currentUser.name}
+              {currentUser?.name}
             </Link>
           </motion.div>
         )}
+        <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
       </nav>
     </header>
   );

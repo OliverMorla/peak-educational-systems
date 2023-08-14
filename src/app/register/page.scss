@@ -7,10 +7,25 @@
   flex-grow: 1;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+
   form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
     .form__group {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+
+      .group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
       label {
         color: var(--primary);
         font-weight: 900;
@@ -26,6 +41,7 @@
       }
     }
 
+
     .form__register-btn {
       background-color: var(--primary);
       color: var(--white);
@@ -37,9 +53,27 @@
       cursor: pointer;
       margin-top: 20px;
       transition: all 0.3s ease-in-out;
+
       &:hover {
         background-color: var(--primary-hover);
       }
+    }
+  }
+
+  .register__login-btn {
+    background-color: var(--primary);
+    color: var(--white);
+    font-size: 18px;
+    font-weight: 900;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: var(--primary-hover);
     }
   }
 }

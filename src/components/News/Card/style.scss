@@ -10,6 +10,11 @@
   color: var(--white);
   transition: all 0.15s ease-in-out;
 
+  @include xs {
+    width: 350px;
+    height: 100%;
+  }
+
   .card__bg {
     border-radius: 20px;
     width: 100%;
@@ -45,6 +50,7 @@
 
   &:hover {
     transform: scale(1.02);
+
     .card__bg {
       opacity: 0.8;
     }

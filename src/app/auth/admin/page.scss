@@ -1,0 +1,151 @@
+@import "/src/styles/mixins.scss";
+
+.admin__panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    background-color: var(--octonary);
+    color: white;
+    gap: 10px;
+
+    .panel__buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        .users {
+            h2 {}
+
+            .users__list {
+                .users__item {
+                    table {
+                        thead {
+                            tr {
+                                th {}
+                            }
+                        }
+
+                        .tbody {
+                            tr {
+                                td {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .news {
+            h2 {}
+
+            .news__list {
+                .news__item {
+                    table {
+                        thead {
+                            tr {
+                                th {}
+                            }
+                        }
+
+                        .tbody {
+                            tr {
+                                td {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .blogs {
+            h2 {}
+
+            .blogs__list {
+                .blogs__item {
+                    table {
+                        thead {
+                            tr {
+                                th {}
+                            }
+                        }
+
+                        .tbody {
+                            tr {
+                                td {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .quotes {
+            h2 {}
+
+            .quotes__list {
+                .quotes__item {
+                    table {
+                        thead {
+                            tr {
+                                th {}
+                            }
+                        }
+
+                        .tbody {
+                            tr {
+                                td {}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .add-blog-btn {
+            background-color: var(--quinary);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background-color: var(--quaternary);
+            }
+        }
+
+        .add-news-btn {
+            background-color: var(--quinary);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background-color: var(--quaternary);
+            }
+        }
+
+        .add-quote-btn {
+            background-color: var(--quinary);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background-color: var(--quaternary);
+            }
+        }
+    }
+}

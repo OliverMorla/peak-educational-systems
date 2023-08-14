@@ -1,5 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowLeft,
@@ -10,15 +12,15 @@ import {
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFaceGrinBeam } from "@fortawesome/free-regular-svg-icons";
-import Marquee from "react-fast-marquee";
-import Card from "@/components/News/Card";
-import { motion } from "framer-motion";
 import { fadeEffect } from "@/config/framer.config";
-import Modal from "@/components/Modal";
+import Marquee from "react-fast-marquee";
+import Card from "@/components/news/card";
+import Modal from "@/components/modal";
 import Image from "next/image";
 import "./page.scss";
-import { useState } from "react";
+import Session__Form from "@/components/session/form";
 
+// Local News DB
 const NewsDB: News[] = [
   {
     id: 1,
@@ -62,14 +64,22 @@ const Home: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
+  // On definition, call the getQuotes() to retrieve initial quote on page load
   const [quotes, setQuotes] = useState<Quote[]>((): any => {
     getQuotes().then((data) => setQuotes(data));
   });
 
   const [currentQuote, setCurrentQuote] = useState(0);
 
-  const handleQuote = async () => {
+  // Quote handling functions
+  const nextQuote = async () => {
     setCurrentQuote((prevCurrentQuote) => prevCurrentQuote + 1);
+  };
+
+  const previousQuote = () => {
+    if (currentQuote !== 0) {
+      setCurrentQuote((prevCurrentQuote) => prevCurrentQuote - 1);
+    }
   };
 
   return (
@@ -89,20 +99,30 @@ const Home: React.FunctionComponent = (): JSX.Element => {
               key={currentQuote}
               className="content__quote"
             >
-              "{quotes && quotes[currentQuote]?.quote}" -{" "}
-              {quotes && quotes[currentQuote]?.author}
+              {quotes ? (
+                `"${quotes[currentQuote]?.quote}"`
+              ) : (
+                <Image
+                  src={"/assets/loading/spinner.svg"}
+                  alt={"loading.svg"}
+                  width={25}
+                  height={25}
+                />
+              )}
+              {quotes ? `- ${quotes[currentQuote]?.author}` : ""}
             </motion.p>
             <div className="content__arrows">
               <FontAwesomeIcon
                 icon={faArrowLeft}
                 className="arrow__btn"
                 width={68}
+                onClick={previousQuote}
               />
               <FontAwesomeIcon
                 icon={faArrowRight}
                 className="arrow__btn"
                 width={68}
-                onClick={handleQuote}
+                onClick={nextQuote}
               />
             </div>
             <div className="content__border"></div>
@@ -148,7 +168,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
         </motion.div>
         <Image
           src={"/assets/logos/logo-3-nobg2.png"}
-          alt="logo"
+          alt="about__logo"
           width={975}
           height={475}
           className="about__logo"
@@ -178,8 +198,8 @@ const Home: React.FunctionComponent = (): JSX.Element => {
             variants={fadeEffect}
             initial="hidden"
             whileInView="visible"
-            viewport={{ margin: "-150px -150px -150px -150px", once: true }}
             className="news__cards"
+            viewport={{ margin: "-150px -150px -150px -150px", once: true }}
           >
             {NewsDB.map((news) => (
               <li
@@ -224,53 +244,14 @@ const Home: React.FunctionComponent = (): JSX.Element => {
         </section>
       </section>
       <section className="home__contact-section">
-      <Image
+        <Image
           src={"/assets/logos/logo-3-nobg2.png"}
           alt="logo"
           width={975}
           height={475}
           className="contact__logo"
         />
-        <motion.div
-          variants={fadeEffect}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
-          className="contact"
-        >
-          <h1>Schedule a session!</h1>
-          <p>
-            Interested in scheduling a session with us? Fill out the form below
-            with your preferred date and time, and we'll get back to you as soon
-            as possible. Your path to success starts here!
-          </p>
-          <form>
-            <input
-              type="text"
-              name="first_name"
-              id="form__first-name"
-              placeholder="Enter first name"
-            />
-            <input
-              type="text"
-              name="last_name"
-              id="form__last-name"
-              placeholder="Enter last name"
-            />
-            <input
-              type="text"
-              name="email"
-              id="form__email"
-              placeholder="Enter email address"
-            />
-            <textarea
-              name="reason"
-              id="form__reason"
-              placeholder="Enter a reason"
-            />
-            <button type="submit">Submit</button>
-          </form>
-        </motion.div>
+        <Session__Form />
       </section>
     </main>
   );
