@@ -4,6 +4,7 @@
   .intro__section {
     .section__bg {
       justify-content: unset;
+
       .section__content {
         width: 100%;
         flex-flow: row wrap;
@@ -17,6 +18,7 @@
         @include xs {
           flex-flow: column wrap;
           gap: 10px;
+
           .content__logo {
             width: 400px;
           }
@@ -37,9 +39,11 @@
             &:nth-child(1) {
               margin-left: -40px;
             }
+
             &:nth-child(2) {
               margin-left: 0px;
             }
+
             &:nth-child(3) {
               margin-left: 40px;
             }
@@ -48,9 +52,11 @@
               &:nth-child(1) {
                 margin-left: 0px;
               }
+
               &:nth-child(2) {
                 margin-left: 0px;
               }
+
               &:nth-child(3) {
                 margin-left: 0px;
               }

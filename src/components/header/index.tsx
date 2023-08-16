@@ -21,13 +21,13 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   //   email: "admin@peakeducationalsystems.com",
   // };
 
-  // const currentUser = {
-  //   id: 1,
-  //   name: "John Doe",
-  //   email: "guest@gmail.com",
-  // };
+  const currentUser = {
+    id: 1,
+    name: "John Doe",
+    email: "guest@gmail.com",
+  };
 
-  const currentUser = undefined;
+  // const currentUser: CurrentUser | undefined = undefined;
 
   return (
     <header className="header">

@@ -1,10 +1,32 @@
 "use client";
 import { motion } from "framer-motion";
+import { useAuth } from "@/contexts/AuthContext";
 import Link from "next/link";
 import "./page.scss";
+import { FormEvent, useState } from "react";
 
 const Register = () => {
-  const handleSubmit = async () => {};
+  const { register } = useAuth();
+  const [inputs, setInputs] = useState<RegisterInputs>({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    password_confirm: "",
+    date_of_birth: "",
+    title: "",
+    emp_type: "",
+    emp_region: "",
+    school_type: "",
+    school_region: "",
+  });
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const res = await register(inputs);
+    } catch (err) {}
+  };
 
   return (
     <main className="register">

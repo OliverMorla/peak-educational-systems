@@ -15,8 +15,8 @@ import "./style.scss";
 
 const Footer = () => {
   const [newsletterInput, setNewsletterInput] = useState<string>("");
-  const [error, setError] = useState<string | undefined>(undefined);
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
+  // const [error, setError] = useState<string | undefined>(undefined);
+  // const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
   const handleNewsletterForm = (): void => {
     const newsletter_btn = document.querySelector(".newsletter__btn");

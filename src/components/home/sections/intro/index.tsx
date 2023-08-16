@@ -1,7 +1,4 @@
 "use client";
-
-import { motion } from "framer-motion";
-import { fadeEffect } from "@/config/framer.config";
 import "./style.scss";
 const Intro = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   return (

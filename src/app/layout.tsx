@@ -1,9 +1,10 @@
 import { Roboto } from "next/font/google";
 import { Metadata } from "next";
-import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { SessionProvider } from "next-auth/react";
+import "./globals.css";
+import Providers from "@/components/auth/provider";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const roboto = Roboto({
   weight: ["100", "300", "500", "900"],
@@ -26,9 +27,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Header />
-        {children}
-        <Footer />
+        <AuthProvider>
+          <Providers>
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
+        </AuthProvider>
       </body>
     </html>
   );

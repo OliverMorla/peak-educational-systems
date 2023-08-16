@@ -7,22 +7,19 @@
     right: 0;
     min-height: fit-content;
     background-color: var(--octonary);
-    width: 300px;
+    width: 100%;
     max-width: 0;
     z-index: 2;
     transition: all .15s ease-in-out;
 
-    .close__btn{
-        position: relative;
-        top: 10px;
-        right: 10px;
-        padding: 5px;
-        border-radius: 50%;
-        background-color: var(--primary);
-        color: var(--secondary);
-        font-weight: 600;
+    .close__btn {
+        position: absolute;
+        left: 0;
+        width: 25px;
+        height: 25px;
+        margin: 3px;
+        color: var(--primary);
         cursor: pointer;
-        transition: all .15s ease-in-out;
 
         &:hover {
             background-color: var(--secondary);
@@ -30,12 +27,47 @@
         }
     }
 
+    .login__title {
+        margin-top: 5px;
+        text-align: center;
+    }
+
     .login__form {
         display: flex;
         flex-direction: column;
+        margin: 10px;
+
+        #login__input {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            appearance: none;
+            margin-bottom: 10px;
+            transition: all .15s ease-in-out;
+
+            &:focus {
+                border: 1px solid var(--primary-hover);
+            }
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 5px;
+            background-color: var(--primary);
+            color: var(--secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s ease-in-out;
+
+            &:hover {
+                background-color: var(--secondary);
+                color: var(--primary);
+            }
+        }
     }
 
     .magic__btn {
+        margin: 0px 10px;
         padding: 10px;
         border-radius: 5px;
         background-color: var(--primary);
@@ -51,6 +83,7 @@
     }
 
     .google__btn {
+        margin: 0px 10px;
         padding: 10px;
         border-radius: 5px;
         background-color: var(--primary);
@@ -66,6 +99,8 @@
     }
 
     .facebook__btn {
+        margin: 0px 10px;
+        margin-bottom: 10px;
         padding: 10px;
         border-radius: 5px;
         background-color: var(--primary);
@@ -79,9 +114,27 @@
             color: var(--primary);
         }
     }
+
+    .logout-btn {
+        margin: 0px 10px;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: var(--matteRed);
+        color: var(--white);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all .15s ease-in-out;
+        margin-bottom: 10px;
+
+        &:hover {
+            background-color: var(--matteRed-hover);
+            color: var(--white);
+        }
+    }
 }
 
-.login__modal.active{
+.login__modal.active {
     max-width: 300px;
     // max-height: fit-content;
 }

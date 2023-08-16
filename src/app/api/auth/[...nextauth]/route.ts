@@ -1,36 +1,36 @@
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
-import EmailProvider from "next-auth/providers/email";
+// import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
 import FacebookProvider from "next-auth/providers/facebook";
-import { PrismaAdapter } from "@auth/prisma-adapter";
+// import { PrismaAdapter } from "@auth/prisma-adapter";
 // import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
-
 // const prisma = new PrismaClient();
 
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   // adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
-      clientId: `${process.env.GOOGLE_OAUTH2_CLIENT_ID}`,
-      clientSecret: `${process.env.GOOGLE_OAUTH2_CLIENT_SECRET}`,
+      clientId: process.env.GOOGLE_OAUTH2_CLIENT_ID ?? "",
+      clientSecret: process.env.GOOGLE_OAUTH2_CLIENT_SECRET ?? "",
     }),
     FacebookProvider({
-      clientId: `${process.env.FACEBOOK_OAUTH2_CLIENT_ID}`,
-      clientSecret: `${process.env.FACEBOOK_OAUTH2_CLIENT_SECRET}`,
+      clientId: process.env.FACEBOOK_OAUTH2_CLIENT_ID ?? "",
+      clientSecret: process.env.FACEBOOK_OAUTH2_CLIENT_SECRET ?? "",
     }),
-    EmailProvider({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM,
-    }),
+    // EmailProvider({
+    //   server: process.env.EMAIL_SERVER,
+    //   from: process.env.EMAIL_FROM,
+    // }),
     CredentialsProvider({
       name: "Credentials",
       credentials: {
         username: { label: "email", type: "text", placeholder: "email" },
-        password: { label: "Password", type: "password" },
+        password: { label: "Password", type: "password", placeholder: "password" },
       },
       async authorize(credentials, req) {
+        console.log(credentials)
         const user = undefined;
         if (user) {
           return user;
@@ -40,5 +40,5 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-};
-export default NextAuth(authOptions);
+});
+export { handler as GET, handler as POST };
