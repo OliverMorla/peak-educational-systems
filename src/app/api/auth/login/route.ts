@@ -1,4 +1,6 @@
 import prisma from "@/lib/prisma";
+import { PrismaClient } from "@prisma/client";
+const prismaC = new PrismaClient();
 import { NextResponse, NextRequest } from "next/server";
 
 interface RequestBody {

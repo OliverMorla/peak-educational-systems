@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
-const prismac = new PrismaClient();
+const prismaC = new PrismaClient();
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 
