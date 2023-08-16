@@ -1,4 +1,4 @@
-import Intro from "@/components/home/sections/intro";
+import Intro from "@/components/Home/Intro";
 import "./page.scss";
 
 const Services: React.FunctionComponent = (): JSX.Element => {

@@ -3,13 +3,12 @@ import GoogleProvider from "next-auth/providers/google";
 // import EmailProvider from "next-auth/providers/email";
 import CredentialsProvider from "next-auth/providers/credentials";
 import FacebookProvider from "next-auth/providers/facebook";
-// import { PrismaAdapter } from "@auth/prisma-adapter";
-// import { PrismaClient } from "@prisma/client";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaClient } from "@prisma/client";
 import { NextAuthOptions } from "next-auth";
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 const handler = NextAuth({
-  // adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_OAUTH2_CLIENT_ID ?? "",
@@ -27,10 +26,14 @@ const handler = NextAuth({
       name: "Credentials",
       credentials: {
         username: { label: "email", type: "text", placeholder: "email" },
-        password: { label: "Password", type: "password", placeholder: "password" },
+        password: {
+          label: "Password",
+          type: "password",
+          placeholder: "password",
+        },
       },
       async authorize(credentials, req) {
-        console.log(credentials)
+        console.log(credentials);
         const user = undefined;
         if (user) {
           return user;

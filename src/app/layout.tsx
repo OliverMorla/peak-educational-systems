@@ -1,9 +1,9 @@
 import { Roboto } from "next/font/google";
 import { Metadata } from "next";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import "./globals.css";
-import Providers from "@/components/auth/provider";
+import Providers from "@/components/Auth";
 import { AuthProvider } from "@/contexts/AuthContext";
 
 const roboto = Roboto({

@@ -14,11 +14,11 @@ import {
 import { faFaceGrinBeam } from "@fortawesome/free-regular-svg-icons";
 import { fadeEffect } from "@/config/framer.config";
 import Marquee from "react-fast-marquee";
-import Card from "@/components/news/card";
-import Modal from "@/components/modal";
+import Card from "@/components/News/Card";
+import Modal from "@/components/Modal";
 import Image from "next/image";
 import "./page.scss";
-import Session__Form from "@/components/session/form";
+import Session__Form from "@/components/Session/Form";
 
 // Local News DB
 const NewsDB: News[] = [

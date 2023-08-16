@@ -1,5 +1,5 @@
-import HomeAbout from "@/components/home/sections/about";
-import Intro from "@/components/home/sections/intro";
+import HomeAbout from "@/components/Home/About";
+import Intro from "@/components/Home/Intro";
 import Image from "next/image";
 import "./page.scss";
 

@@ -59,6 +59,10 @@ interface RegisterInputs {
   school_region: "" | "nyc" | "nassau" | "suffolk";
 }
 
+interface RegisterRequest extends RegisterInputs {
+
+}
+
 interface AuthContextTypes {
   user: string | undefined;
   register: (inputs: any) => Promise<any>;
