@@ -1,4 +1,4 @@
-import HomeAbout from "@/components/Home/About";
+import { About as Details } from "@/components/Home/About";
 import Intro from "@/components/Home/Intro";
 import Image from "next/image";
 import "./page.scss";
@@ -30,7 +30,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
             </div>
           </div>
         </Intro>
-        <HomeAbout />
+        <Details />
       </main>
     </>
   );

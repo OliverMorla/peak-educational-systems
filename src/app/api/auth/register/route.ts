@@ -32,7 +32,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         school_type: body.school_type,
         school_region: body.school_region,
       },
-    }).catch((err) => {
+    }).catch((err: any) => {
       console.log(err);
     });
 

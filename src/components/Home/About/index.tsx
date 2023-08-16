@@ -10,7 +10,7 @@ import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import "./style.scss";
 
-const HomeAbout = () => {
+const About = () => {
   return (
     <section className="home__about-section">
       <motion.div
@@ -74,4 +74,4 @@ const HomeAbout = () => {
   );
 };
 
-export default HomeAbout;
+export { About };
