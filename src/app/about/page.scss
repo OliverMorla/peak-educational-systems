@@ -11,6 +11,7 @@
 
         @include sm-down {
           .content__logo {
+            object-fit: contain;
             width: 665px;
           }
         }
@@ -20,6 +21,7 @@
           gap: 10px;
 
           .content__logo {
+            object-fit: contain;
             width: 400px;
           }
         }

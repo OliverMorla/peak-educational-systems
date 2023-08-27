@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, res: NextResponse) {
-  return NextResponse.json({ message: "Server is running!" });
+export async function GET(req: NextRequest) {
+  return NextResponse.json({ status: 200, message: "Server is running!" });
 }

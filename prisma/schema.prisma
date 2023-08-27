@@ -39,9 +39,12 @@ model blogs {
 }
 
 model news {
-  id        Int    @id @default(autoincrement())
-  title     String @db.VarChar(255)
-  content   String
-  author_id Int?
-  users     users? @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  id              Int    @id @default(autoincrement())
+  title           String @db.VarChar(255)
+  content         String
+  author_id       Int?
+  author          String @db.VarChar(255)
+  comments        Int?
+  photo_cover_url String @db.VarChar(255)
+  users           users? @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

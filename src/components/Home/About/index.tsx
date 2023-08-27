@@ -10,7 +10,7 @@ import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import "./style.scss";
 
-const About = () => {
+const About: React.FunctionComponent = (): JSX.Element => {
   return (
     <section className="home__about-section">
       <motion.div

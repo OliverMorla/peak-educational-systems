@@ -7,14 +7,16 @@ const Card: React.FunctionComponent<News> = ({
   title,
   author,
   comments,
-  photo_cover,
+  photo_cover_url,
+  author_id,
+  content,
 }) => {
   return (
     <div className="card">
       <div
         className="card__bg"
         style={{
-          backgroundImage: `url(${photo_cover})`,
+          backgroundImage: `url(${photo_cover_url})`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
         }}

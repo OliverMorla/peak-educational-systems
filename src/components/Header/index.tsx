@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSession, signOut } from "next-auth/react";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import Login from "@/components/Modal/Login";
@@ -14,20 +15,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const navRef = useRef<HTMLDivElement>(null);
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const path = usePathname();
-
-  // const currentUser = {
-  //   id: 1,
-  //   name: "Sydney",
-  //   email: "admin@peakeducationalsystems.com",
-  // };
-
-  const currentUser = {
-    id: 1,
-    name: "John Doe",
-    email: "guest@gmail.com",
-  };
-
-  // const currentUser: CurrentUser | undefined = undefined;
+  const { data: session } = useSession();
 
   return (
     <header className="header">
@@ -57,12 +45,12 @@ const Header: React.FunctionComponent = (): JSX.Element => {
         <Link href="/about" className="nav__item">
           About
         </Link>
-        {currentUser && (
+        {session?.user && (
           <Link href="/blog" className="nav__item">
             Blog
           </Link>
         )}
-        {currentUser && (
+        {session?.user && (
           <Link href="/news" className="nav__item">
             News
           </Link>
@@ -70,7 +58,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
         <Link href="/contact" className="nav__item">
           Contact
         </Link>
-        {currentUser === undefined && path !== "/about" && (
+        {session?.user === undefined && path !== "/about" && (
           <div
             className="nav__item login-btn"
             onClick={() => setIsLoginOpen(!isLoginOpen)}
@@ -78,38 +66,44 @@ const Header: React.FunctionComponent = (): JSX.Element => {
             Sign In
           </div>
         )}
-        {path === "/about" && currentUser === undefined && (
+        {path === "/about" && session?.user === undefined && (
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
+            className="nav__item"
           >
-            <Link href={"/register"} className="nav__item">
-              Become a Member
-            </Link>
+            <Link href={"/register"}>Become a Member</Link>
           </motion.div>
         )}
-        {currentUser?.email === "admin@peakeducationalsystems.com" && (
+        {session?.user?.email === "admin@peakeducationalsystems.com" && (
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
+            className="nav__item admin-btn"
           >
-            <Link href={"/auth/admin"} className="nav__item admin-btn">
-              Admin Panel
-            </Link>
+            <Link href={"/auth/admin"}>Admin Panel</Link>
           </motion.div>
         )}
-        {currentUser && (
+        {session?.user && (
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
+            className="nav__item profile-btn"
           >
-            <Link href={"/auth/dashboard"} className="nav__item profile-btn">
-              {currentUser?.name}
-            </Link>
+            <Link href={"/auth/dashboard"}>{session?.user?.name}</Link>
+          </motion.div>
+        )}
+        {session?.user && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="nav__item logout-btn"
+          >
+            <button onClick={() => signOut()}>Log Out</button>
           </motion.div>
         )}
       </nav>
-      {currentUser === undefined && (
+      {session?.user === undefined && isLoginOpen === false && (
         <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
       )}
     </header>

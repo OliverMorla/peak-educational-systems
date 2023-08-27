@@ -5,25 +5,29 @@ import { createContext, useState, useContext } from "react";
 const AuthContext = createContext<AuthContextTypes | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState("User");
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const register = async (inputs: RequestInit) => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_CLIENT_URL}/auth/register`,
-      {
-        method: "POST",
-        body: JSON.stringify(inputs),
-      }
-    );
-    const data = await response.json();
-    setUser(data.user);
-    setLoading(false);
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(inputs),
+        }
+      );
+      const response = await res.json();
+      setLoading(false);
+      return response;
+    } catch (err) {
+      if (err instanceof Error) return err.message;
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ user, register }}>
+    <AuthContext.Provider value={{ register, loading }}>
       {children}
     </AuthContext.Provider>
   );

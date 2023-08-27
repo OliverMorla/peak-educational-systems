@@ -1,151 +1,258 @@
 @import "/src/styles/mixins.scss";
 
 .admin__panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--octonary);
+  color: white;
+  gap: 50px;
+
+  .users {
+    width: fit-content;
+    height: 100px;
+    overflow-y: scroll;
+
+    h2 {
+    }
+
+    .users__list {
+      .users__item {
+        overflow: hidden;
+        table {
+          border-collapse: collapse;
+
+          tbody {
+            tr {
+              td {
+                .delete-btn {
+                  background-color: var(--quinary);
+                  color: white;
+                  padding: 10px;
+                  border-radius: 5px;
+                  border: none;
+                  cursor: pointer;
+                  transition: all 0.3s ease-in-out;
+
+                  &:hover {
+                    background-color: var(--quaternary);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        table,
+        td,
+        th {
+          border-bottom: 1px solid var(--primary);
+        }
+
+        td,
+        th {
+          text-align: center;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  .news {
+    width: 95%;
+    height: 100px;
+    overflow-y: scroll;
+
+    h2 {
+    }
+
+    .news__list {
+      .news__item {
+        overflow: hidden;
+        table {
+          border-collapse: collapse;
+          tbody {
+            tr {
+              td {
+                .delete-btn {
+                  background-color: var(--quinary);
+                  color: white;
+                  padding: 10px;
+                  border-radius: 5px;
+                  border: none;
+                  cursor: pointer;
+                  transition: all 0.3s ease-in-out;
+
+                  &:hover {
+                    background-color: var(--quaternary);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        table,
+        td,
+        th {
+          border-bottom: 1px solid var(--primary);
+        }
+
+        td,
+        th {
+          text-align: center;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  .blogs {
+    width: 95%;
+    height: 110px;
+    overflow-y: scroll;
+    h2 {
+    }
+
+    .blogs__list {
+      .blogs__item {
+        overflow: hidden;
+        table {
+          border-collapse: collapse;
+          tbody {
+            tr {
+              td {
+                .delete-btn {
+                  background-color: var(--quinary);
+                  color: white;
+                  padding: 10px;
+                  border-radius: 5px;
+                  border: none;
+                  cursor: pointer;
+                  transition: all 0.3s ease-in-out;
+
+                  &:hover {
+                    background-color: var(--quaternary);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        table,
+        td,
+        th {
+          border-bottom: 1px solid var(--primary);
+        }
+
+        td,
+        th {
+          text-align: center;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  .quotes {
+    width: fit-content;
+    height: 110px;
+    overflow-y: scroll;
+    h2 {
+    }
+
+    .quotes__list {
+      .quotes__item {
+        overflow: hidden;
+        table {
+          border-collapse: collapse;
+          tbody {
+            tr {
+              td {
+                .delete-btn {
+                  background-color: var(--quinary);
+                  color: white;
+                  padding: 10px;
+                  border-radius: 5px;
+                  border: none;
+                  cursor: pointer;
+                  transition: all 0.3s ease-in-out;
+
+                  &:hover {
+                    background-color: var(--quaternary);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        table,
+        td,
+        th {
+          border-bottom: 1px solid var(--primary);
+        }
+
+        td,
+        th {
+          text-align: center;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
+  .panel__buttons {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    flex-grow: 1;
-    background-color: var(--octonary);
-    color: white;
     gap: 10px;
+    flex-wrap: wrap;
 
-    .panel__buttons {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
+    .add-blog-btn {
+      background-color: var(--quinary);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
 
-        .users {
-            h2 {}
-
-            .users__list {
-                .users__item {
-                    table {
-                        thead {
-                            tr {
-                                th {}
-                            }
-                        }
-
-                        .tbody {
-                            tr {
-                                td {}
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .news {
-            h2 {}
-
-            .news__list {
-                .news__item {
-                    table {
-                        thead {
-                            tr {
-                                th {}
-                            }
-                        }
-
-                        .tbody {
-                            tr {
-                                td {}
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .blogs {
-            h2 {}
-
-            .blogs__list {
-                .blogs__item {
-                    table {
-                        thead {
-                            tr {
-                                th {}
-                            }
-                        }
-
-                        .tbody {
-                            tr {
-                                td {}
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .quotes {
-            h2 {}
-
-            .quotes__list {
-                .quotes__item {
-                    table {
-                        thead {
-                            tr {
-                                th {}
-                            }
-                        }
-
-                        .tbody {
-                            tr {
-                                td {}
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        .add-blog-btn {
-            background-color: var(--quinary);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-
-            &:hover {
-                background-color: var(--quaternary);
-            }
-        }
-
-        .add-news-btn {
-            background-color: var(--quinary);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-
-            &:hover {
-                background-color: var(--quaternary);
-            }
-        }
-
-        .add-quote-btn {
-            background-color: var(--quinary);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease-in-out;
-
-            &:hover {
-                background-color: var(--quaternary);
-            }
-        }
+      &:hover {
+        background-color: var(--quaternary);
+      }
     }
+
+    .add-news-btn {
+      background-color: var(--quinary);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: var(--quaternary);
+      }
+    }
+
+    .add-quote-btn {
+      background-color: var(--quinary);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background-color: var(--quaternary);
+      }
+    }
+  }
 }

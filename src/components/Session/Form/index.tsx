@@ -2,13 +2,14 @@
 import { motion } from "framer-motion";
 import { fadeEffect } from "@/config/framer.config";
 import "./style.scss";
-const Session__Form = () => {
+
+const Session__Form: React.FunctionComponent = () => {
   return (
     <motion.div
       variants={fadeEffect}
       initial="hidden"
       whileInView="visible"
-      className="contact"
+      className="session__form"
       viewport={{ margin: "-150px -150px -150px -150px", once: true }}
     >
       <h1>Schedule a session!</h1>

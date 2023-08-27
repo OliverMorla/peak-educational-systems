@@ -17,48 +17,27 @@ import Marquee from "react-fast-marquee";
 import Card from "@/components/News/Card";
 import Modal from "@/components/Modal";
 import Image from "next/image";
-import "./page.scss";
 import Session__Form from "@/components/Session/Form";
-
-// Local News DB
-const NewsDB: News[] = [
-  {
-    id: 1,
-    title: "10 Interactive Classroom Activities for Engaging Students",
-    author: "Sydney",
-    comments: 29,
-    photo_cover:
-      "https://images.unsplash.com/photo-1495727034151-8fdc73e332a8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1730&q=80",
-  },
-  {
-    id: 2,
-    title: "The Future of Education: Integrating Technology into Lesson Plans",
-    author: "Sydney",
-    comments: 11,
-    photo_cover:
-      "https://images.unsplash.com/photo-1581726707445-75cbe4efc586?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1752&q=80",
-  },
-  {
-    id: 3,
-    title: "Managing Work-Life Balance: Tips for Teachers by Teachers",
-    author: "Sydney",
-    comments: 15,
-    photo_cover:
-      "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
-  },
-];
+import "./page.scss";
 
 const Home: React.FunctionComponent = (): JSX.Element => {
   const getQuotes = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/quotes`,
-        {
-          method: "GET",
-        }
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/quotes`
       );
       const response = await res.json();
-      return response;
+      return response?.quotes;
+    } catch (err) {
+      if (err instanceof Error) return console.log(err.message);
+    }
+  };
+
+  const getNews = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/news`);
+      const response = await res.json();
+      return response?.news;
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
@@ -67,6 +46,9 @@ const Home: React.FunctionComponent = (): JSX.Element => {
   // On definition, call the getQuotes() to retrieve initial quote on page load
   const [quotes, setQuotes] = useState<Quote[]>((): any => {
     getQuotes().then((data) => setQuotes(data));
+  });
+  const [news, setNews] = useState<News[]>((): any => {
+    getNews().then((data) => setNews(data));
   });
 
   const [currentQuote, setCurrentQuote] = useState(0);
@@ -201,7 +183,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
             className="news__cards"
             viewport={{ margin: "-150px -150px -150px -150px", once: true }}
           >
-            {NewsDB.map((news) => (
+            {news?.map((news) => (
               <li
                 key={news.id}
                 style={{
@@ -209,12 +191,14 @@ const Home: React.FunctionComponent = (): JSX.Element => {
                 }}
               >
                 <Card
+                  author_id={news.author_id}
+                  content=""
                   key={news.id}
                   id={news.id}
                   title={news.title}
                   author={news.author}
                   comments={news.comments}
-                  photo_cover={news.photo_cover}
+                  photo_cover_url={news.photo_cover_url}
                 />
               </li>
             ))}

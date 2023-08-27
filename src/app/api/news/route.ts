@@ -2,6 +2,8 @@ import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const quotes = await prisma.quotes.findMany();
-  if (quotes) return NextResponse.json({ status: 200, quotes });
+  const news = await prisma.news.findMany({
+    take: 3,
+  });
+  if (news) return NextResponse.json({ status: 200, news });
 }

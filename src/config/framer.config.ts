@@ -14,4 +14,16 @@ const fadeEffect = {
   },
 };
 
-export { fadeEffect };
+const fadeEffect2 = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    transition: {
+      duration: 0.25,
+      delay: 0.4,
+    },
+  },
+};
+
+export { fadeEffect, fadeEffect2 };

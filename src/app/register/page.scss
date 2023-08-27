@@ -12,6 +12,7 @@
   form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 5px;
 
     .form__group {
@@ -20,10 +21,28 @@
       align-items: center;
       gap: 10px;
 
+      &:nth-child(3),
+      &:nth-child(4){
+        flex-direction: column;
+        gap: 5px;
+      }
+
       .group {
         display: flex;
         flex-direction: column;
         gap: 5px;
+
+        label {
+          color: var(--primary);
+          font-weight: 900;
+        }
+
+        input {
+          width: 300px;
+          height: 50px;
+          font-size: 18px;
+          padding: 0px 10px;
+        }
       }
 
       label {
@@ -31,16 +50,204 @@
         font-weight: 900;
       }
 
-      input[type="text"],
-      input[type="password"],
-      input[type="date"] {
+      input {
         width: 300px;
         height: 50px;
         font-size: 18px;
         padding: 0px 10px;
       }
-    }
 
+      .emp-type__fieldset {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        padding: 25px;
+        gap: 10px;
+
+        legend {
+          color: var(--primary);
+          font-weight: 900;
+        }
+
+        .emp-type__group {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+        }
+
+        label {
+          position: absolute;
+          color: var(--white);
+          font-weight: 900;
+        }
+
+        input[type="radio"] {
+          position: relative;
+          cursor: pointer;
+          width: 300px;
+          height: 50px;
+          border-radius: 0;
+          border: 1px solid var(--primary);
+          appearance: none;
+          font-size: 18px;
+          padding: 0px 10px;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            background-color: var(--primary);
+            color: var(--white);
+          }
+        }
+
+        input[type="radio"]:checked {
+          background-color: var(--primary);
+          color: var(--white);
+        }
+      }
+
+      .emp-region__fieldset {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 10px;
+        padding: 25px;
+
+        legend {
+          font-weight: 900;
+          color: var(--primary)
+        }
+
+        .emp-region__group {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          input[type="radio"] {
+            appearance: none;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            transition: all .15s ease-in-out;
+
+            &:hover {
+              background-color: var(--primary);
+            }
+
+            &:checked {
+              background-color: var(--primary);
+              color: var(--white);
+              box-shadow: 0 0 0 2px var(--primary);
+            }
+          }
+
+          label {
+            color: var(--white);
+            position: absolute;
+          }
+        }
+      }
+
+      #grade__level {
+        width: 300px;
+        height: 50px;
+        font-size: 18px;
+        padding: 0px 10px;
+      }
+
+      .school-type__fieldset {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 25px;
+        gap: 10px;
+
+        legend {
+          color: var(--primary);
+          font-weight: 900;
+        }
+
+        .school-type__group {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 5px;
+        }
+
+        label {
+          position: absolute;
+          color: var(--white);
+          font-weight: 900;
+        }
+
+        input[type="radio"] {
+          position: relative;
+          cursor: pointer;
+          width: 300px;
+          height: 50px;
+          border-radius: 0;
+          border: 1px solid var(--primary);
+          appearance: none;
+          font-size: 18px;
+          padding: 0px 10px;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            background-color: var(--primary);
+            color: var(--white);
+          }
+        }
+
+        input[type="radio"]:checked {
+          background-color: var(--primary);
+          color: var(--white);
+        }
+      }
+
+      .school-region__fieldset{
+        display: flex;
+        flex-flow: row wrap;
+        gap: 10px;
+        padding: 25px;
+
+        legend {
+          font-weight: 900;
+          color: var(--primary)
+        }
+
+        .school-region__group {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          input[type="radio"] {
+            appearance: none;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            transition: all .15s ease-in-out;
+
+            &:hover {
+              background-color: var(--primary);
+            }
+
+            &:checked {
+              background-color: var(--primary);
+              color: var(--white);
+              box-shadow: 0 0 0 2px var(--primary);
+            }
+          }
+
+          label {
+            color: var(--white);
+            position: absolute;
+          }
+        }
+      }
+    }
 
     .form__register-btn {
       background-color: var(--primary);
@@ -61,7 +268,7 @@
   }
 
   .register__login-btn {
-    background-color: var(--primary);
+    background-color: var(--secondary);
     color: var(--white);
     font-size: 18px;
     font-weight: 900;

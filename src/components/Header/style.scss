@@ -83,7 +83,7 @@
       margin-right: unset;
       flex-direction: column;
       overflow: hidden;
-      max-height: 0px;
+      max-height: 0;
       width: 100%;
       background-color: var(--secondary);
       border-bottom: 1px solid var(--tertiary);
@@ -91,10 +91,11 @@
 
     @include md-down {
       margin-right: unset;
+      margin-bottom: 5px;
     }
 
     &.open {
-      max-height: 165px;
+      max-height: 350px;
     }
 
     .nav__item {
@@ -115,7 +116,6 @@
         border-radius: 5px;
         border: none;
         cursor: pointer;
-        // margin-top: 20px;
         transition: all 0.3s ease-in-out;
 
         &:hover {
@@ -123,9 +123,26 @@
         }
       }
 
+      &.logout-btn {
+        button {
+          background-color: var(--matteRed);
+          color: var(--white);
+          font-size: 18px;
+          padding: 10px 20px;
+          border-radius: 5px;
+          border: none;
+          cursor: pointer;
+          transition: all 0.3s ease-in-out;
+        }
+
+        &:hover {
+          background-color: var(--matteRed-hover);
+        }
+      }
+
       @include sm-down {
         &:last-child {
-          padding-bottom: 15px;
+          margin-bottom: 5px;
         }
       }
     }
