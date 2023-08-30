@@ -149,7 +149,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
           </div>
         </motion.div>
         <Image
-          src={"/assets/logos/logo-3-nobg2.png"}
+          src={"/assets/logos/logo-3-nobg2.webp"}
           alt="about__logo"
           width={975}
           height={475}
@@ -197,8 +197,10 @@ const Home: React.FunctionComponent = (): JSX.Element => {
                   id={news.id}
                   title={news.title}
                   author={news.author}
-                  comments={news.comments}
+                  number_of_comments={news.number_of_comments}
                   photo_cover_url={news.photo_cover_url}
+                  category={news.category}
+                  created_at={news.created_at}
                 />
               </li>
             ))}
@@ -229,7 +231,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
       </section>
       <section className="home__contact-section">
         <Image
-          src={"/assets/logos/logo-3-nobg2.png"}
+          src={"/assets/logos/logo-3-nobg2.webp"}
           alt="logo"
           width={975}
           height={475}

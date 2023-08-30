@@ -6,7 +6,7 @@ const Card: React.FunctionComponent<News> = ({
   id,
   title,
   author,
-  comments,
+  number_of_comments,
   photo_cover_url,
   author_id,
   content,
@@ -29,7 +29,7 @@ const Card: React.FunctionComponent<News> = ({
         </h3>
         <h3>
           <FontAwesomeIcon icon={faComment} width={20} />
-          {comments} Comments
+          {number_of_comments} Comments
         </h3>
       </div>
     </div>

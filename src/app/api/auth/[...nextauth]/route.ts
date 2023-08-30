@@ -23,13 +23,13 @@ type UserTempType = {
 let userTemp: UserTempType = {};
 
 const handler = NextAuth({
-  secret: process.env.OAUTH_SECRET,
+  // secret: process.env.OAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_OAUTH2_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_OAUTH2_CLIENT_SECRET ?? "",
     }),
-    FacebookProvider({
+    FacebookProvider({ 
       clientId: process.env.FACEBOOK_OAUTH2_CLIENT_ID ?? "",
       clientSecret: process.env.FACEBOOK_OAUTH2_CLIENT_SECRET ?? "",
     }),

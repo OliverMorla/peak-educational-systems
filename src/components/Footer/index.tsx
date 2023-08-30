@@ -34,7 +34,7 @@ const Footer = () => {
         <div className="footer__about">
           <div className="about__title">
             <Image
-              src={"/assets/logos/logo-3-nobg.png"}
+              src={"/assets/logos/logo-3-nobg.webp"}
               alt="header-logo"
               width={125}
               height={75}

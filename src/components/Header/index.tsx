@@ -18,7 +18,9 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const { data: session } = useSession();
 
   return (
-    <header className="header">
+    <header className="header" style={{
+      backgroundColor: path === "/auth/blog/create" ? "var(--senary)" : ""
+    }}>
       <section className="header__title-section">
         <Image
           src={"/assets/logos/logo-3-nobg_small.webp"}

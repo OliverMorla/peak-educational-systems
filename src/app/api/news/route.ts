@@ -7,3 +7,4 @@ export async function GET(req: NextRequest) {
   });
   if (news) return NextResponse.json({ status: 200, news });
 }
+ 

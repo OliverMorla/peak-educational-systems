@@ -6,10 +6,10 @@ import "./page.scss";
 const About: React.FunctionComponent = (): JSX.Element => {
   return (
     <>
-      <main className="about">
+      <main className="about__section">
         <Intro>
           <Image
-            src={"/assets/logos/logo-3-nobg2.png"}
+            src={"/assets/logos/logo-3-nobg2.webp"}
             alt="logo"
             width={965}
             height={477.55}

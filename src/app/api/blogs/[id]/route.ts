@@ -13,13 +13,13 @@ export async function GET(
     params: Params;
   }
 ) {
-  const user = await prisma.users.findUnique({
+  const post = await prisma.blogs.findUnique({
     where: {
       id: Number(params.id),
     },
   });
 
-  if (user) return NextResponse.json({ status: 200, user });
+  if (post) return NextResponse.json({ status: 200, post });
 
   return NextResponse.json({
     status: 404,

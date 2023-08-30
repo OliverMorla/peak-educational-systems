@@ -9,8 +9,18 @@ interface Post {
   author: string;
   author_id: number;
   content: string;
-  comments: number;
+  number_of_comments: number;
+  category: string;
+  created_at: string;
   photo_cover_url: string;
+}
+
+interface Categories {
+  id: number;
+  category: string;
+  _count: {
+    category: string;
+  };
 }
 
 interface News extends Post {}
@@ -85,6 +95,28 @@ interface AuthContextTypes {
   register: (inputs: RequestInit) => Promise<any>;
 }
 
+interface ArticleProps {
+  author: string;
+  title: string;
+  content: string;
+  photo_cover_url: string;
+  created_at: string;
+  category: string;
+  comments: Comments[] | any;
+}
+
+interface Comments {
+  id: number;
+  user_id: number;
+  content: string;
+  created_at: string;
+  updated_at: string;
+  blog_id: number;
+}
+
+interface CommentsWithUser extends Comments {
+  user: User[];
+}
 interface RegisterRequest extends RegisterInputs {}
 interface QuoteRequest extends Quote {}
 interface PostRequest extends Post {}

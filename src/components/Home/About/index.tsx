@@ -50,7 +50,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
         </div>
       </motion.div>
       <Image
-        src={"/assets/logos/logo-3-nobg2.png"}
+        src={"/assets/logos/logo-3-nobg2.webp"}
         alt="logo"
         width={975}
         height={475}
