@@ -1,6 +1,6 @@
 @import "@/styles/mixins.scss";
 
-.about__section {
+.about__wrapper {
   .intro__section {
     .section__bg {
       justify-content: unset;
@@ -26,14 +26,14 @@
           }
         }
 
-        .content__text {
+        .section__content-text {
           transform: translateX(-100px);
 
           @include sm-down {
             transform: translateX(0px);
           }
 
-          .text {
+          .content-text {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -68,6 +68,7 @@
       }
     }
   }
+
   .about-author {
     height: 100vh;
     display: flex;
@@ -139,7 +140,6 @@
 
     .about-author__summary {
       width: 475px;
-
       // CSS for .about-author__summary
 
       .about-author__summary-heading {
@@ -163,5 +163,44 @@
     align-items: center;
     color: var(--primary);
     background-color: #0e0e29;
+
+    .about-books__books {
+      .about-books__books-heading {
+        text-align: center;
+        font-size: 64px;
+        letter-spacing: -5px;
+      }
+      .about-books__books-list {
+        .about-books__swiper {
+          width: 800px;
+          height: 685px;
+          .about-books__slide {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+        }
+      }
+    }
+
+    .about-books__book-reviews {
+      .about-books__book-reviews-heading {
+        text-align: center;
+        font-size: 64px;
+        letter-spacing: -5px;
+      }
+      .about-books__book-reviews-list {
+        .about-books__book-review {
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
+          width: 400px;
+          .about-books__book-review-desc {
+            font-size: 18px;
+            color: var(--white);
+          }
+        }
+      }
+    }
   }
 }

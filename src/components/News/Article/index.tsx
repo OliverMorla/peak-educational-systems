@@ -1,6 +1,12 @@
 "use client";
 import Image from "next/image";
 import "./style.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebook,
+  faInstagram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 
 const Article: React.FunctionComponent<Article> = ({
   title,
@@ -23,8 +29,8 @@ const Article: React.FunctionComponent<Article> = ({
         />
         <div className="article__header--info">
           <h1>{title}</h1>
-          <p className="article__header--info--author">By {author}</p>
-          <p className="article__header--info--date">{created_at}</p>
+          <p className="article__header--info--author">By: {author}</p>
+          <p className="article__header--info--date">Created: {created_at}</p>
           <p className="article__header--info--category">{category}</p>
         </div>
       </section>
@@ -49,19 +55,20 @@ const Article: React.FunctionComponent<Article> = ({
       <section className="article__share ">
         <h2>Share</h2>
         <div className="share__input">
-          <input type="checkbox" name="" id="" className="share__input" />
-          <label htmlFor="">Facebook</label>
+          <FontAwesomeIcon icon={faFacebook} />
+          <span> Facebook </span>
         </div>
         <div className="share__input">
-          <input type="checkbox" name="" id="" className="share__input" />
-          <label htmlFor="">Twitter</label>
+          <FontAwesomeIcon icon={faTwitter} />
+          <span> Twitter </span>
         </div>
         <div className="share__input">
-          <input type="checkbox" name="" id="" className="share__input" />
-          <label htmlFor="">Linkedin</label>
+          <FontAwesomeIcon icon={faInstagram} />
+          <span> Instagram </span>
         </div>
       </section>
       <section className="article__reply">
+        <h2>Post a Reply</h2>
         <textarea
           name=""
           id=""
@@ -77,7 +84,9 @@ const Article: React.FunctionComponent<Article> = ({
             <div className="comment__header">
               <div className="comment__header--info">
                 <p className="comment__header--info--author">By {author}</p>
-                <p className="comment__header--info--date">{created_at}</p>
+                <p className="comment__header--info--date">
+                  Created at: {created_at}
+                </p>
               </div>
               <div className="comment__header--reply">
                 <p>Reply</p>

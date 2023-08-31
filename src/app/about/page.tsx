@@ -1,18 +1,31 @@
-import { About as Details } from "@/components/Home/About";
-import Intro from "@/components/Home/Intro";
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react/no-unescaped-entities */
+"use client";
 import Image from "next/image";
-import "./page.scss";
+import Intro from "@/components/Home/Intro";
+import { About as Details } from "@/components/Home/About";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import "swiper/css";
+import "./page.scss";
+
+// import Swiper core and required modules
+import { Navigation, Scrollbar } from "swiper/modules";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 const About: React.FunctionComponent = (): JSX.Element => {
   return (
     <>
-      <main className="about__section">
+      <main className="about__wrapper">
         <Intro>
           <Image
             src={"/assets/logos/logo-3-nobg2.webp"}
@@ -21,16 +34,16 @@ const About: React.FunctionComponent = (): JSX.Element => {
             height={477.55}
             className="content__logo"
           />
-          <div className="content__text">
-            <div className="text">
+          <div className="section__content-text">
+            <div className="content-text">
               <h1>Visual</h1>
               <p>Truth in Every Story</p>
             </div>
-            <div className="text">
+            <div className="content-text">
               <h1>Tactile</h1>
               <p>Empowering Citizens with Knowledge</p>
             </div>
-            <div className="text">
+            <div className="content-text">
               <h1>Auditory</h1>
               <p>News You Can Trust, Voices You Can Believe</p>
             </div>
@@ -42,7 +55,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
             <section className="about-author__details-photo">
               <Image
                 src="/assets/portraits/portrait-1.webp"
-                alt=""
+                alt="about-author__image"
                 className="about-author__image"
                 width={325}
                 height={445}
@@ -76,9 +89,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
                   <li>Lead Field Advisor ~ Mosaic Curriculum Team</li>
                   <li>Social Studies Leadership Team Member</li>
                   <li>New York State English Language</li>
-                  <li>
-                    Arts Test Scorer New York State Math Test Scorer Children's
-                  </li>
+                  <li>Arts Test Scorer New York State Math Test Scorer Children's</li>
                   <li>
                     Book Reviewer Society of Children's Book Writers &
                     Illustrators
@@ -115,12 +126,64 @@ const About: React.FunctionComponent = (): JSX.Element => {
         </section>
         <section className="about-books">
           <section className="about-books__books">
-            <h1 className="about-books__books-heading">Books</h1>
-            <div className="about-books__books-list"></div>
+            <h1 className="about-books__books-heading">Published Books</h1>
+            <div className="about-books__books-list">
+              <Swiper
+                modules={[Navigation, Scrollbar]}
+                spaceBetween={50}
+                slidesPerView={1}
+                navigation
+                scrollbar={{ draggable: true }}
+                width={800}
+                className="about-books__swiper"
+              >
+                <SwiperSlide>
+                  <img
+                    src="/assets/books/book-banner-1.webp"
+                    alt="about-books__slide"
+                    className="about-books__slide"
+                  />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <img
+                    src="/assets/books/book-banner-2.webp"
+                    alt="about-books__slide"
+                    className="about-books__slide"
+                  />
+                </SwiperSlide>
+              </Swiper>
+            </div>
           </section>
           <section className="about-books__book-reviews">
             <h1 className="about-books__book-reviews-heading">Book Reviews</h1>
-            <div className="about-books__book-reviews-list"></div>
+            <div className="about-books__book-reviews-list">
+              <div className="about-books__book-review">
+                <p className="about-books__book-review-desc">
+                  “S is for Superb! This cleverly written story takes us from
+                  the city life to suburban life while highlighting each letter
+                  of the alphabet. The relatable storyline is brought to life by
+                  the nostalgic look back at childhood games, making this an
+                  excellent and engaging read aloud! A definite must-have for
+                  every library collection!”
+                </p>
+                <h1 className="about-books__book-review-heading">
+                  -F.E. Underwood, MS in Ed, Early Childhood Teacher
+                </h1>
+              </div>
+              <div className="about-books__book-review">
+                <p className="about-books__book-review-desc">
+                  “S is for Superb! This cleverly written story takes us from
+                  the city life to suburban life while highlighting each letter
+                  of the alphabet. The relatable storyline is brought to life by
+                  the nostalgic look back at childhood games, making this an
+                  excellent and engaging read aloud! A definite must-have for
+                  every library collection!”
+                </p>
+                <h1 className="about-books__book-review-heading">
+                  -F.E. Underwood, MS in Ed, Early Childhood Teacher
+                </h1>
+              </div>
+            </div>
           </section>
         </section>
       </main>

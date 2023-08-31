@@ -13,17 +13,33 @@
     .article__photo-cover {
     }
     .article__header--info {
+      display: flex;
+      flex-direction: column;
       h1 {
+        text-align: center;
+        font-size: 72px;
+        letter-spacing: -3px;
       }
       .article__header--info--author {
+        opacity: .4;
       }
       .article__header--info--date {
+        opacity: .4;
+
       }
       .article__header--info--category {
+        display: flex;
+        align-self: flex-end;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: var(--primary);
+        width: fit-content;
       }
     }
   }
   .article__content {
+    margin-top: 75px;
+    margin-bottom: 75px;
     p {
     }
   }
@@ -31,20 +47,53 @@
   .article__tags {
   }
 
-  .article__comments{
+  .article__reply {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
     border-top: 1px solid var(--primary);
-    h2{
 
+    .comment__input {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      border: 1px solid var(--primary);
+      padding: 10px;
+      resize: none;
+      &:focus {
+        outline: none;
+      }
+    }
+    .comment__btn {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      align-self: flex-end;
+      cursor: pointer;
+      background-color: var(--primary);
+      color: var(--white);
+      border-radius: 10px;
+      padding: 10px;
+      border: none;
+      transition: all 0.15s ease-in-out;
+      &:hover {
+        background-color: var(--primary-hover);
+      }
+    }
+  }
+
+  .article__comments {
+    border-top: 1px solid var(--primary);
+    h2 {
     }
 
-    .comments{
-        .comment{
-            background-color: var(--tertiary);
-            padding: 10px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 0 1px inset var(--matteBlack);
-        }        
+    .comments {
+      .comment {
+        background-color: var(--tertiary);
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 0 1px inset var(--matteBlack);
+      }
     }
   }
 }
