@@ -19,7 +19,7 @@ const Post = ({
       );
       const response = await res.json();
       setLoading(false);
-      console.log(response)
+      console.log(response);
       return response?.post;
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
@@ -47,9 +47,11 @@ const Post = ({
   return (
     <>
       <Article
+        article_id={post?.id}
+        author_id={post?.author_id}
         author={post?.author}
         category={post?.category}
-        comments={post?.number_of_comments}
+        number_of_comments={post?.number_of_comments}
         content={post?.content}
         created_at={post?.created_at}
         photo_cover_url={post?.photo_cover_url}

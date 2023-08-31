@@ -21,11 +21,10 @@
         letter-spacing: -3px;
       }
       .article__header--info--author {
-        opacity: .4;
+        opacity: 0.4;
       }
       .article__header--info--date {
-        opacity: .4;
-
+        opacity: 0.4;
       }
       .article__header--info--category {
         display: flex;
@@ -41,6 +40,23 @@
     margin-top: 75px;
     margin-bottom: 75px;
     p {
+    }
+  }
+
+  .article__share {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 75px;
+    margin-bottom: 75px;
+    border-top: 1px solid var(--primary);
+    .article__share-input {
+      margin: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease-in-out;
+      &:hover {
+        transform: scale(1.1);
+      }
     }
   }
 

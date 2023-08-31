@@ -51,13 +51,15 @@ interface Quote {
 }
 
 interface Article {
+  author_id?: number;
   author: string;
   title: string;
-  content: string;
+  content?: string;
   photo_cover_url: string;
   created_at: string;
   category: string;
-  comments: any;
+  number_of_comments: any;
+  article_id?: number;
 }
 
 interface Comment {
