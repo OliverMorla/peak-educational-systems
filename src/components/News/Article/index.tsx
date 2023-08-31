@@ -2,7 +2,7 @@
 import Image from "next/image";
 import "./style.scss";
 
-const Article: React.FunctionComponent<ArticleProps> = ({
+const Article: React.FunctionComponent<Article> = ({
   title,
   content,
   author,
@@ -14,9 +14,9 @@ const Article: React.FunctionComponent<ArticleProps> = ({
   return (
     <main className="article">
       <section className="article__header">
-        <Image
+        <img
           alt="article-photo-cover"
-          src={photo_cover_url}
+          src={photo_cover_url ?? ""}
           width={1200}
           height={600}
           className="article__photo-cover"
@@ -84,7 +84,7 @@ const Article: React.FunctionComponent<ArticleProps> = ({
               </div>
             </div>
             <div className="comment__content">
-              <p>{comments[0]?.content}</p>
+              <p>{comments?.content} This is a comment </p>
             </div>
           </div>
         </section>

@@ -3,19 +3,23 @@ interface Modal {
   type: "Success" | "Error" | "Warning" | "Info";
 }
 
-interface Post {
+interface PostCardProps {
   id: number;
   title: string;
   author: string;
-  author_id: number;
-  content: string;
-  number_of_comments: number;
+  author_id?: number;
+  content?: string;
+  number_of_comments?: number; //maybe not needed
   category: string;
   created_at: string;
+  updated_at: string;
   photo_cover_url: string;
 }
 
-interface Categories {
+interface News extends PostCardProps {}
+interface Blog extends PostCardProps {}
+
+interface Category {
   id: number;
   category: string;
   _count: {
@@ -23,12 +27,9 @@ interface Categories {
   };
 }
 
-interface News extends Post {}
-interface Blog extends Post {}
-
 interface User {
   id: number;
-  name: string;
+  name?: string;
   first_name?: string;
   last_name?: string;
   email: string;
@@ -40,8 +41,35 @@ interface User {
   child_grade_level: string;
   school_type: string;
   school_region: string;
+  created_at: string;
 }
 
+interface Quote {
+  id: number;
+  quote: string;
+  author: string;
+}
+
+interface Article {
+  author: string;
+  title: string;
+  content: string;
+  photo_cover_url: string;
+  created_at: string;
+  category: string;
+  comments: any;
+}
+
+interface Comment {
+  id: number;
+  user_id: number;
+  content: string;
+  created_at: string;
+  updated_at: string;
+  blog_id: number;
+}
+
+// For Admin Page
 interface UserAdminReq {
   status: number;
   ok: boolean;
@@ -66,10 +94,10 @@ interface BlogsAdminReq {
   news: Blog[];
 }
 
-interface Quote {
-  id: number;
-  quote: string;
-  author: string;
+interface CommentAdminReq {
+  status: number;
+  ok: boolean;
+  comments: Comment[];
 }
 
 type empl = "private" | "public" | "home" | "other" | "";
@@ -90,33 +118,17 @@ interface RegisterInputs {
   child_grade_level: string;
 }
 
+interface LoginInputs {
+  email: string;
+  password: string;
+}
+
 interface AuthContextTypes {
   loading: boolean;
   register: (inputs: RequestInit) => Promise<any>;
+  login?: (inputs: RequestInit) => Promise<any>;
+  logout?: () => void;
 }
 
-interface ArticleProps {
-  author: string;
-  title: string;
-  content: string;
-  photo_cover_url: string;
-  created_at: string;
-  category: string;
-  comments: Comments[] | any;
-}
-
-interface Comments {
-  id: number;
-  user_id: number;
-  content: string;
-  created_at: string;
-  updated_at: string;
-  blog_id: number;
-}
-
-interface CommentsWithUser extends Comments {
-  user: User[];
-}
 interface RegisterRequest extends RegisterInputs {}
-interface QuoteRequest extends Quote {}
-interface PostRequest extends Post {}
+interface PostRequest extends PostCardProps {}

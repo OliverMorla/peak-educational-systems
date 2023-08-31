@@ -45,6 +45,8 @@
     .header__title {
       font-weight: 900;
       transform: translateX(-10%);
+      letter-spacing: -1px;
+      font-size: 32px;
 
       @include sm-down {
         font-size: 22px;
@@ -76,6 +78,7 @@
     font-size: 18px;
     margin-right: 80px;
     gap: 10px;
+    font-weight: 400;
     transition: max-height 0.5s ease-in-out;
 
     @include sm-down {

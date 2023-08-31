@@ -12,7 +12,7 @@ import {
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { faFaceGrinBeam } from "@fortawesome/free-regular-svg-icons";
-import { fadeEffect } from "@/config/framer.config";
+import { fadeEffect, fadeEffect2 } from "@/config/framer.config";
 import Marquee from "react-fast-marquee";
 import Card from "@/components/News/Card";
 import Modal from "@/components/Modal";
@@ -72,7 +72,11 @@ const Home: React.FunctionComponent = (): JSX.Element => {
       />
       <section className="home__intro-section">
         <section className="home__section-bg">
-          <div className="home__content">
+          <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={fadeEffect2}
+          className="home__content">
             <h1>Discover, Learn, Explore</h1>
             <div className="content__border"></div>
             <motion.p
@@ -108,7 +112,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
               />
             </div>
             <div className="content__border"></div>
-          </div>
+          </motion.div>
         </section>
       </section>
       <section className="home__about-section">
@@ -201,6 +205,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
                   photo_cover_url={news.photo_cover_url}
                   category={news.category}
                   created_at={news.created_at}
+                  updated_at={news.updated_at}
                 />
               </li>
             ))}

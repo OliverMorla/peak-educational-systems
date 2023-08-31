@@ -23,6 +23,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       return response;
     } catch (err) {
       if (err instanceof Error) return err.message;
+    } finally {
+      setLoading(false);
     }
   };
 

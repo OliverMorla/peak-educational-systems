@@ -12,9 +12,9 @@ const Card: React.FunctionComponent<News> = ({
   content,
 }) => {
   return (
-    <div className="card">
+    <div className="post-card">
       <div
-        className="card__bg"
+        className="post-card__bg"
         style={{
           backgroundImage: `url(${photo_cover_url})`,
           backgroundRepeat: "no-repeat",
@@ -22,7 +22,7 @@ const Card: React.FunctionComponent<News> = ({
         }}
       ></div>
       <h1> {title} </h1>
-      <div className="card__footer">
+      <div className="post-card__footer">
         <h3>
           <FontAwesomeIcon icon={faUser} width={20} />
           Author: {author}

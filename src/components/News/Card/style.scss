@@ -1,6 +1,6 @@
 @import "/src/styles/mixins.scss";
 
-.card {
+.post-card {
   cursor: pointer;
   position: relative;
   min-width: 500px;
@@ -15,7 +15,7 @@
     height: 100%;
   }
 
-  .card__bg {
+  .post-card__bg {
     border-radius: 20px;
     width: 100%;
     height: 480px;
@@ -29,7 +29,7 @@
     bottom: 150px;
   }
 
-  .card__footer {
+  .post-card__footer {
     position: absolute;
     display: flex;
     flex-direction: column;

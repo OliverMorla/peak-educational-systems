@@ -68,4 +68,100 @@
       }
     }
   }
+  .about-author {
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: var(--secondary);
+    // CSS for .about-author
+
+    .about-author__details {
+      // CSS for .about-author__details
+
+      .about-author__details-photo {
+        display: flex;
+        flex-direction: column;
+        // align-items: center;
+        // CSS for .about-author__details-photo
+
+        .about-author__image {
+          // CSS for .about-author__image
+          border-radius: 25px;
+        }
+
+        .about-author__photo-footer {
+          // CSS for .about-author__photo-footer
+
+          .about-author__footer-heading {
+            // CSS for .about-author__footer-heading
+            font-size: 50px;
+            letter-spacing: -2px;
+
+            color: var(--primary);
+          }
+
+          .about-author__footer-desc {
+            color: var(--primary);
+
+            // CSS for .about-author__footer-desc
+          }
+
+          .about-author__footer-socials {
+            color: var(--white);
+            display: flex;
+            gap: 10px;
+            // CSS for .about-author__footer-socials
+
+            .socials__icon {
+              // CSS for .socials__icon
+            }
+          }
+        }
+      }
+
+      .about-author__accomplishments {
+        // CSS for .about-author__accomplishments
+
+        .about-author__accomplishments-heading {
+          font-size: 18px;
+          color: var(--primary);
+          // CSS for .about-author__accomplishments-heading
+        }
+
+        .about-author__accomplishments-desc {
+          color: var(--white);
+
+          // CSS for .about-author__accomplishments-desc
+        }
+      }
+    }
+
+    .about-author__summary {
+      width: 475px;
+
+      // CSS for .about-author__summary
+
+      .about-author__summary-heading {
+        font-size: 64px;
+        color: var(--primary);
+        letter-spacing: -5px;
+        // CSS for .about-author__summary-heading
+      }
+
+      .about-author__summary-desc {
+        color: var(--white);
+        // CSS for .about-author__summary-desc
+      }
+    }
+  }
+
+  .about-books {
+    height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color: var(--primary);
+    background-color: #0e0e29;
+  }
 }

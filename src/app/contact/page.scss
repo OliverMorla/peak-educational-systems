@@ -1,1 +1,63 @@
 @import "@/styles/mixins.scss";
+
+.contact {
+  .intro__section {
+    .section__bg {
+      .section__content {
+        display: flex;
+        flex-flow: row wrap;
+      }
+    }
+
+    .contact-form {
+      h1 {
+      }
+      .contact-form__form {
+        // Your styles here
+        .contact-form__group {
+          // Your styles here
+          display: flex;
+          flex-direction: column;
+
+          label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+          input {
+            // Your styles here
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            transition: all 0.2s ease-in-out;
+            &:focus {
+              outline: none;
+              border-color: var(--primary-hover);
+            }
+          }
+        }
+      }
+
+      .contact-form__btn {
+        // Your styles here
+        background-color: var(--primary);
+        color: var(--white);
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        appearance: none;
+        transition: all 0.2s ease-in-out;
+        &:hover {
+          transform: scale(1.05);
+          background-color: var(--primary-hover);
+        }
+      }
+    }
+  }
+}

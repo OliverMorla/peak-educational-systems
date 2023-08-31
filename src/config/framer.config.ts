@@ -19,6 +19,7 @@ const fadeEffect2 = {
     opacity: 0,
   },
   visible: {
+    opacity: 1,
     transition: {
       duration: 0.25,
       delay: 0.4,

@@ -18,9 +18,15 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const { data: session } = useSession();
 
   return (
-    <header className="header" style={{
-      backgroundColor: path === "/auth/blog/create" ? "var(--senary)" : ""
-    }}>
+    <header
+      className="header"
+      style={{
+        backgroundColor:
+          path === "/auth/blog/create" || path.startsWith("/auth/blog/")
+            ? "var(--senary)"
+            : "",
+      }}
+    >
       <section className="header__title-section">
         <Image
           src={"/assets/logos/logo-3-nobg_small.webp"}
@@ -29,7 +35,9 @@ const Header: React.FunctionComponent = (): JSX.Element => {
           height={75}
           className="header__logo"
         />
-        <h1 className="header__title">Peak Educational Systems</h1>
+        <Link href={"/"}>
+          <h1 className="header__title">Peak Educational Systems</h1>
+        </Link>
       </section>
       <FontAwesomeIcon
         icon={faBars}
@@ -48,12 +56,12 @@ const Header: React.FunctionComponent = (): JSX.Element => {
           About
         </Link>
         {session?.user && (
-          <Link href="/blog" className="nav__item">
+          <Link href="/auth/blog" className="nav__item">
             Blog
           </Link>
         )}
         {session?.user && (
-          <Link href="/news" className="nav__item">
+          <Link href="/auth/news" className="nav__item">
             News
           </Link>
         )}

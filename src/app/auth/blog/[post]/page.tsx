@@ -19,6 +19,7 @@ const Post = ({
       );
       const response = await res.json();
       setLoading(false);
+      console.log(response)
       return response?.post;
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);

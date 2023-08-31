@@ -1,1 +1,103 @@
 @import "@/styles/mixins.scss";
+
+.services {
+  .intro__section {
+    .section__bg {
+      .section__content {
+        display: flex;
+        flex-flow: row wrap;
+      }
+    }
+  }
+  .services__cards {
+    height: 100vh;
+    background-color: var(--tertiary);
+    .services__cards-group {
+      padding-top: 35px;
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      .services__card {
+        width: 485px;
+        .card__header {
+          height: 575px;
+          width: 485px;
+          background-color: #d9d9d9;
+
+          h1 {
+            padding: 15px;
+            font-size: 64px;
+            font-weight: bolder;
+            position: relative;
+            color: var(--secondary);
+          }
+        }
+
+        .card__desc {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .about__badges {
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      color: var(--secondary);
+
+      .badge {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .badge__icon {
+          font-size: 64px;
+        }
+
+        h2 {
+          width: 125px;
+          font-size: 20px;
+          text-align: center;
+          font-weight: bolder;
+        }
+      }
+    }
+  }
+
+  .services__contact {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--matteGrey);
+
+    @include sm-down {
+      flex-direction: column;
+      height: auto;
+    }
+
+    .contact__logo {
+      position: absolute;
+      left: 0;
+      transform: translateX(-50%);
+      opacity: 0.5;
+
+      @include xs {
+        margin-top: 40px;
+      }
+
+      @include sm-down {
+        position: relative;
+        margin-bottom: 20px;
+        height: auto;
+        width: 100%;
+        opacity: 0.8;
+        object-fit: contain;
+        transform: translateX(0);
+      }
+    }
+  }
+}

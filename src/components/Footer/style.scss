@@ -15,7 +15,7 @@
     min-height: auto;
   }
 
-  .footer__section-top {
+  .footer__top {
     margin-top: 80px;
     margin-bottom: 80px;
     display: flex;
@@ -34,14 +34,14 @@
       flex-direction: column;
       width: 350px;
 
-      .about__title {
+      .footer__logo-wrapper {
         display: flex;
         align-items: center;
 
-        .header-logo {
+        .footer__company-logo {
         }
 
-        h3 {
+        .footer__company-name {
           color: white;
           transition: all 0.15s ease-in-out;
           text-decoration: underline;
@@ -54,17 +54,17 @@
         }
       }
 
-      .about__slogan {
+      .footer__slogan {
         color: var(--white);
         font-weight: 300;
       }
 
-      .about__links {
+      .footer__policy-links {
         display: flex;
         justify-content: space-between;
         color: white;
 
-        .links__entry {
+        .footer__links-entry {
           transition: all 0.15s ease-in-out;
 
           &:hover {
@@ -74,11 +74,11 @@
       }
     }
 
-    .footer__features {
+    .footer__nav {
       display: flex;
       flex-direction: column;
 
-      span {
+      .footer__nav-title {
         color: var(--white);
         font-weight: 900;
       }
@@ -104,13 +104,13 @@
         gap: 25px;
       }
 
-      .socials__contact {
-        .contact__title {
+      .footer__contact {
+        .footer__contact-title {
           font-weight: 500;
           color: var(--white);
         }
 
-        .contact__wrapper {
+        .footer__icon-wrapper {
           display: flex;
           gap: 10px;
 
@@ -127,18 +127,18 @@
         }
       }
 
-      .socials__newsletter {
+      .footer__newsletter {
         display: flex;
         align-items: center;
         gap: 10px;
 
-        #newsletter-text {
+        #footer__newsletter-input {
           height: 50px;
           width: 180px;
           padding: 14px;
         }
 
-        .newsletter__btn {
+        .footer__newsletter-button {
           background-color: var(--primary);
           height: 50px;
           width: 100px;
@@ -155,11 +155,11 @@
     }
   }
 
-  .footer__section-bottom {
+  .footer__bottom {
     display: flex;
     margin-bottom: 20px;
 
-    .bottom__text {
+    .footer__copyright {
       border-top: 1px solid var(--white);
       padding-top: 10px;
       color: var(--white);

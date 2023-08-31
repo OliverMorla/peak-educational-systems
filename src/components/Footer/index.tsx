@@ -30,36 +30,36 @@ const Footer = () => {
 
   return (
     <footer className="footer">
-      <section className="footer__section-top">
+      <section className="footer__top">
         <div className="footer__about">
-          <div className="about__title">
+          <div className="footer__logo-wrapper">
             <Image
               src={"/assets/logos/logo-3-nobg.webp"}
-              alt="header-logo"
+              alt="footer__company-logo"
               width={125}
               height={75}
-              className="header-logo"
+              className="footer__company-logo"
             />
-            <h3>Peak Educational Systems</h3>
+            <h3 className="footer__company-name">Peak Educational Systems</h3>
           </div>
-          <p className="about__slogan">
+          <p className="footer__slogan">
             Planting the seeds of knowledge and creativity, one story and one
             lesson at a time. Together, we grow the future.
           </p>
-          <div className="about__links">
-            <Link href={""} className="links__entry">
+          <div className="footer__policy-links">
+            <Link href={""} className="footer__links-entry">
               Privacy Policy
             </Link>
-            <Link href={""} className="links__entry">
+            <Link href={""} className="footer__links-entry">
               Terms of Condition
             </Link>
-            <Link href={""} className="links__entry">
+            <Link href={""} className="footer__links-entry">
               FAQ
             </Link>
           </div>
         </div>
-        <div className="footer__features">
-          <span>Features</span>
+        <div className="footer__nav">
+          <span className="footer__nav-title">Features</span>
           <Link href="" className="features__item">
             Home
           </Link>
@@ -83,34 +83,37 @@ const Footer = () => {
           </Link>
         </div>
         <div className="footer__socials">
-          <section className="socials__contact">
-            <h2 className="contact__title">Contact Us</h2>
-            <div className="contact__wrapper">
+          <section className="footer__contact">
+            <h2 className="footer__contact-title">Contact Us</h2>
+            <div className="footer__icon-wrapper">
               <FontAwesomeIcon icon={faFacebook} className="socials__btn" />
               <FontAwesomeIcon icon={faLinkedin} className="socials__btn" />
               <FontAwesomeIcon icon={faTwitter} className="socials__btn" />
               <FontAwesomeIcon icon={faInstagram} className="socials__btn" />
             </div>
           </section>
-          <section className="socials__newsletter">
+          <section className="footer__newsletter">
             <input
               type="text"
               name="newsletter-text"
-              id="newsletter-text"
+              id="footer__newsletter-input"
               value={newsletterInput}
               placeholder="Enter your email"
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setNewsletterInput(e.currentTarget.value)
               }
             />
-            <button className="newsletter__btn" onClick={handleNewsletterForm}>
+            <button
+              className="footer__newsletter-button"
+              onClick={handleNewsletterForm}
+            >
               Subscribe
             </button>
           </section>
         </div>
       </section>
-      <section className="footer__section-bottom">
-        <p className="bottom__text">Copyright ©2023 All rights reserved</p>
+      <section className="footer__bottom">
+        <p className="footer__copyright">Copyright ©2023 All rights reserved</p>
       </section>
     </footer>
   );

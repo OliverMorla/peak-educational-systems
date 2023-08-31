@@ -18,6 +18,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs`
       );
       const response = await res.json();
+      console.log(response)
       setLoading(false);
       return response?.blogs;
     } catch (err) {
@@ -41,7 +42,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
     getBlogs().then((data) => setBlogs(data));
   });
 
-  const [categories, setCategories] = useState<Categories[]>((): any => {
+  const [categories, setCategories] = useState<Category[]>((): any => {
     getCategories().then((data) => setCategories(data));
   });
 
@@ -86,6 +87,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                   id={post.id}
                   category={post.category}
                   created_at={post.created_at}
+                  updated_at={post.updated_at}
                 />
               </Link>
             ))
@@ -110,6 +112,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                   id={post.id}
                   category={post.category}
                   created_at={post.created_at}
+                  updated_at={post.updated_at}
                 />
               </Link>
             ))
