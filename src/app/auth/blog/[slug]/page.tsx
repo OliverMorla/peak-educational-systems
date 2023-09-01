@@ -1,4 +1,4 @@
- "use client";
+"use client";
 import { useState } from "react";
 import Article from "@/components/News/Article";
 import "./page.scss";
@@ -7,7 +7,7 @@ const Post = ({
   params,
 }: {
   params: {
-    post: number;
+    slug: number;
   };
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -15,7 +15,7 @@ const Post = ({
     try {
       setLoading(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs/${params.post}`
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs/${params.slug}`
       );
       const response = await res.json();
       setLoading(false);

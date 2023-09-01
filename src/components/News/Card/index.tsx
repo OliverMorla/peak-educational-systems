@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faUser } from "@fortawesome/free-regular-svg-icons";
 import "./style.scss";
 
-const Card: React.FunctionComponent<News> = ({
+const Card: React.FunctionComponent<PostCardProps> = ({
   id,
   title,
   author,

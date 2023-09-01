@@ -22,8 +22,7 @@ const Article: React.FunctionComponent<Article> = ({
   article_created_at,
   article_updated_at,
 }) => {
-  const [comment, setComment] = useState<string>("");
-  const [comments, setComments] = useState<Comment[]>();
+  const [commentInput, setCommentInput] = useState<string>("");
 
   // function to post a new comment
   const handleComment = async () => {
@@ -35,7 +34,7 @@ const Article: React.FunctionComponent<Article> = ({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(comment),
+          body: JSON.stringify(commentInput),
         }
       );
       const response = await res.json();
@@ -44,22 +43,24 @@ const Article: React.FunctionComponent<Article> = ({
     }
   };
 
+  const [comments, setComments] = useState<Comment[]>([]);
   // function to get all comments
   const getComments = async () => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}`
       );
-      const response = await res.json() as CommentRequest;
+      const response = (await res.json()) as CommentRequest;
+      console.log(response);
       setComments(response?.comments);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
   };
 
-  // useEffect(() => {
-  //   getComments();
-  // });
+  useEffect(() => {
+    getComments();
+  }, []);
 
   return (
     <main className="article">
@@ -121,7 +122,7 @@ const Article: React.FunctionComponent<Article> = ({
           placeholder="Post a reply"
           className="comment__input"
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-            setComment(e.currentTarget.value)
+            setCommentInput(e.currentTarget.value)
           }
         />
         <button className="comment__btn" onClick={handleComment}>
@@ -131,26 +132,26 @@ const Article: React.FunctionComponent<Article> = ({
       <section className="article__comments">
         <h2>Comments</h2>
         <section className="comments">
-          {/* {comments.map((content: Comment) => (
-            <>
-            {content.user_id}
-            </>
-          ))} */}
-          
-          <div className="comment" key={""}>
-            <div className="comment__header">
-              <div className="comment__header--info">
-                <p className="comment__header--info--author">By:</p>
-                <p className="comment__header--info--date">Created at:</p>
+          {comments.length === 0 ? (
+            <div className="comment-status"> No comments yet! </div>
+          ) : (
+            comments.map((comment) => (
+              <div className="comment" key={comment.id}>
+                <div className="comment__header">
+                  <div className="comment__header--info">
+                    <p className="comment__header--info--author">By: {comment.user_id}</p>
+                    <p className="comment__header--info--date">Created at: {comment.created_at}</p>
+                  </div>
+                  <div className="comment__header--reply">
+                    <p>Reply</p>
+                  </div>
+                </div>
+                <div className="comment__content">
+                  <p>{comment.content}</p>
+                </div>
               </div>
-              <div className="comment__header--reply">
-                <p>Reply</p>
-              </div>
-            </div>
-            <div className="comment__content">
-              <p> </p>
-            </div>
-          </div>
+            ))
+          )}
         </section>
       </section>
     </main>

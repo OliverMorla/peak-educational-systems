@@ -36,7 +36,6 @@ const Register = () => {
     if (inputs.password === inputs.password_confirm) {
       try {
         const res = await register(inputs as RequestInit);
-        console.log(res);
         if (res.account_created) {
           router.push("/");
         } else {

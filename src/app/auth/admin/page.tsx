@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -9,7 +10,7 @@ const Panel = () => {
   // const { data: session } = useSession({ required: true });
   const [users, setUsers] = useState<User[]>([]);
   const [news, setNews] = useState<News[]>([]);
-  const [blogs, setBlogs] = useState(undefined);
+  const [blogs, setBlogs] = useState<Blog[]>([]);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [errors, setErrors] = useState({
     userError: "",
@@ -39,7 +40,7 @@ const Panel = () => {
 
   useEffect(() => {
     getData("users", setUsers, "userError");
-    // getData("blog", setBlogs, "blogError");
+    getData("blog", setBlogs, "blogError");
     getData("quotes", setQuotes, "quoteError");
     getData("news", setNews, "newsError");
   }, []);
@@ -153,6 +154,7 @@ const Panel = () => {
                     <td>{news.number_of_comments}</td>
                     <td>{news.user_id}</td>
                     <td>{news.photo_cover_url}</td>
+                    <td>{news.created_at}</td>
                     <td>
                       <button
                         name="news-delete-btn"
@@ -185,17 +187,18 @@ const Panel = () => {
                 </tr>
               </thead>
               <tbody>
-                {news?.map((news) => (
-                  <tr key={news.id}>
-                    <td>{news.id}</td>
-                    <td>{news.title}</td>
-                    <td>{news.author}</td>
-                    <td>{news.number_of_comments}</td>
-                    <td>{news.photo_cover_url}</td>
+                {blogs?.map((blog) => (
+                  <tr key={blog.id}>
+                    <td>{blog.id}</td>
+                    <td>{blog.title}</td>
+                    <td>{blog.author}</td>
+                    <td>{blog.number_of_comments}</td>
+                    <td>{blog.photo_cover_url}</td>
+                    <td>{blog.created_at}</td>
                     <td>
                       <button
                         name="blog-delete-btn"
-                        onClick={(e) => handleDelete(e, news.id)}
+                        onClick={(e) => handleDelete(e, blog.id)}
                         className="delete-btn"
                       >
                         Delete
