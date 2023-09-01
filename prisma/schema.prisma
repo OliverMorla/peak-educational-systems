@@ -11,14 +11,14 @@ model blogs {
   id                 Int        @id @default(autoincrement())
   author             String     @db.VarChar(255)
   content            String
-  author_id          Int?
+  user_id            Int?
   title              String     @db.VarChar(255)
   number_of_comments Int
   photo_cover_url    String     @db.VarChar(255)
   category           String?    @db.VarChar(255)
   updated_at         DateTime?  @default(now()) @db.Timestamptz(6)
   created_at         DateTime?  @default(now()) @db.Timestamptz(6)
-  users              users?     @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users              users?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "blogs_author_id_fkey")
   comments           comments[]
 }
 

@@ -8,7 +8,10 @@ const Card: React.FunctionComponent<News> = ({
   author,
   number_of_comments,
   photo_cover_url,
-  author_id,
+  user_id,
+  category,
+  created_at,
+  updated_at,
   content,
 }) => {
   return (

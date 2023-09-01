@@ -72,11 +72,12 @@ const Home: React.FunctionComponent = (): JSX.Element => {
       />
       <section className="home__intro-section">
         <section className="home__section-bg">
-          <motion.div 
-          initial="hidden"
-          animate="visible"
-          variants={fadeEffect2}
-          className="home__content">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={fadeEffect2}
+            className="home__content"
+          >
             <h1>Discover, Learn, Explore</h1>
             <div className="content__border"></div>
             <motion.p
@@ -195,7 +196,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
                 }}
               >
                 <Card
-                  author_id={news.author_id}
+                  user_id={news.user_id}
                   content=""
                   key={news.id}
                   id={news.id}

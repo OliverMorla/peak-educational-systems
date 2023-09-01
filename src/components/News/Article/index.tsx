@@ -1,53 +1,65 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
-import "./style.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import "./style.scss";
 
 const Article: React.FunctionComponent<Article> = ({
-  title,
-  content,
-  author,
+  article_title,
+  article_content,
+  article_author,
   photo_cover_url,
-  created_at,
-  category,
+  article_category,
   number_of_comments,
   article_id,
+  user_id,
+  article_created_at,
+  article_updated_at,
 }) => {
   const [comment, setComment] = useState<string>("");
+  const [comments, setComments] = useState<Comment[]>();
+
+  // function to post a new comment
   const handleComment = async () => {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(comment),
-      }
-    );
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(comment),
+        }
+      );
+      const response = await res.json();
+    } catch (err) {
+      if (err instanceof Error) return console.log(err.message);
+    }
   };
 
+  // function to get all comments
   const getComments = async () => {
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}`
       );
-      const response = await res.json();
+      const response = await res.json() as CommentRequest;
       setComments(response?.comments);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
   };
 
-  const [comments, setComments] = useState<Comment[] | any>((): any => {
-    getComments().then((data) => setComments(data));
-  });
+  // useEffect(() => {
+  //   getComments();
+  // });
 
   return (
     <main className="article">
@@ -60,14 +72,16 @@ const Article: React.FunctionComponent<Article> = ({
           className="article__photo-cover"
         />
         <div className="article__header--info">
-          <h1>{title}</h1>
-          <p className="article__header--info--author">By: {author}</p>
-          <p className="article__header--info--date">Created: {created_at}</p>
-          <p className="article__header--info--category">{category}</p>
+          <h1>{article_title}</h1>
+          <p className="article__header--info--author">By: {article_author}</p>
+          <p className="article__header--info--date">
+            Created: {article_created_at}
+          </p>
+          <p className="article__header--info--category">{article_category}</p>
         </div>
       </section>
       <section className="article__content">
-        <p>{content}</p>
+        <p>{article_content}</p>
       </section>
       <section className="article__tags">
         <h2>Tags</h2>
@@ -117,26 +131,26 @@ const Article: React.FunctionComponent<Article> = ({
       <section className="article__comments">
         <h2>Comments</h2>
         <section className="comments">
-          {comments?.map((comment: any) => (
-            <div className="comment">
-              <div className="comment__header">
-                <div className="comment__header--info">
-                  <p className="comment__header--info--author">
-                    By {comment?.author_id}
-                  </p>
-                  <p className="comment__header--info--date">
-                    Created at: {created_at}
-                  </p>
-                </div>
-                <div className="comment__header--reply">
-                  <p>Reply</p>
-                </div>
+          {/* {comments.map((content: Comment) => (
+            <>
+            {content.user_id}
+            </>
+          ))} */}
+          
+          <div className="comment" key={""}>
+            <div className="comment__header">
+              <div className="comment__header--info">
+                <p className="comment__header--info--author">By:</p>
+                <p className="comment__header--info--date">Created at:</p>
               </div>
-              <div className="comment__content">
-                <p>{comments?.content} This is a comment </p>
+              <div className="comment__header--reply">
+                <p>Reply</p>
               </div>
             </div>
-          ))}
+            <div className="comment__content">
+              <p> </p>
+            </div>
+          </div>
         </section>
       </section>
     </main>

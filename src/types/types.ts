@@ -5,15 +5,15 @@ interface Modal {
 
 interface PostCardProps {
   id: number;
-  title: string;
-  author: string;
-  author_id?: number;
+  author?: string;
   content?: string;
-  number_of_comments?: number; //maybe not needed
-  category: string;
-  created_at: string;
-  updated_at: string;
-  photo_cover_url: string;
+  user_id?: number;
+  title?: string;
+  number_of_comments?: number;
+  photo_cover_url?: string;
+  category?: string;
+  created_at?: string;
+  updated_at?: string;
 }
 
 interface News extends PostCardProps {}
@@ -30,8 +30,8 @@ interface Category {
 interface User {
   id: number;
   name?: string;
-  first_name?: string;
-  last_name?: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
   date_of_birth: string;
@@ -51,15 +51,16 @@ interface Quote {
 }
 
 interface Article {
-  author_id?: number;
-  author: string;
-  title: string;
-  content?: string;
-  photo_cover_url: string;
-  created_at: string;
-  category: string;
-  number_of_comments: any;
   article_id?: number;
+  user_id?: number;
+  article_author?: string;
+  article_title?: string;
+  article_content?: string;
+  photo_cover_url?: string;
+  number_of_comments?: number;
+  article_category?: string;
+  article_created_at?: string;
+  article_updated_at?: string;
 }
 
 interface Comment {
@@ -102,6 +103,14 @@ interface CommentAdminReq {
   comments: Comment[];
 }
 
+// API Request Types
+interface CommentRequest {
+  status: number;
+  ok: boolean;
+  comments: Comment[];
+}
+
+// Authentication Types 
 type empl = "private" | "public" | "home" | "other" | "";
 type regions = "nyc" | "nassau" | "suffolk" | "";
 

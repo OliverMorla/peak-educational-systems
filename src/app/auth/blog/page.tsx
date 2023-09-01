@@ -18,7 +18,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs`
       );
       const response = await res.json();
-      console.log(response)
+      console.log(response);
       setLoading(false);
       return response?.blogs;
     } catch (err) {
@@ -83,7 +83,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                   content={post.content}
                   photo_cover_url={post.photo_cover_url}
                   number_of_comments={post.number_of_comments}
-                  author_id={post.author_id}
+                  user_id={post.user_id}
                   id={post.id}
                   category={post.category}
                   created_at={post.created_at}
@@ -108,7 +108,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                   content={post.content}
                   photo_cover_url={post.photo_cover_url}
                   number_of_comments={post.number_of_comments}
-                  author_id={post.author_id}
+                  user_id={post.user_id}
                   id={post.id}
                   category={post.category}
                   created_at={post.created_at}

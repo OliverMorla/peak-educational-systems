@@ -151,7 +151,7 @@ const Panel = () => {
                     <td>{news.title}</td>
                     <td>{news.author}</td>
                     <td>{news.number_of_comments}</td>
-                    <td>{news.author_id}</td>
+                    <td>{news.user_id}</td>
                     <td>{news.photo_cover_url}</td>
                     <td>
                       <button

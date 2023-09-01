@@ -30,14 +30,17 @@ const Post = ({
   return (
     <>
       <Article
-        author={post?.author}
-        category={post?.category}
-        comments={post?.number_of_comments}
-        content={post?.content}
-        created_at={post?.created_at}
-        photo_cover_url={post?.photo_cover_url}
-        title={post?.title}
         key={post?.id}
+        article_author={post?.author}
+        article_category={post?.category}
+        number_of_comments={post?.number_of_comments}
+        article_content={post?.content}
+        article_created_at={post?.created_at}
+        photo_cover_url={post?.photo_cover_url}
+        article_title={post?.title}
+        article_id={post?.id}
+        article_updated_at={post?.updated_at}
+        user_id={post?.user_id}
       />
     </>
   );

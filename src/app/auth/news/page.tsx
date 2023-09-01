@@ -81,7 +81,7 @@ const News: React.FunctionComponent = (): JSX.Element => {
                   content={post.content}
                   photo_cover_url={post.photo_cover_url}
                   number_of_comments={post.number_of_comments}
-                  author_id={post.author_id}
+                  user_id={post.user_id}
                   id={post.id}
                   category={post.category}
                   created_at={post.created_at}
@@ -106,7 +106,7 @@ const News: React.FunctionComponent = (): JSX.Element => {
                   content={post.content}
                   photo_cover_url={post.photo_cover_url}
                   number_of_comments={post.number_of_comments}
-                  author_id={post.author_id}
+                  user_id={post.user_id}
                   id={post.id}
                   category={post.category}
                   created_at={post.created_at}
