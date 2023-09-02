@@ -23,6 +23,7 @@ const Article: React.FunctionComponent<Article> = ({
   article_updated_at,
 }) => {
   const [commentInput, setCommentInput] = useState<string>("");
+  const [hasRun, setHasRun] = useState<boolean>(false);
 
   // function to post a new comment
   const handleComment = async () => {
@@ -48,7 +49,12 @@ const Article: React.FunctionComponent<Article> = ({
   const getComments = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}`
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}?article_id=${article_id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
       );
       const response = (await res.json()) as CommentRequest;
       console.log(response);
@@ -59,8 +65,15 @@ const Article: React.FunctionComponent<Article> = ({
   };
 
   useEffect(() => {
-    getComments();
-  }, []);
+    let isMounted = true;
+    if (article_id && isMounted) {
+      getComments();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [article_id]);
 
   return (
     <main className="article">
@@ -139,8 +152,12 @@ const Article: React.FunctionComponent<Article> = ({
               <div className="comment" key={comment.id}>
                 <div className="comment__header">
                   <div className="comment__header--info">
-                    <p className="comment__header--info--author">By: {comment.user_id}</p>
-                    <p className="comment__header--info--date">Created at: {comment.created_at}</p>
+                    <p className="comment__header--info--author">
+                      By: {comment?.first_name}
+                    </p>
+                    <p className="comment__header--info--date">
+                      Created at: {new Date(comment?.created_at).toDateString()}
+                    </p>
                   </div>
                   <div className="comment__header--reply">
                     <p>Reply</p>

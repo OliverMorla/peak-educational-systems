@@ -11,7 +11,6 @@ import {
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import "swiper/css";
 import "./page.scss";
 
 // import Swiper core and required modules
@@ -89,7 +88,9 @@ const About: React.FunctionComponent = (): JSX.Element => {
                   <li>Lead Field Advisor ~ Mosaic Curriculum Team</li>
                   <li>Social Studies Leadership Team Member</li>
                   <li>New York State English Language</li>
-                  <li>Arts Test Scorer New York State Math Test Scorer Children's</li>
+                  <li>
+                    Arts Test Scorer New York State Math Test Scorer Children's
+                  </li>
                   <li>
                     Book Reviewer Society of Children's Book Writers &
                     Illustrators

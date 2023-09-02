@@ -205,6 +205,54 @@
     }
   }
 
+  .comments {
+    width: fit-content;
+    height: 110px;
+    overflow-y: scroll;
+    h2 {
+    }
+
+    .quotes__list {
+      .quotes__item {
+        overflow: hidden;
+        table {
+          border-collapse: collapse;
+          tbody {
+            tr {
+              td {
+                .delete-btn {
+                  background-color: var(--quinary);
+                  color: white;
+                  padding: 10px;
+                  border-radius: 5px;
+                  border: none;
+                  cursor: pointer;
+                  transition: all 0.3s ease-in-out;
+
+                  &:hover {
+                    background-color: var(--quaternary);
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        table,
+        td,
+        th {
+          border-bottom: 1px solid var(--primary);
+        }
+
+        td,
+        th {
+          text-align: center;
+          padding: 10px;
+        }
+      }
+    }
+  }
+
   .panel__buttons {
     display: flex;
     flex-direction: row;

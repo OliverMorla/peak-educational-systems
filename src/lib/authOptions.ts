@@ -1,3 +1,4 @@
+import { AuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import FacebookProvider from "next-auth/providers/facebook";
@@ -21,15 +22,14 @@ type UserTempType = {
 };
 
 let userTemp: UserTempType = {};
-
-const handler = NextAuth({
-  secret: process.env.OAUTH_SECRET,
+export const authOptions: AuthOptions = {
+  // secret: process.env.OAUTH_SECRET,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_OAUTH2_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_OAUTH2_CLIENT_SECRET ?? "",
     }),
-    FacebookProvider({ 
+    FacebookProvider({
       clientId: process.env.FACEBOOK_OAUTH2_CLIENT_ID ?? "",
       clientSecret: process.env.FACEBOOK_OAUTH2_CLIENT_SECRET ?? "",
     }),
@@ -69,28 +69,4 @@ const handler = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    // Modifies the default session to better fit our application's user structure.
-    async session({ session, user, token }) {
-      // Consolidate first and last name for a more user-friendly display.
-      let sessionTemp = {
-        ...session,
-        user: {
-          id: userTemp?.id,
-          name: userTemp?.first_name + " " + userTemp?.last_name,
-          email: userTemp?.email,
-          date_of_birth: userTemp.date_of_birth,
-          title: userTemp.title,
-          emp_type: userTemp.emp_type,
-          emp_region: userTemp.emp_region,
-          child_grade_level: userTemp.child_grade_level,
-          school_type: userTemp.school_type,
-          school_region: userTemp.school_region,
-        },
-      };
-      return sessionTemp;
-    },
-  },
-});
-
-export { handler as GET, handler as POST };
+};

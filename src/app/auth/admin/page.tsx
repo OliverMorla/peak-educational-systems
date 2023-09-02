@@ -12,11 +12,13 @@ const Panel = () => {
   const [news, setNews] = useState<News[]>([]);
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [quotes, setQuotes] = useState<Quote[]>([]);
+  const [comments, setComments] = useState<Comment[]>([]);
   const [errors, setErrors] = useState({
     userError: "",
     newsError: "",
     quoteError: "",
     blogError: "",
+    commentsError: "",
   });
 
   const getData = async (
@@ -38,11 +40,13 @@ const Panel = () => {
     }
   };
 
+  console.log(comments);
   useEffect(() => {
     getData("users", setUsers, "userError");
-    getData("blog", setBlogs, "blogError");
+    getData("blogs", setBlogs, "blogError");
     getData("quotes", setQuotes, "quoteError");
     getData("news", setNews, "newsError");
+    getData("comments", setComments, "commentsError");
   }, []);
 
   const handleDelete = async (
@@ -234,6 +238,41 @@ const Panel = () => {
                       <button
                         name="quote-delete-btn"
                         onClick={(e) => handleDelete(e, quote.id)}
+                        className="delete-btn"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section className="comments">
+        <h2> Comments </h2>
+        <div className="quotes__list">
+          <div className="quotes__item">
+            <table>
+              <thead>
+                <tr>
+                  <th> id </th>
+                  <th> content </th>
+                  <th> created_at </th>
+                </tr>
+              </thead>
+              <tbody>
+                {comments?.map((comment) => (
+                  <tr key={comment.id}>
+                    <td>{comment.id}</td>
+                    <td>{comment.content}</td>
+                    <td>{comment.created_at}</td>
+                    <td>
+                      <button
+                        name="quote-delete-btn"
+                        onClick={(e) => handleDelete(e, comment.id)}
                         className="delete-btn"
                       >
                         Delete
