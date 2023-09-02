@@ -16,7 +16,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const path = usePathname();
   const { data: session } = useSession();
-
+  if (session?.user?.name === "undefined undefined") signOut();
   return (
     <header
       className="header"

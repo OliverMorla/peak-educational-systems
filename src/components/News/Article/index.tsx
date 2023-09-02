@@ -32,13 +32,14 @@ const Article: React.FunctionComponent<Article> = ({
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}`,
         {
           method: "POST",
+          body: JSON.stringify(commentInput),
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(commentInput),
         }
       );
       const response = await res.json();
+      alert(response.message);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
@@ -53,11 +54,10 @@ const Article: React.FunctionComponent<Article> = ({
         {
           headers: {
             "Content-Type": "application/json",
-          }
+          },
         }
       );
       const response = (await res.json()) as CommentRequest;
-      console.log(response);
       setComments(response?.comments);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
@@ -89,7 +89,7 @@ const Article: React.FunctionComponent<Article> = ({
           <h1>{article_title}</h1>
           <p className="article__header--info--author">By: {article_author}</p>
           <p className="article__header--info--date">
-            Created: {article_created_at}
+            Created: {new Date(article_created_at).toDateString()}
           </p>
           <p className="article__header--info--category">{article_category}</p>
         </div>

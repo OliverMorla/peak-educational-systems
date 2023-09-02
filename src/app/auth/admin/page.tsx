@@ -3,8 +3,9 @@
 
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import "./page.scss";
 import Link from "next/link";
+import "./page.scss";
+import Loading from "@/components/Loading";
 
 const Panel = () => {
   // const { data: session } = useSession({ required: true });
@@ -40,7 +41,6 @@ const Panel = () => {
     }
   };
 
-  console.log(comments);
   useEffect(() => {
     getData("users", setUsers, "userError");
     getData("blogs", setBlogs, "blogError");
@@ -57,25 +57,100 @@ const Panel = () => {
       case "user-delete-btn":
         try {
           const res = await fetch(
-            `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/admin/users/${id}`,
+            `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/admin/users?id=${id}`,
             {
               method: "DELETE",
               headers: { "Content-Type": "application/json" },
             }
           );
-        } catch (err) {}
+          const response = await res.json();
+          if (response.ok) {
+            alert(response.message);
+          } else {
+            throw new Error(response.message);
+          }
+        } catch (err) {
+          if (err instanceof Error) alert(err.message);
+        }
         break;
       case "news-delete-btn":
         try {
-        } catch (err) {}
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/admin/news?id=${id}`,
+            {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const response = await res.json();
+          if (response.ok) {
+            alert(response.message);
+          } else {
+            throw new Error(response.message);
+          }
+        } catch (err) {
+          if (err instanceof Error) alert(err.message);
+        }
         break;
       case "blog-delete-btn":
         try {
-        } catch (err) {}
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/admin/blog?id=${id}`,
+            {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const response = await res.json();
+          if (response.ok) {
+            alert(response.message);
+          } else {
+            throw new Error(response.message);
+          }
+        } catch (err) {
+          if (err instanceof Error) alert(err.message);
+        }
         break;
       case "quote-delete-btn":
         try {
-        } catch (err) {}
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/admin/quotes?id=${id}`,
+            {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const response = await res.json();
+          if (response.ok) {
+            alert(response.message);
+          } else {
+            throw new Error(response.message);
+          }
+        } catch (err) {
+          if (err instanceof Error) alert(err.message);
+        }
+        break;
+      case "comment-delete-btn":
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/admin/comments?id=${id}`,
+            {
+              method: "DELETE",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          const response = await res.json();
+          if (response.ok) {
+            alert(response.message);
+          } else {
+            throw new Error(response.message);
+          }
+        } catch (err) {
+          if (err instanceof Error) alert(err.message);
+        }
+        break;
+      default:
+        alert("You have not selected any item to delete");
         break;
     }
   };
@@ -259,27 +334,37 @@ const Panel = () => {
               <thead>
                 <tr>
                   <th> id </th>
+                  <th> fist_name </th>
                   <th> content </th>
                   <th> created_at </th>
                 </tr>
               </thead>
               <tbody>
-                {comments?.map((comment) => (
-                  <tr key={comment.id}>
-                    <td>{comment.id}</td>
-                    <td>{comment.content}</td>
-                    <td>{comment.created_at}</td>
+                {comments.length === 0 ? (
+                  <tr>
                     <td>
-                      <button
-                        name="quote-delete-btn"
-                        onClick={(e) => handleDelete(e, comment.id)}
-                        className="delete-btn"
-                      >
-                        Delete
-                      </button>
+                      <Loading />
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  comments?.map((comment) => (
+                    <tr key={comment.id}>
+                      <td>{comment.id}</td>
+                      <td>{comment.first_name}</td>
+                      <td>{comment.content}</td>
+                      <td>{new Date(comment.created_at).toDateString()}</td>
+                      <td>
+                        <button
+                          name="comment-delete-btn"
+                          onClick={(e) => handleDelete(e, comment.id)}
+                          className="delete-btn"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

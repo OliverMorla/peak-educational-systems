@@ -59,7 +59,7 @@ interface Article {
   photo_cover_url?: string;
   number_of_comments?: number;
   article_category?: string;
-  article_created_at?: string;
+  article_created_at?: string | any;
   article_updated_at?: string;
 }
 

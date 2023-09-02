@@ -1,27 +1,57 @@
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from "next";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/authOptions";
+import { headers } from "next/headers";
 
-export async function POST(req: NextRequest, res: NextApiResponse) {
-  
-  const comment = await req.json();
-  const comments = await prisma.comments.create({
-    data: {
-      blog_id: Number(params.article_id),
-      content: comment,
-      user_id: Number(params.user_id),
-    },
-  });
+let user = {};
+
+export async function POST(
+  req: NextRequest,
+  {
+    params,
+  }: {
+    params: {
+      article_id: string;
+    };
+  }
+) {
+  const comment: string = await req.json();
+  //@ts-ignore
+  if (user?.id && comment) {
+    const comments = await prisma.comments.create({
+      data: {
+        blog_id: Number(params.article_id),
+        content: comment,
+        //@ts-ignore
+        user_id: Number(user?.id),
+      },
+    });
+
+    if (comments) {
+      return NextResponse.json({
+        status: 200,
+        ok: true,
+        message: "Comment successfully created!",
+      });
+    }
+  } else {
+    return NextResponse.json({
+      status: 400,
+      ok: false,
+      message: "Comment failed to create!",
+    });
+  }
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest) {
   const url = new URL(req.url as string, process.env.NEXT_PUBLIC_CLIENT_URL);
   const article_id = url.searchParams.get("article_id");
-  const session = await getServerSession(req, res, authOptions);
-  console.log(session);
+  const session = await fetch("http://localhost:3000/api/auth/session", {
+    method: "GET",
+    headers: headers(),
+  });
+  const data = await session.json();
+  user = data.user;
   const comments = await prisma.$queryRaw(
     Prisma.sql`
     SELECT 
