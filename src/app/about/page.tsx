@@ -5,21 +5,18 @@ import Image from "next/image";
 import Intro from "@/components/Home/Intro";
 import { About as Details } from "@/components/Home/About";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Scrollbar } from "swiper/modules";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
-import "./page.scss";
-
-// import Swiper core and required modules
-import { Navigation, Scrollbar } from "swiper/modules";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import "./page.scss";
 
 const About: React.FunctionComponent = (): JSX.Element => {
   return (
