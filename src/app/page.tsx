@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import {
   faArrowLeft,
   faArrowRight,
@@ -195,19 +196,21 @@ const Home: React.FunctionComponent = (): JSX.Element => {
                   listStyle: "none",
                 }}
               >
-                <Card
-                  user_id={news.user_id}
-                  content=""
-                  key={news.id}
-                  id={news.id}
-                  title={news.title}
-                  author={news.author}
-                  number_of_comments={news.number_of_comments}
-                  photo_cover_url={news.photo_cover_url}
-                  category={news.category}
-                  created_at={news.created_at}
-                  updated_at={news.updated_at}
-                />
+                <Link href={`/auth/news/${news.id}`}>
+                  <Card
+                    user_id={news.user_id}
+                    content=""
+                    key={news.id}
+                    id={news.id}
+                    title={news.title}
+                    author={news.author}
+                    number_of_comments={news.number_of_comments}
+                    photo_cover_url={news.photo_cover_url}
+                    category={news.category}
+                    created_at={news.created_at}
+                    updated_at={news.updated_at}
+                  />
+                </Link>
               </li>
             ))}
           </motion.div>

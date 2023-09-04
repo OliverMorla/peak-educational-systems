@@ -6,6 +6,7 @@ import Intro from "@/components/Home/Intro";
 import { About as Details } from "@/components/Home/About";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Scrollbar } from "swiper/modules";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -17,6 +18,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "./page.scss";
+import { fadeEffectLeft, fadeEffectRight } from "@/config/framer.config";
 
 const About: React.FunctionComponent = (): JSX.Element => {
   return (
@@ -39,18 +41,24 @@ const About: React.FunctionComponent = (): JSX.Element => {
             <p>Empowering Citizens with Knowledge</p>
           </div>
           <div className="content-text">
-            <h1>Auditory</h1>  
+            <h1>Auditory</h1>
             <p>News You Can Trust, Voices You Can Believe</p>
           </div>
         </div>
       </Intro>
       <Details />
       <section className="about-author">
-        <aside className="about-author__details">
+        <motion.aside
+          variants={fadeEffectLeft}
+          initial={"hidden"}
+          whileInView={"visible"}
+          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+          className="about-author__details"
+        >
           <section className="about-author__details-photo">
             <Image
               src="/assets/portraits/portrait-1.webp"
-              alt="about-author__image" 
+              alt="about-author__image"
               className="about-author__image"
               width={325}
               height={445}
@@ -76,14 +84,25 @@ const About: React.FunctionComponent = (): JSX.Element => {
                 <li>Lead Field Advisor ~ Mosaic Curriculum Team</li>
                 <li>Social Studies Leadership Team Member</li>
                 <li>New York State English Language</li>
-                <li>Arts Test Scorer New York State Math Test Scorer Children's</li>
-                <li>Book Reviewer Society of Children's Book Writers & Illustrators</li>
+                <li>
+                  Arts Test Scorer New York State Math Test Scorer Children's
+                </li>
+                <li>
+                  Book Reviewer Society of Children's Book Writers &
+                  Illustrators
+                </li>
                 <li>Member SCBWI Proofreader Consultant​</li>
               </ul>
             </aside>
           </section>
-        </aside>
-        <div className="about-author__summary">
+        </motion.aside>
+        <motion.div
+          variants={fadeEffectRight}
+          initial={"hidden"}
+          whileInView={"visible"}
+          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+          className="about-author__summary"
+        >
           <h1 className="about-author__summary-heading">About the author</h1>
           <p className="about-author__summary-desc">
             Sydney W. Joshua knows all about what it takes to balance a career
@@ -92,7 +111,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
             was employed at the famous Rockefeller Center in midtown Manhattan
             for many years, working alongside high-powered lawyers and in-house
             counsel, all while obtaining her first master’s degree, parenting
-            two young children, and commuting from the suburbs. 
+            two young children, and commuting from the suburbs.
             <br /> <br />
             Furthermore, her workplace was so accommodating that in the midst of
             it all, she was able to serve as vice president of the PTA at her
@@ -106,10 +125,16 @@ const About: React.FunctionComponent = (): JSX.Element => {
             Sydney lives in Long Island, NY which is referenced in her first
             children’s picture book: S is for Street Games (2022).
           </p>
-        </div>
+        </motion.div>
       </section>
       <section className="about-books">
-        <section className="about-books__books">
+        <motion.section
+          variants={fadeEffectLeft}
+          initial={"hidden"}
+          whileInView={"visible"}
+          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+          className="about-books__books"
+        >
           <h1 className="about-books__books-heading">Published Books</h1>
           <div className="about-books__books-list">
             <Swiper
@@ -137,8 +162,14 @@ const About: React.FunctionComponent = (): JSX.Element => {
               </SwiperSlide>
             </Swiper>
           </div>
-        </section>
-        <section className="about-books__book-reviews">
+        </motion.section>
+        <motion.section
+          variants={fadeEffectRight}
+          initial={"hidden"}
+          whileInView={"visible"}
+          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+          className="about-books__book-reviews"
+        >
           <h1 className="about-books__book-reviews-heading">Book Reviews</h1>
           <div className="about-books__book-reviews-list">
             <div className="about-books__book-review">
@@ -168,7 +199,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
               </h1>
             </div>
           </div>
-        </section>
+        </motion.section>
       </section>
     </main>
   );

@@ -9,8 +9,10 @@ import {
   faFaceGrinBeam,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import "./page.scss";
 import Session__Form from "@/components/Session/Form";
+import { fadeEffect, fadeEffect2 } from "@/config/framer.config";
 
 const Services: React.FunctionComponent = (): JSX.Element => {
   return (
@@ -26,7 +28,13 @@ const Services: React.FunctionComponent = (): JSX.Element => {
         <h1>Services</h1>
       </Intro>
       <section className="services__cards">
-        <div className="services__cards-group">
+        <motion.div
+          variants={fadeEffect2}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+          className="services__cards-group"
+        >
           <div className="services__card">
             <div className="card__header">
               <h1>
@@ -72,8 +80,14 @@ const Services: React.FunctionComponent = (): JSX.Element => {
               Visit sydneywjoshua.com for published works.
             </p>
           </div>
-        </div>
-        <div className="about__badges">
+        </motion.div>
+        <motion.div
+          variants={fadeEffect}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+          className="about__badges"
+        >
           <div className="badge">
             <FontAwesomeIcon icon={faSchool} className="badge__icon" />
             <h2>Quick Support</h2>
@@ -86,7 +100,7 @@ const Services: React.FunctionComponent = (): JSX.Element => {
             <FontAwesomeIcon icon={faFaceGrinBeam} className="badge__icon" />
             <h2>100+ Members</h2>
           </div>
-        </div>
+        </motion.div>
       </section>
       <section className="services__contact">
         <Image

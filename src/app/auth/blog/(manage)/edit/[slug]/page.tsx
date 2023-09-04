@@ -1,7 +1,26 @@
 "use client";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import "./page.scss";
 
-const Create: React.FunctionComponent = (): JSX.Element => {
+const Edit: React.FunctionComponent = (): JSX.Element => {
+  const { slug } = useParams();
+  const [blog, setBlog] = useState<Blog>();
+
+  const getBlog = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/blog/${slug}`
+      );
+      const data = await res.json();
+      if (data.ok) {
+        setBlog(data?.blogs);
+      }
+    } catch (err) {
+      if (err instanceof Error) alert(err.message);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -20,9 +39,9 @@ const Create: React.FunctionComponent = (): JSX.Element => {
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/blog/create`,
+        `${process.env.NEXT_PUBLIC_API_URL}/api/blog/${slug}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
@@ -47,17 +66,37 @@ const Create: React.FunctionComponent = (): JSX.Element => {
       alert("Please fill out all fields");
     }
   };
+
+  useEffect(() => {
+    let isMounted = true;
+    if (blog && isMounted) {
+      getBlog();
+    }
+    return () => {
+      isMounted = false;
+    };
+  }, [blog]);
+
   return (
-    <main className="news__create">
-      <h1> Create a News Post </h1>
+    <main className="blog__create">
+      <h1> Edit a Blog Post </h1>
       <form action="" className="create__form" onSubmit={handleSubmit}>
         <div className="form__group">
           <label htmlFor="title"> Title </label>
-          <input type="text" name="title" id="title" />
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder={blog?.title ?? "Enter a title"}
+          />
         </div>
         <div className="form__group">
           <label htmlFor="content"> Content </label>
-          <input name="content" id="content" />
+          <input
+            name="content"
+            id="content"
+            placeholder={blog?.content ?? "Enter the body"}
+          />
         </div>
         <div className="form__group">
           <label htmlFor="category">Category</label>
@@ -78,7 +117,14 @@ const Create: React.FunctionComponent = (): JSX.Element => {
           <label htmlFor="cover-photo">
             Cover Photo (use a unsplash.com url)
           </label>
-          <input type="text" name="cover-photo" id="cover-photo" />
+          <input
+            type="text"
+            name="cover-photo"
+            id="cover-photo"
+            placeholder={
+              blog?.photo_cover_url ?? "Enter a URL from unsplash.com"
+            }
+          />
         </div>
         <button type="submit"> Create </button>
       </form>
@@ -86,4 +132,4 @@ const Create: React.FunctionComponent = (): JSX.Element => {
   );
 };
 
-export default Create;
+export default Edit;

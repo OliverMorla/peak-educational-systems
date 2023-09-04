@@ -6,6 +6,12 @@
       .section__content {
         display: flex;
         flex-flow: row wrap;
+        .content__logo{
+          @include xs{
+            width: 100%;
+            object-fit: contain;
+          }
+        }
       }
     }
 

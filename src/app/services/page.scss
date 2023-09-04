@@ -6,23 +6,42 @@
       .section__content {
         display: flex;
         flex-flow: row wrap;
+        .content__logo {
+          @include xs {
+            width: 100%;
+            object-fit: contain;
+          }
+        }
       }
     }
   }
   .services__cards {
     height: 100vh;
-    background-color: var(--tertiary);
+    background-color: #c7c7c7;
+
+    @include md-down {
+      height: auto;
+    }
+
     .services__cards-group {
       padding-top: 35px;
       display: flex;
       justify-content: center;
+      flex-flow: row wrap;
       gap: 25px;
+
       .services__card {
         width: 485px;
+        @include xs {
+          width: 100%;
+        }
         .card__header {
           height: 575px;
           width: 485px;
           background-color: #d9d9d9;
+          @include xs {
+            width: 100%;
+          }
 
           h1 {
             padding: 15px;
@@ -30,6 +49,9 @@
             font-weight: bolder;
             position: relative;
             color: var(--secondary);
+            @include xs {
+              font-size: 50px;
+            }
           }
         }
 
