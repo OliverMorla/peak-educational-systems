@@ -64,7 +64,7 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
                   type={showPassword ? "text" : "password"}
                   name="password-hidden"
                   id="password-hidden"
-                  value={user?.password ?? ""}
+                  value={user?.password}
                   readOnly
                 />
                 <input
