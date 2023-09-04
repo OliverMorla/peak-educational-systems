@@ -1,6 +1,7 @@
 @import "@/styles/mixins.scss";
 
 .services {
+  
   .intro__section {
     .section__bg {
       .section__content {
@@ -16,10 +17,15 @@
     }
   }
   .services__cards {
+    padding: 25px;
     height: 100vh;
     background-color: #c7c7c7;
 
     @include md-down {
+      height: auto;
+    }
+    
+    @include lg-down{
       height: auto;
     }
 

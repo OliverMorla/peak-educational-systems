@@ -30,6 +30,8 @@ import Typewriter from "typewriter-effect";
 import "./page.scss";
 
 const Home: React.FunctionComponent = (): JSX.Element => {
+  const [eventSelect, setEventSelect] = useState("Blogs");
+
   const getQuotes = async () => {
     try {
       const res = await fetch(
@@ -263,23 +265,40 @@ const Home: React.FunctionComponent = (): JSX.Element => {
         </div>
         <section className="home__event-modal">
           <div className="event__header">
-            <span>Blogs</span>
-            <span>Events</span>
-            <span>Meetings</span>
+            <span onClick={() => setEventSelect("Blogs")}>Blogs</span>
+            <span onClick={() => setEventSelect("Events")}>Events</span>
+            <span onClick={() => setEventSelect("Meetings")}>Meetings</span>
           </div>
           <div className="event__body">
             <span>
-              <FontAwesomeIcon icon={faChalkboardTeacher} width={20} /> Attend
-              monthly workshops, webinars, and coaching sessions from industry
-              leaders
+              <FontAwesomeIcon icon={faChalkboardTeacher} width={20} />
+              {eventSelect === "Blogs"
+                ? "Attend monthly workshops, webinars, and coaching sessions from industry leaders"
+                : eventSelect === "Events"
+                ? "Apply to programs/events in collaboration with our partners"
+                : eventSelect === "Meetings"
+                ? "Submit your resume to our partner companies"
+                : ""}
             </span>
             <span>
               <FontAwesomeIcon icon={faUserGroup} width={20} />
-              Make friends with Memberships members through social activities
+              {eventSelect === "Blogs"
+                ? "Make friends with Memberships members through social activities"
+                : eventSelect === "Events"
+                ? "Get help with homework and career advice in our Slack workspace"
+                : eventSelect === "Meetings"
+                ? "Experience a truly safe space for Black and Latinx CS students"
+                : ""}
             </span>
             <span>
-              <FontAwesomeIcon icon={faBookOpen} width={20} /> Secure the bag at
-              our annual career fairs
+              <FontAwesomeIcon icon={faBookOpen} width={20} />
+              {eventSelect === "Blogs"
+                ? "Secure the bag at our annual career fairs"
+                : eventSelect === "Events"
+                ? "Find your life-long support system"
+                : eventSelect === "Meetings"
+                ? "Apply to programs/events in collaboration with our partners"
+                : ""}
             </span>
           </div>
         </section>

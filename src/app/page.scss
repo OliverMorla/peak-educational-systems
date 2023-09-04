@@ -365,6 +365,14 @@
         height: 100%;
         background-color: var(--senary);
 
+        span {
+          cursor: pointer;
+          transition: all 0.15s ease-in-out;
+          &:hover {
+            transform: scale(1.05);
+          }
+        }
+
         @include xs {
           min-width: 80px;
         }
