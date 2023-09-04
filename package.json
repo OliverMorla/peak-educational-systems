@@ -28,7 +28,8 @@
     "react-dom": "18.2.0",
     "react-fast-marquee": "^1.6.0",
     "sass": "^1.63.6",
-    "swiper": "^10.2.0"
+    "swiper": "^10.2.0",
+    "typewriter-effect": "^2.20.1"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

@@ -59,4 +59,54 @@ const fadeEffectLeft = {
   },
 };
 
-export { fadeEffect, fadeEffect2, fadeEffectLeft, fadeEffectRight };
+const fadeEffectDelay1 = {
+  hidden: {
+    opacity: 0,
+  },
+
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+      delay: 0.5,
+    },
+  },
+};
+
+const fadeEffectDelay2 = {
+  hidden: {
+    opacity: 0,
+  },
+
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+      delay: 0.7,
+    },
+  },
+};
+
+const fadeEffectDelay3 = {
+  hidden: {
+    opacity: 0,
+  },
+
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.25,
+      delay: 0.9,
+    },
+  },
+};
+
+export {
+  fadeEffect,
+  fadeEffect2,
+  fadeEffectLeft,
+  fadeEffectRight,
+  fadeEffectDelay1,
+  fadeEffectDelay2,
+  fadeEffectDelay3,
+};
