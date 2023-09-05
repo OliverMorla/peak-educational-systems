@@ -1,20 +1,23 @@
-"use client";
-
 /* eslint-disable react/no-unescaped-entities */
-import { motion } from "framer-motion";
-import { fadeEffect } from "@/config/framer.config";
+"use client";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { fadeEffectLeft } from "@/config/framer.config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookOpen, faSchool } from "@fortawesome/free-solid-svg-icons";
 import { faFaceGrinBeam } from "@fortawesome/free-regular-svg-icons";
+import { Counter } from "@/components/Counter";
 import Image from "next/image";
 import Marquee from "react-fast-marquee";
 import "./style.scss";
 
 const About: React.FunctionComponent = (): JSX.Element => {
+  const aboutBagesRef = useRef<HTMLDivElement>(null);
+  const IsInView = useInView(aboutBagesRef, { once: true });
   return (
     <section className="home__about-section">
       <motion.div
-        variants={fadeEffect}
+        variants={fadeEffectLeft}
         initial="hidden"
         whileInView="visible"
         className="about"
@@ -34,18 +37,24 @@ const About: React.FunctionComponent = (): JSX.Element => {
           children from all backgrounds should have access to, and engagement
           with, diverse, high quality literature.
         </p>
-        <div className="about__badges">
+        <div className="about__badges" ref={aboutBagesRef}>
           <div className="badge">
             <FontAwesomeIcon icon={faSchool} className="badge__icon" />
             <h2>Quick Support</h2>
           </div>
           <div className="badge">
             <FontAwesomeIcon icon={faBookOpen} className="badge__icon" />
-            <h2>2+ Books Written</h2>
+            <h2>
+              {IsInView ? <Counter duration={1000} targetCount={2} /> : "2"}+
+              Books Written
+            </h2>
           </div>
           <div className="badge">
             <FontAwesomeIcon icon={faFaceGrinBeam} className="badge__icon" />
-            <h2>100+ Members</h2>
+            <h2>
+              {IsInView ? <Counter duration={50} targetCount={100} /> : "100"}+
+              Members
+            </h2>
           </div>
         </div>
       </motion.div>

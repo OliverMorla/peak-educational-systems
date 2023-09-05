@@ -111,7 +111,7 @@ interface CommentRequest {
   comments: Comment[];
 }
 
-// Authentication Types 
+// Authentication Types
 type empl = "private" | "public" | "home" | "other" | "";
 type regions = "nyc" | "nassau" | "suffolk" | "";
 

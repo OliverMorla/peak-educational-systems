@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-
-import Intro from "@/components/Home/Intro";
+import { motion } from "framer-motion";
+import { fadeEffect, fadeEffect2 } from "@/config/framer.config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSchool,
@@ -9,10 +9,9 @@ import {
   faFaceGrinBeam,
 } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import Intro from "@/components/Home/Intro";
+import SessionForm from "@/components/Session/Form";
 import "./page.scss";
-import Session__Form from "@/components/Session/Form";
-import { fadeEffect, fadeEffect2 } from "@/config/framer.config";
 
 const Services: React.FunctionComponent = (): JSX.Element => {
   return (
@@ -110,7 +109,7 @@ const Services: React.FunctionComponent = (): JSX.Element => {
           height={475}
           className="contact__logo"
         />
-        <Session__Form />
+        <SessionForm />
       </section>
     </main>
   );

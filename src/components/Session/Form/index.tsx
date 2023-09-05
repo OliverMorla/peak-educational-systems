@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { fadeEffect } from "@/config/framer.config";
 import "./style.scss";
 
-const Session__Form: React.FunctionComponent = () => {
+const SessionForm: React.FunctionComponent = () => {
   return (
     <motion.div
       variants={fadeEffect}
@@ -48,4 +48,4 @@ const Session__Form: React.FunctionComponent = () => {
   );
 };
 
-export default Session__Form;
+export default SessionForm;

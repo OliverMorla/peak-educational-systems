@@ -1,11 +1,37 @@
 "use client";
+import { ChangeEvent, useState, useRef } from "react";
 import Image from "next/image";
 import Intro from "@/components/Home/Intro";
-import { motion } from "framer-motion";
-import { fadeEffect2 } from "@/config/framer.config";
 import "./page.scss";
 
 const Contact: React.FunctionComponent = (): JSX.Element => {
+  const contactBtn = useRef<HTMLButtonElement>(null);
+  const [isButtonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [input, setInput] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    try {
+      if (!input.name || !input.email || !input.message)
+        return alert("Please fill all the fields");
+      new Promise((resolve, reject) => {
+        setButtonDisabled(true);
+        contactBtn.current?.setAttribute("disabled", "disabled");
+        setTimeout(() => {
+          resolve("resolved");
+        }, 2000);
+      }).then(() => {
+        contactBtn.current?.removeAttribute("disabled");
+        setButtonDisabled(false);
+        alert("Message sent successfully!");
+      });
+    } catch (err) {
+      if (err instanceof Error) return alert(err.message);
+    }
+  };
   return (
     <main className="contact">
       <Intro>
@@ -25,6 +51,9 @@ const Contact: React.FunctionComponent = (): JSX.Element => {
                 type="text"
                 name="name"
                 id="name"
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setInput({ ...input, name: e.target.value })
+                }
                 placeholder="Enter your name"
                 required
               />
@@ -35,6 +64,9 @@ const Contact: React.FunctionComponent = (): JSX.Element => {
                 type="email"
                 name="email"
                 id="email"
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  setInput({ ...input, email: e.target.value })
+                }
                 placeholder="Enter your email"
                 required
               />
@@ -46,10 +78,19 @@ const Contact: React.FunctionComponent = (): JSX.Element => {
                 id="message"
                 cols={30}
                 rows={10}
+                onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+                  setInput({ ...input, message: e.target.value })
+                }
                 placeholder="Enter your message here"
               ></textarea>
             </div>
-            <button className="contact-form__btn">Send</button>
+            <button
+              className="contact-form__btn"
+              onClick={handleSubmit}
+              ref={contactBtn}
+            >
+              {isButtonDisabled ? "Sending..." : "Send"}
+            </button>
           </form>
         </section>
       </Intro>

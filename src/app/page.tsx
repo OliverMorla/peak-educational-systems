@@ -1,9 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
 import {
   faArrowLeft,
   faArrowRight,
@@ -20,12 +19,13 @@ import {
   fadeEffectDelay2,
   fadeEffectDelay3,
 } from "@/config/framer.config";
+import Link from "next/link";
+import Image from "next/image";
 import Marquee from "react-fast-marquee";
+import Typewriter from "typewriter-effect";
 import Card from "@/components/News/Card";
 import Modal from "@/components/Modal";
-import Image from "next/image";
-import Session__Form from "@/components/Session/Form";
-import Typewriter from "typewriter-effect";
+import SessionForm from "@/components/Session/Form";
 import { Counter } from "@/components/Counter";
 import "./page.scss";
 
@@ -76,7 +76,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
   };
 
   const about__badges = useRef(null);
-  const IsInView = useInView(about__badges, { margin: "", once: true });
+  const IsInView = useInView(about__badges, { once: true });
 
   return (
     <main className="home">
@@ -105,14 +105,14 @@ const Home: React.FunctionComponent = (): JSX.Element => {
                 initial="hidden"
                 animate="visible"
               >
-                Learn,
+                &nbsp;Learn,
               </motion.span>
               <motion.span
                 variants={fadeEffectDelay3}
                 initial="hidden"
                 animate="visible"
               >
-                Explore
+                &nbsp;Explore
               </motion.span>
             </h1>
             <div className="content__border"></div>
@@ -311,7 +311,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
           height={475}
           className="contact__logo"
         />
-        <Session__Form />
+        <SessionForm />
       </section>
     </main>
   );
