@@ -381,10 +381,6 @@
         @include sm-down {
           min-width: 100px;
         }
-
-        :nth-child(2) {
-          font-weight: 900;
-        }
       }
 
       .event__body {

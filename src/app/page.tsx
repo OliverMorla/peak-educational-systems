@@ -30,7 +30,7 @@ import { Counter } from "@/components/Counter";
 import "./page.scss";
 
 const Home: React.FunctionComponent = (): JSX.Element => {
-  const [eventSelect, setEventSelect] = useState("Blogs");
+  const [eventSelect, setEventSelect] = useState("Events");
 
   const getQuotes = async () => {
     try {
@@ -265,9 +265,24 @@ const Home: React.FunctionComponent = (): JSX.Element => {
         </div>
         <section className="home__event-modal">
           <div className="event__header">
-            <span onClick={() => setEventSelect("Blogs")}>Blogs</span>
-            <span onClick={() => setEventSelect("Events")}>Events</span>
-            <span onClick={() => setEventSelect("Meetings")}>Meetings</span>
+            <span
+              onClick={() => setEventSelect("Blogs")}
+              style={eventSelect === "Blogs" ? { fontWeight: "900" } : {}}
+            >
+              Blogs
+            </span>
+            <span
+              onClick={() => setEventSelect("Events")}
+              style={eventSelect === "Events" ? { fontWeight: "900" } : {}}
+            >
+              Events
+            </span>
+            <span
+              onClick={() => setEventSelect("Meetings")}
+              style={eventSelect === "Meetings" ? { fontWeight: "900" } : {}}
+            >
+              Meetings
+            </span>
           </div>
           <div className="event__body">
             <span>
