@@ -47,7 +47,11 @@
       transform: translateX(-10%);
       letter-spacing: -1px;
       font-size: 32px;
+      transition: all 0.15s ease-in-out;
 
+      &:hover {
+        color: var(--primary);
+      }
       @include sm-down {
         font-size: 22px;
       }

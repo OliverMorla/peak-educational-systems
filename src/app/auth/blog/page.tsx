@@ -2,7 +2,7 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import Category from "@/components/Inputs/Category";
 import Loading from "@/components/Loading";
 import Card from "@/components/News/Card";
@@ -20,7 +20,6 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs`
       );
       const response = await res.json();
-      console.log(response);
       setLoading(false);
       return response?.blogs;
     } catch (err) {

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
 import Article from "@/components/News/Article";
 import "./page.scss";
 
@@ -22,7 +22,6 @@ const Post = ({
       );
       const response = await res.json();
       setLoading(false);
-      console.log(response);
       return response?.post;
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);

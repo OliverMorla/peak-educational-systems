@@ -17,9 +17,10 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/user/${session?.user?.id}`
       );
       const data = await res.json();
-      if (data.user) setUser(data.user);
+      if (data.user) return setUser(data.user);
+      throw new Error("User not found!");
     } catch (err) {
-      console.log(err);
+      if (err instanceof Error) alert(err.message);
     }
   };
 
