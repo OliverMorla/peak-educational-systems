@@ -25,9 +25,9 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
 
   const deleteAcc = async (id: string | number | undefined) => {
     try {
-      console.log("Account deleted");
+      alert("Account Deleted!");
     } catch (err) {
-      console.log("Failed to delete account");
+      if (err instanceof Error) alert(err.message);
     }
   };
 
@@ -47,7 +47,7 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
     return (
       <main className="profile__dashboard">
         <h1> Dashboard page </h1>
-        <section className="dashboard__modal">
+        <section className="profile__dashboard-modal">
           <div className="modal__content">
             <ul>
               <li>

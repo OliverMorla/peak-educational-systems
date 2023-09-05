@@ -24,15 +24,15 @@
   --quinary-hover: #0f1e37;
   --senary: #1d293c;
   --octonary: #141b2c;
-  --nonary: #37455C;
+  --nonary: #37455c;
   --primary-hover: #97b335;
   --black: #000000;
   --white: #ffffff;
-  --matteGrey: #E5E5E5;
-  --matteBlack: #28282B;
+  --matteGrey: #e5e5e5;
+  --matteBlack: #28282b;
   --matteBlack-hover: #141414;
-  --matteRed: #B33F40;
-  --matteRed-hover: #A32F30;
+  --matteRed: #b33f40;
+  --matteRed-hover: #a32f30;
 }
 
 *,
@@ -58,4 +58,17 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+  color: var(--matteRed);
+  background-color: var(--tertiary);
+  font-size: 0.8rem;
+  min-height: 100vh;
+  font-weight: 300;
 }

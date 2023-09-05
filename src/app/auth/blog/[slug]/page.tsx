@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import { useSession, signOut } from "next-auth/react";
 import Article from "@/components/News/Article";
 import "./page.scss";
 
@@ -11,6 +13,7 @@ const Post = ({
   };
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { status, data: session } = useSession();
   const getPost = async () => {
     try {
       setLoading(true);
@@ -29,23 +32,35 @@ const Post = ({
   const [post, setPost] = useState<Blog>((): any => {
     getPost().then((data) => setPost(data));
   });
-
-  return (
-    <>
-      <Article
-        article_id={post?.id}
-        user_id={post?.user_id}
-        article_title={post?.title}
-        article_author={post?.author}
-        number_of_comments={post?.number_of_comments}
-        article_content={post?.content}
-        article_created_at={post?.created_at}
-        photo_cover_url={post?.photo_cover_url}
-        article_category={post?.category}
-        article_updated_at={post?.updated_at}
-      />
-    </>
-  );
+  if (status === "unauthenticated" || status === "loading") {
+    return (
+      <main className="error">
+        <h1>You have to sign in!</h1>
+        <p>
+          Please login in order to view this page. If you do not have an
+          account, please sign up.
+        </p>
+        <Link href={"/register"}>Click here to sign up!</Link>
+      </main>
+    );
+  } else {
+    return (
+      <>
+        <Article
+          article_id={post?.id}
+          user_id={post?.user_id}
+          article_title={post?.title}
+          article_author={post?.author}
+          number_of_comments={post?.number_of_comments}
+          article_content={post?.content}
+          article_created_at={post?.created_at}
+          photo_cover_url={post?.photo_cover_url}
+          article_category={post?.category}
+          article_updated_at={post?.updated_at}
+        />
+      </>
+    );
+  }
 };
 
 export default Post;

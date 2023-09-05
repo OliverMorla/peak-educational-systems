@@ -2,6 +2,7 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useSession, signOut } from "next-auth/react";
 import Category from "@/components/Inputs/Category";
 import Loading from "@/components/Loading";
 import Card from "@/components/News/Card";
@@ -10,6 +11,7 @@ import "./page.scss";
 
 const Blog: React.FunctionComponent = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false);
+  const { status, data: session } = useSession();
 
   const getBlogs = async () => {
     try {
@@ -45,82 +47,94 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
   const [categories, setCategories] = useState<Category[]>((): any => {
     getCategories().then((data) => setCategories(data));
   });
-
-  return (
-    <main className="blog">
-      <h1>Blogs</h1>
-      <aside className="blog__search">
-        <section className="search">
-          <FontAwesomeIcon icon={faSearch} className="search__icon" />
-          <input
-            type="text"
-            className="search__input"
-            placeholder="Enter blog name"
-          />
+  if (status === "unauthenticated" || status === "loading") {
+    return (
+      <main className="error">
+        <h1>You have to sign in!</h1>
+        <p>
+          Please login in order to view this page. If you do not have an
+          account, please sign up.
+        </p>
+        <Link href={"/register"}>Click here to sign up!</Link>
+      </main>
+    );
+  } else {
+    return (
+      <main className="blog">
+        <h1>Blogs</h1>
+        <aside className="blog__search">
+          <section className="search">
+            <FontAwesomeIcon icon={faSearch} className="search__icon" />
+            <input
+              type="text"
+              className="search__input"
+              placeholder="Enter blog name"
+            />
+          </section>
+        </aside>
+        <p>Choose a category or Search an article by title.</p>
+        <aside className="blog__categories">
+          {categories?.map((category, index) => (
+            <Category
+              key={index}
+              name={category?.category}
+              count={category?._count.category}
+            />
+          ))}
+        </aside>
+        <section className="blog__posts">
+          <h2>Most Popular </h2>
+          <section className="blog__overflow">
+            {loading ? (
+              <Loading />
+            ) : (
+              blogs?.map((post) => (
+                <Link href={`/auth/blog/${post.id}`} key={post.id}>
+                  <Card
+                    author={post.author}
+                    title={post.title}
+                    content={post.content}
+                    photo_cover_url={post.photo_cover_url}
+                    number_of_comments={post.number_of_comments}
+                    user_id={post.user_id}
+                    id={post.id}
+                    category={post.category}
+                    created_at={post.created_at}
+                    updated_at={post.updated_at}
+                  />
+                </Link>
+              ))
+            )}
+          </section>
         </section>
-      </aside>
-      <p>Choose a category or Search an article by title.</p>
-      <aside className="blog__categories">
-        {categories?.map((category, index) => (
-          <Category
-            key={index}
-            name={category?.category}
-            count={category?._count.category}
-          />
-        ))}
-      </aside>
-      <section className="blog__posts">
-        <h2>Most Popular </h2>
-        <section className="blog__overflow">
-          {loading ? (
-            <Loading />
-          ) : (
-            blogs?.map((post) => (
-              <Link href={`/auth/blog/${post.id}`} key={post.id}>
-                <Card
-                  author={post.author}
-                  title={post.title}
-                  content={post.content}
-                  photo_cover_url={post.photo_cover_url}
-                  number_of_comments={post.number_of_comments}
-                  user_id={post.user_id}
-                  id={post.id}
-                  category={post.category}
-                  created_at={post.created_at}
-                  updated_at={post.updated_at}
-                />
-              </Link>
-            ))
-          )}
+        <section className="blog__posts">
+          <h2>Latest</h2>
+          <section className="blog__overflow">
+            {loading ? (
+              <Loading />
+            ) : (
+              blogs?.map((post) => (
+                <Link href={`/auth/blog/${post.id}`} key={post.id}>
+                  <Card
+                    author={post.author}
+                    title={post.title}
+                    content={post.content}
+                    photo_cover_url={post.photo_cover_url}
+                    number_of_comments={post.number_of_comments}
+                    user_id={post.user_id}
+                    id={post.id}
+                    category={post.category}
+                    created_at={post.created_at}
+                    updated_at={post.updated_at}
+                  />
+                </Link>
+              ))
+            )}
+          </section>
         </section>
-      </section>
-      <section className="blog__posts">
-        <h2>Latest</h2>
-        <section className="blog__overflow">
-          {loading ? (
-            <Loading />
-          ) : (
-            blogs?.map((post) => (
-              <Link href={`/auth/blog/${post.id}`} key={post.id}>
-                <Card
-                  author={post.author}
-                  title={post.title}
-                  content={post.content}
-                  photo_cover_url={post.photo_cover_url}
-                  number_of_comments={post.number_of_comments}
-                  user_id={post.user_id}
-                  id={post.id}
-                  category={post.category}
-                  created_at={post.created_at}
-                  updated_at={post.updated_at}
-                />
-              </Link>
-            ))
-          )}
-        </section>
-      </section>
-    </main>
-  );
+      </main>
+    );
+  }
 };
 
 export default Blog;
