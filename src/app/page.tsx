@@ -25,8 +25,8 @@ import Card from "@/components/News/Card";
 import Modal from "@/components/Modal";
 import Image from "next/image";
 import Session__Form from "@/components/Session/Form";
-import { Counter } from "@/components/Counter";
 import Typewriter from "typewriter-effect";
+import { Counter } from "@/components/Counter";
 import "./page.scss";
 
 const Home: React.FunctionComponent = (): JSX.Element => {

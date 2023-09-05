@@ -1,17 +1,19 @@
 @import "/src/styles/mixins.scss";
 
 .admin__panel {
+  padding: 75px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: var(--octonary);
+  overflow: hidden;
   color: white;
   gap: 50px;
 
   .users {
-    width: fit-content;
+    width: 100%;
     height: 100px;
     overflow-y: scroll;
 
@@ -20,10 +22,8 @@
 
     .users__list {
       .users__item {
-        overflow: hidden;
         table {
           border-collapse: collapse;
-
           tbody {
             tr {
               td {
@@ -61,7 +61,7 @@
   }
 
   .news {
-    width: 95%;
+    width: 100%;
     height: 100px;
     overflow-y: scroll;
 
@@ -110,7 +110,7 @@
   }
 
   .blogs {
-    width: 95%;
+    width: 100%;
     height: 110px;
     overflow-y: scroll;
     h2 {
@@ -158,7 +158,8 @@
   }
 
   .quotes {
-    width: fit-content;
+    width: 100%;
+
     height: 110px;
     overflow-y: scroll;
     h2 {
@@ -206,7 +207,7 @@
   }
 
   .comments {
-    width: fit-content;
+    width: 100%;
     height: 110px;
     overflow-y: scroll;
     h2 {

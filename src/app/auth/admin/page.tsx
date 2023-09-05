@@ -179,30 +179,38 @@ const Panel = () => {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
-                  <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.first_name}</td>
-                    <td>{user.last_name}</td>
-                    <td>{user.email}</td>
-                    <td>{user.date_of_birth}</td>
-                    <td>{user.title}</td>
-                    <td>{user.emp_type}</td>
-                    <td>{user.emp_region}</td>
-                    <td>{user.child_grade_level}</td>
-                    <td>{user.school_type}</td>
-                    <td>{user.school_region}</td>
+                {users.length === 0 ? (
+                  <tr>
                     <td>
-                      <button
-                        name="user-delete-btn"
-                        onClick={(e) => handleDelete(e, user.id)}
-                        className="delete-btn"
-                      >
-                        Delete
-                      </button>
+                      <Loading />
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  users.map((user) => (
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.first_name}</td>
+                      <td>{user.last_name}</td>
+                      <td>{user.email}</td>
+                      <td>{user.date_of_birth}</td>
+                      <td>{user.title}</td>
+                      <td>{user.emp_type}</td>
+                      <td>{user.emp_region}</td>
+                      <td>{user.child_grade_level}</td>
+                      <td>{user.school_type}</td>
+                      <td>{user.school_region}</td>
+                      <td>
+                        <button
+                          name="user-delete-btn"
+                          onClick={(e) => handleDelete(e, user.id)}
+                          className="delete-btn"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -225,26 +233,34 @@ const Panel = () => {
                 </tr>
               </thead>
               <tbody>
-                {news?.map((news) => (
-                  <tr key={news.id}>
-                    <td>{news.id}</td>
-                    <td>{news.title}</td>
-                    <td>{news.author}</td>
-                    <td>{news.number_of_comments}</td>
-                    <td>{news.user_id}</td>
-                    <td>{news.photo_cover_url}</td>
-                    <td>{news.created_at}</td>
+                {news.length === 0 ? (
+                  <tr>
                     <td>
-                      <button
-                        name="news-delete-btn"
-                        onClick={(e) => handleDelete(e, news.id)}
-                        className="delete-btn"
-                      >
-                        Delete
-                      </button>
+                      <Loading />
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  news?.map((news) => (
+                    <tr key={news.id}>
+                      <td>{news.id}</td>
+                      <td>{news.title}</td>
+                      <td>{news.author}</td>
+                      <td>{news.number_of_comments}</td>
+                      <td>{news.user_id}</td>
+                      <td>{news.photo_cover_url}</td>
+                      <td>{news.created_at}</td>
+                      <td>
+                        <button
+                          name="news-delete-btn"
+                          onClick={(e) => handleDelete(e, news.id)}
+                          className="delete-btn"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -266,25 +282,33 @@ const Panel = () => {
                 </tr>
               </thead>
               <tbody>
-                {blogs?.map((blog) => (
-                  <tr key={blog.id}>
-                    <td>{blog.id}</td>
-                    <td>{blog.title}</td>
-                    <td>{blog.author}</td>
-                    <td>{blog.number_of_comments}</td>
-                    <td>{blog.photo_cover_url}</td>
-                    <td>{blog.created_at}</td>
+                {blogs.length === 0 ? (
+                  <tr>
                     <td>
-                      <button
-                        name="blog-delete-btn"
-                        onClick={(e) => handleDelete(e, blog.id)}
-                        className="delete-btn"
-                      >
-                        Delete
-                      </button>
+                      <Loading />
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  blogs?.map((blog) => (
+                    <tr key={blog.id}>
+                      <td>{blog.id}</td>
+                      <td>{blog.title}</td>
+                      <td>{blog.author}</td>
+                      <td>{blog.number_of_comments}</td>
+                      <td>{blog.photo_cover_url}</td>
+                      <td>{blog.created_at}</td>
+                      <td>
+                        <button
+                          name="blog-delete-btn"
+                          onClick={(e) => handleDelete(e, blog.id)}
+                          className="delete-btn"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
@@ -304,22 +328,30 @@ const Panel = () => {
                 </tr>
               </thead>
               <tbody>
-                {quotes?.map((quote) => (
-                  <tr key={quote.id}>
-                    <td>{quote.id}</td>
-                    <td>{quote.quote}</td>
-                    <td>{quote.author}</td>
+                {quotes.length === 0 ? (
+                  <tr>
                     <td>
-                      <button
-                        name="quote-delete-btn"
-                        onClick={(e) => handleDelete(e, quote.id)}
-                        className="delete-btn"
-                      >
-                        Delete
-                      </button>
+                      <Loading />
                     </td>
                   </tr>
-                ))}
+                ) : (
+                  quotes?.map((quote) => (
+                    <tr key={quote.id}>
+                      <td>{quote.id}</td>
+                      <td>{quote.quote}</td>
+                      <td>{quote.author}</td>
+                      <td>
+                        <button
+                          name="quote-delete-btn"
+                          onClick={(e) => handleDelete(e, quote.id)}
+                          className="delete-btn"
+                        >
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>

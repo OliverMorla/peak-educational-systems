@@ -1,0 +1,74 @@
+@import "@/styles/mixins.scss";
+
+.quote__create {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  color: var(--white);
+  background-color: var(--secondary);
+
+  .create__form {
+    .form__group {
+      margin-bottom: 1rem;
+
+      label {
+        font-weight: bolder;
+      }
+
+      input {
+        width: 100%;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid var(--white);
+        background-color: transparent;
+        color: var(--white);
+        font-size: 1rem;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    button {
+      cursor: pointer;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--white);
+      background-color: transparent;
+      color: var(--white);
+      font-size: 1rem;
+      transition: all 0.15s ease-in-out;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        background-color: var(--white);
+        color: var(--secondary);
+      }
+    }
+
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid var(--white);
+      background-color: transparent;
+      color: var(--white);
+      font-size: 1rem;
+
+      &:focus {
+        outline: none;
+      }
+
+      option {
+        color: var(--matteBlack);
+      }
+    }
+  }
+}
