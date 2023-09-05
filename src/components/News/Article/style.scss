@@ -103,12 +103,22 @@
     }
 
     .comments {
+      .comment__header{
+        .comment__header--info{
+          .comment__header--info--author{
+            opacity: .8;
+          }
+          .comment__header--info--date{
+            opacity: .6;
+          }
+        }
+      }
       .comment {
-        background-color: var(--tertiary);
+        // background-color: var(--tertiary);
         padding: 10px;
-        border-radius: 10px;
+        // border-radius: 10px;
         margin-bottom: 10px;
-        box-shadow: 0 0 1px inset var(--matteBlack);
+        border-bottom: 2px solid var(--matteBlack);
       }
     }
   }

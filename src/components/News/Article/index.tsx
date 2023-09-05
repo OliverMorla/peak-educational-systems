@@ -159,9 +159,6 @@ const Article: React.FunctionComponent<Article> = ({
                       Created at: {new Date(comment?.created_at).toDateString()}
                     </p>
                   </div>
-                  <div className="comment__header--reply">
-                    <p>Reply</p>
-                  </div>
                 </div>
                 <div className="comment__content">
                   <p>{comment.content}</p>
