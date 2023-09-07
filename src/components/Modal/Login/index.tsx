@@ -95,12 +95,6 @@ const Login: React.FunctionComponent<Props> = ({
 
           <div className="modal__oauth__wrapper">
             <div className="oauth__divider">
-              <button className="oauth__btn magic__btn">
-                <FontAwesomeIcon icon={faEnvelope} />
-                Sign in with Magic Link
-              </button>
-            </div>
-            <div className="oauth__divider">
               <button
                 className="oauth__btn google__btn"
                 onClick={() => signIn("google")}

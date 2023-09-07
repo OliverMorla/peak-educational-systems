@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import Image from "next/image";
+import MarkdownEditor from "@uiw/react-markdown-editor";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -95,22 +96,9 @@ const Article: React.FunctionComponent<Article> = ({
         </div>
       </section>
       <section className="article__content">
-        <p>{article_content}</p>
-      </section>
-      <section className="article__tags">
-        <h2>Tags</h2>
-        <div className="tags__input">
-          <input type="checkbox" name="" id="" className="tag__input" />
-          <label htmlFor="">Tag 1</label>
-        </div>
-        <div className="tags__input">
-          <input type="checkbox" name="" id="" className="tag__input" />
-          <label htmlFor="">Tag 2</label>
-        </div>
-        <div className="tags__input">
-          <input type="checkbox" name="" id="" className="tag__input" />
-          <label htmlFor="">Tag 3</label>
-        </div>
+      <div className="App" data-color-mode="light">
+        <MarkdownEditor.Markdown source={article_content} />
+      </div>
       </section>
       <section className="article__share ">
         <h2>Share</h2>

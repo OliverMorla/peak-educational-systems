@@ -72,15 +72,23 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
           </section>
         </aside>
         <p>Choose a category or Search an article by title.</p>
-        <aside className="blog__categories">
-          {categories?.map((category, index) => (
-            <Category
-              key={index}
-              name={category?.category}
-              count={category?._count.category}
-            />
-          ))}
-        </aside>
+        <section className="blog__categories-wrapper">
+          <aside className="blog__categories">
+            {categories?.map((category, index) => (
+              <Category
+                key={index}
+                name={category?.category}
+                count={category?._count.category}
+              />
+            ))}
+          </aside>
+          
+        </section>
+        <section className="blog__create-wrapper">
+            <Link href="/auth/blog/create">
+              <button className="blog__create">Create a Blog Post</button>
+            </Link>
+          </section>
         <section className="blog__posts">
           <h2>Most Popular </h2>
           <section className="blog__overflow">

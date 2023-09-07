@@ -16,13 +16,16 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const path = usePathname();
   const { data: session } = useSession();
+  console.log(session);
   if (session?.user?.name === "undefined undefined") signOut();
   return (
     <header
       className="header"
       style={{
         backgroundColor:
-          path === "/auth/blog/create" || path.startsWith("/auth/blog/")
+          path === "/auth/blog/create" ||
+          path.startsWith("/auth/blog/") ||
+          path.startsWith("/auth/news/")
             ? "var(--senary)"
             : "",
       }}
@@ -100,7 +103,11 @@ const Header: React.FunctionComponent = (): JSX.Element => {
             animate={{ opacity: 1, x: 0 }}
             className="nav__item profile-btn"
           >
-            <Link href={"/auth/dashboard"}>{session?.user?.name}</Link>
+            <Link href={"/auth/dashboard"}>
+              {session?.user?.name === null
+                ? session?.user?.email
+                : session?.user?.name}
+            </Link>
           </motion.div>
         )}
         {session?.user && (

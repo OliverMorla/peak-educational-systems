@@ -29,15 +29,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Suspense fallback={<Loading />}>
-          <AuthProvider>
+        <AuthProvider>
+          <Suspense fallback={<Loading />}>
             <Providers>
               <Header />
               {children}
               <Footer />
             </Providers>
-          </AuthProvider>
-        </Suspense>
+          </Suspense>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -1,26 +1,36 @@
 "use client";
 import "./page.scss";
+import { useState } from "react";
+import MarkdownEditor from "@uiw/react-markdown-editor";
+import { useSession } from "next-auth/react";
 
 const Create: React.FunctionComponent = (): JSX.Element => {
+  const [markdown, setMarkdown] = useState("");
+  const { data: session } = useSession();
+  console.log(session);
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // @ts-ignore
     const title = e.currentTarget.title?.value;
-    const content = e.currentTarget.content?.value;
     const category = e.currentTarget.category?.value;
     const coverPhoto = e.currentTarget.coverPhoto?.value;
 
     let FormInputs = {
       title: title,
-      content: content,
+      content: markdown,
       category: category,
       coverPhoto: coverPhoto,
+      author: session?.user?.name,
+      // @ts-ignore
+      user_id: session?.user?.id,
+      number_of_comments: 0,
     };
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/blog/create`,
+        `${process.env.NEXT_PUBLIC_API_URL}/blogs`,
         {
           method: "POST",
           headers: {
@@ -38,12 +48,7 @@ const Create: React.FunctionComponent = (): JSX.Element => {
     } catch (err) {
       if (err instanceof Error) alert(err.message);
     }
-    if (
-      title === "" ||
-      content === "" ||
-      category === "" ||
-      coverPhoto === ""
-    ) {
+    if (title === "" || category === "" || coverPhoto === "") {
       alert("Please fill out all fields");
     }
   };
@@ -57,11 +62,19 @@ const Create: React.FunctionComponent = (): JSX.Element => {
         </div>
         <div className="form__group">
           <label htmlFor="content"> Content </label>
-          <input name="content" id="content" />
+          {/* <input name="content" id="content" /> */}
+          <MarkdownEditor
+            value={markdown}
+            height="200px"
+            style={{
+              fontSize: 16,
+            }}
+            onChange={(value, viewUpdate) => setMarkdown(value)}
+          />
         </div>
         <div className="form__group">
           <label htmlFor="category">Category</label>
-          <select name="blog-category" id="blog-category">
+          <select name="category" id="category">
             <option value="technology">Technology</option>
             <option value="health">Health</option>
             <option value="travel">Travel</option>
@@ -78,7 +91,7 @@ const Create: React.FunctionComponent = (): JSX.Element => {
           <label htmlFor="cover-photo">
             Cover Photo (use a unsplash.com url)
           </label>
-          <input type="text" name="cover-photo" id="cover-photo" />
+          <input type="text" name="coverPhoto" id="coverPhoto" />
         </div>
         <button type="submit"> Create </button>
       </form>

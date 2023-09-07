@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -31,6 +31,8 @@ import "./page.scss";
 
 const Home: React.FunctionComponent = (): JSX.Element => {
   const [eventSelect, setEventSelect] = useState("Events");
+  const [quotes, setQuotes] = useState<Quote[]>();
+  const [news, setNews] = useState<News[]>();
 
   const getQuotes = async () => {
     try {
@@ -38,7 +40,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
         `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/quotes`
       );
       const response = await res.json();
-      return response?.quotes;
+      if (response?.quotes) return setQuotes(response?.quotes);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
@@ -48,20 +50,13 @@ const Home: React.FunctionComponent = (): JSX.Element => {
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/news`);
       const response = await res.json();
-      return response?.news;
+      if (response?.news) setNews(response?.news);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
   };
 
   // On definition, call the getQuotes() to retrieve initial quote on page load
-  const [quotes, setQuotes] = useState<Quote[]>((): any => {
-    getQuotes().then((data) => setQuotes(data));
-  });
-  const [news, setNews] = useState<News[]>((): any => {
-    getNews().then((data) => setNews(data));
-  });
-
   const [currentQuote, setCurrentQuote] = useState(0);
 
   // Quote handling functions
@@ -74,6 +69,15 @@ const Home: React.FunctionComponent = (): JSX.Element => {
       setCurrentQuote((prevCurrentQuote) => prevCurrentQuote - 1);
     }
   };
+  const [hasRun, setHasRun] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!hasRun) {
+      getQuotes();
+      getNews();
+      setHasRun(true);
+    }
+  }, [hasRun]);
 
   const about__badges = useRef(null);
   const IsInView = useInView(about__badges, { once: true });
@@ -116,7 +120,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
               </motion.span>
             </h1>
             <div className="content__border"></div>
-            <motion.p
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               key={currentQuote}
@@ -140,7 +144,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
                 />
               )}
               {quotes ? `- ${quotes[currentQuote]?.author}` : ""}
-            </motion.p>
+            </motion.div>
             <div className="content__arrows">
               <FontAwesomeIcon
                 icon={faArrowLeft}
