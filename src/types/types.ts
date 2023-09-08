@@ -128,6 +128,7 @@ interface RegisterInputs {
   school_type: empl;
   school_region: regions;
   child_grade_level: string;
+  what_are_you?: string;
 }
 
 interface LoginInputs {

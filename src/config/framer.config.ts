@@ -82,7 +82,7 @@ const fadeEffectDelay2 = {
     opacity: 1,
     transition: {
       duration: 0.25,
-      delay: 0.7,
+      delay: 0.8,
     },
   },
 };
@@ -96,7 +96,7 @@ const fadeEffectDelay3 = {
     opacity: 1,
     transition: {
       duration: 0.25,
-      delay: 0.9,
+      delay: 1.01,
     },
   },
 };

@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import "./page.scss";
 import Loading from "@/components/Loading";
+import "./page.scss";
 
 const Register = () => {
   const { register, loading } = useAuth();
@@ -24,6 +24,7 @@ const Register = () => {
     child_grade_level: "",
     school_type: "",
     school_region: "",
+    what_are_you: ""
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,8 +129,55 @@ const Register = () => {
             required
           />
         </div>
+
         <div className="form__group">
-          <label htmlFor="title">Title*</label>
+          <fieldset className="emp-region__fieldset" name="emp_region">
+            <legend>Are you a</legend>
+            <div className="emp-region__group">
+              <input
+                type="radio"
+                name="title"
+                id=""
+                value={"Teacher"}
+                onChange={handleInputChange}
+              />
+              <label htmlFor="region">Teacher</label>
+            </div>
+            <div className="emp-region__group">
+              <input
+                type="radio"
+                name="title"
+                id=""
+                value={"Parent"}
+                onChange={handleInputChange}
+              />
+              <label htmlFor="region">Parent</label>
+            </div>
+            <div className="emp-region__group">
+              <input
+                type="radio"
+                name="title"
+                id=""
+                value={"Student"}
+                onChange={handleInputChange}
+              />
+              <label htmlFor="region">Student</label>
+            </div>
+            <div className="emp-region__group">
+              <input
+                type="radio"
+                name="title"
+                id=""
+                value={"Other"}
+                onChange={handleInputChange}
+              />
+              <label htmlFor="region">Other</label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div className="form__group">
+          <label htmlFor="title">Job Title*</label>
           <input
             type="text"
             name="title"

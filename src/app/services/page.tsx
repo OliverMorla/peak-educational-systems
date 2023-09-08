@@ -1,7 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { motion } from "framer-motion";
-import { fadeEffect, fadeEffect2 } from "@/config/framer.config";
+import {
+  fadeEffect,
+  fadeEffect2,
+  fadeEffectDelay1,
+  fadeEffectDelay2,
+  fadeEffectDelay3,
+} from "@/config/framer.config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSchool,
@@ -27,14 +33,14 @@ const Services: React.FunctionComponent = (): JSX.Element => {
         <h1>Services</h1>
       </Intro>
       <section className="services__cards">
-        <motion.div
-          variants={fadeEffect2}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
-          className="services__cards-group"
-        >
-          <div className="services__card">
+        <div className="services__cards-group">
+          <motion.div
+            variants={fadeEffectDelay1}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+            className="services__card"
+          >
             <div className="card__header">
               <h1>
                 Mentoring and Consulting for New Teachers and Teachers in
@@ -49,8 +55,13 @@ const Services: React.FunctionComponent = (): JSX.Element => {
               education warriors to uplift and support each other on an as
               needed basis.
             </p>
-          </div>
-          <div className="services__card">
+          </motion.div>
+          <motion.div 
+          variants={fadeEffectDelay2}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+          className="services__card">
             <div className="card__header">
               <h1>Consulting and Conferring with Parents and Caregivers</h1>
             </div>
@@ -60,8 +71,13 @@ const Services: React.FunctionComponent = (): JSX.Element => {
               you, help your child, implement strategies to address their
               academic challenges and reach their full potential."
             </p>
-          </div>
-          <div className="services__card">
+          </motion.div>
+          <motion.div 
+          variants={fadeEffectDelay3}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+          className="services__card">
             <div className="card__header">
               <h1>
                 Increasing the Awareness of Diverse Literature to Increase
@@ -78,8 +94,8 @@ const Services: React.FunctionComponent = (): JSX.Element => {
               high quality literature. Consider an author visit at your school.
               Visit sydneywjoshua.com for published works.
             </p>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
         <motion.div
           variants={fadeEffect}
           initial="hidden"

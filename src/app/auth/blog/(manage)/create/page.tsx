@@ -1,14 +1,14 @@
 "use client";
-import "./page.scss";
 import { useState } from "react";
-import MarkdownEditor from "@uiw/react-markdown-editor";
 import { useSession } from "next-auth/react";
+import MarkdownEditor from "@uiw/react-markdown-editor";
+import "./page.scss";
 
 const Create: React.FunctionComponent = (): JSX.Element => {
   const [markdown, setMarkdown] = useState("");
   const { data: session } = useSession();
   console.log(session);
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -29,16 +29,13 @@ const Create: React.FunctionComponent = (): JSX.Element => {
     };
 
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/blogs`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(FormInputs),
-        }
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(FormInputs),
+      });
       const data = await res.json();
       if (data.ok) {
         alert("Blog post created successfully");
