@@ -1,4 +1,5 @@
-const Loading = () => {
+/* eslint-disable @next/next/no-img-element */
+const Loading: React.FunctionComponent = (): JSX.Element => {
   return (
     <div
       className="loading__wrapper"
@@ -13,7 +14,7 @@ const Loading = () => {
         backgroundColor: "#364559",
       }}
     >
-      <img src="/assets/loading/eclipse.svg" alt="" />
+      <img src="/assets/loading/eclipse.svg" alt="loading-gif" />
     </div>
   );
 };

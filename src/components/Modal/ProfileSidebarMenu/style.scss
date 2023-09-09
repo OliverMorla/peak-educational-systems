@@ -1,1 +1,41 @@
 @import "/src/styles/mixins.scss";
+
+.profile__sidebar-menu {
+  color: white;
+  background-color: var(--senary);
+  position: fixed;
+  right: 0;
+  z-index: 5;
+  width: 300px;
+  min-height: 100vh;
+
+  .profile__sidebar-menu-drag-arrow-wrapper {
+    position: absolute;
+    min-height: 100vh;
+    background-color: var(--senary);
+    opacity: 0.8;
+
+    .profile__sidebar-menu__drag-arrow {
+        position: absolute;
+        background-color: var(--senary);
+        opacity: 0.8;
+        min-height: 100vh;
+        bottom: 50%;
+      }
+  }
+ 
+
+  .profile__sidebar-menu__friends {
+    .profile__sidebar-menu__friends__title {
+      text-align: center;
+      margin: 1rem;
+    }
+    .profile__sidebar-menu__friends__list {
+      margin: 1.5rem;
+      width: 100%;
+      h4 {
+        opacity: 0.8;
+      }
+    }
+  }
+}
