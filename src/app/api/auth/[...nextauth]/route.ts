@@ -23,7 +23,7 @@ type UserTempType = {
 let userTemp: UserTempType = {};
 
 const handler = NextAuth({
-  session:{
+  session: {
     maxAge: 30 * 24 * 60 * 60, // 30 days
   },
   secret: process.env.OAUTH_SECRET,
@@ -76,7 +76,7 @@ const handler = NextAuth({
     // Modifies the default session to better fit our application's user structure.
     async session({ session, user, token }) {
       // Consolidate first and last name for a more user-friendly display.
-      console.log(session, user, token, session.user)
+      console.log(session, user, token, session.user);
       if (
         userTemp?.first_name !== undefined ||
         userTemp?.last_name !== undefined
@@ -98,6 +98,7 @@ const handler = NextAuth({
             // school_region: userTemp.school_region,
           },
         };
+        userTemp = {};
         return sessionTemp;
       } else {
         return session;
