@@ -23,6 +23,9 @@ type UserTempType = {
 let userTemp: UserTempType = {};
 
 const handler = NextAuth({
+  session:{
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   secret: process.env.OAUTH_SECRET,
   providers: [
     GoogleProvider({
@@ -73,25 +76,26 @@ const handler = NextAuth({
     // Modifies the default session to better fit our application's user structure.
     async session({ session, user, token }) {
       // Consolidate first and last name for a more user-friendly display.
+      console.log(session, user, token, session.user)
       if (
         userTemp?.first_name !== undefined ||
         userTemp?.last_name !== undefined
       ) {
         let name = userTemp?.first_name + " " + userTemp?.last_name;
         let sessionTemp = {
-          ...session,
+          expires: session.expires,
           user: {
-            ...session.user,
-            id: userTemp?.id,
+            ...userTemp,
+            // id: userTemp?.id,
             name: name,
-            email: userTemp?.email || session.user?.email,
-            date_of_birth: userTemp.date_of_birth,
-            title: userTemp.title,
-            emp_type: userTemp.emp_type,
-            emp_region: userTemp.emp_region,
-            child_grade_level: userTemp.child_grade_level,
-            school_type: userTemp.school_type,
-            school_region: userTemp.school_region,
+            // email: userTemp?.email || session.user?.email,
+            // date_of_birth: userTemp.date_of_birth,
+            // title: userTemp.title,
+            // emp_type: userTemp.emp_type,
+            // emp_region: userTemp.emp_region,
+            // child_grade_level: userTemp.child_grade_level,
+            // school_type: userTemp.school_type,
+            // school_region: userTemp.school_region,
           },
         };
         return sessionTemp;

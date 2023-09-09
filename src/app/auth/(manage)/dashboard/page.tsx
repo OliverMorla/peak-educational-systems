@@ -1,7 +1,7 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import "./page.scss";
 
@@ -12,17 +12,32 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
 
   const getUser = async () => {
     try {
-      const res = await fetch(
-        // @ts-ignorets-ignore
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/user/${session?.user?.id}`
-      );
-      const data = await res.json();
-      if (data.user) return setUser(data.user);
-      throw new Error("User not found!");
+      // @ts-ignorets-ignore
+      if (session?.user?.id) {
+        const res = await fetch(
+          // @ts-ignorets-ignore
+          `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/auth/user/${session?.user?.id}`
+        );
+        const data = await res.json();
+        if (data.user) {
+          setUser(data.user);
+        }
+        throw new Error("User not found!");
+      } else {
+        throw new Error("You have to sign in!");
+      }
     } catch (err) {
-      if (err instanceof Error) alert(err.message);
+      if (err instanceof Error) console.log(err.message);
     }
   };
+
+  useEffect(() => {
+    getUser();
+    console.log("UseEffect ran!");
+
+    return () => undefined;
+    // @ts-ignorets-ignore
+  }, [session?.user?.id]);
 
   const deleteAcc = async (id: string | number | undefined) => {
     try {
@@ -44,7 +59,6 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
       </main>
     );
   } else {
-    getUser();
     return (
       <main className="profile__dashboard">
         <h1> Dashboard page </h1>
@@ -61,7 +75,7 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
               </li>
               <li>
                 <span>Password:</span>
-                <input
+                {/* <input
                   type={showPassword ? "text" : "password"}
                   name="password-hidden"
                   id="password-hidden"
@@ -73,7 +87,7 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
                   name="password-visible"
                   id="password-visible"
                   onClick={() => setShowPassword(!showPassword)}
-                />
+                /> */}
               </li>
               <li>
                 <span>Date of Birth:</span>
