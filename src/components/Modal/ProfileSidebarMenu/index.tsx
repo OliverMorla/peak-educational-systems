@@ -10,38 +10,68 @@ const ProfileSidebarMenu: React.FunctionComponent = ():
   | JSX.Element
   | JSX.Element[] => {
   return (
-    <aside className="profile__sidebar-menu">
-      <section className="profile__sidebar-menu-drag-arrow-wrapper">
-        <button className="profile__sidebar-menu__drag-arrow">
+    <aside className="profile-sidebar-menu">
+      <section className="profile-sidebar-menu__drag-arrow-wrapper">
+        <button className="profile-sidebar-menu__drag-arrow">
           <FontAwesomeIcon icon={faArrowLeft} />
         </button>
       </section>
-      <section className="profile__sidebar-menu__friends">
-        <h2 className="profile__sidebar-menu__friends__title">Friends</h2>
-        <section className="profile__side-menu__friends__btns">
-          <button className="profile__side-menu__friends__btns__add-friend">
+      <section className="profile-sidebar-menu__friends">
+        <h2 className="profile-sidebar-menu__friends-title">Friends</h2>
+        <section className="profile-sidebar-menu__friends-btns">
+          <button className="profile-sidebar-menu__add-friend-btn">
             <FontAwesomeIcon icon={faUserPlus} />
             Add Friend
           </button>
-          <button className="profile__side-menu__friends__btns__find-friend">
+          <button className="profile-sidebar-menu__find-friend-btn">
             <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
             Find Friend
           </button>
         </section>
-        <ul className="profile__sidebar-menu__friends__list">
+        <ul className="profile-sidebar-menu__friends-list">
           <h4> Friends list </h4>
-          <li className="profile__sidebar-menu__friends__list__item">
+          <li className="profile-sidebar-menu__friends-item">
             <a
               href="#"
-              className="profile__sidebar-menu__friends__list__item__link"
+              className="profile-sidebar-menu__friends-link"
             >
               <img
                 src=""
                 alt=""
-                className="profile__sidebar-menu__friends__list__item__link__img"
+                className="profile-sidebar-menu__friends-img"
               />
-              <span className="profile__sidebar-menu__friends__list__item__link__name">
-                John Doe <button>...</button>
+              <span className="profile-sidebar-menu__friends-name">
+                John Doe <button className="profile-sidebar-menu__friends-options">...</button>
+              </span>
+            </a>
+          </li>
+          <li className="profile-sidebar-menu__friends-item">
+            <a
+              href="#"
+              className="profile-sidebar-menu__friends-link"
+            >
+              <img
+                src=""
+                alt=""
+                className="profile-sidebar-menu__friends-img"
+              />
+              <span className="profile-sidebar-menu__friends-name">
+                John Doe <button className="profile-sidebar-menu__friends-options">...</button>
+              </span>
+            </a>
+          </li>
+          <li className="profile-sidebar-menu__friends-item">
+            <a
+              href="#"
+              className="profile-sidebar-menu__friends-link"
+            >
+              <img
+                src=""
+                alt=""
+                className="profile-sidebar-menu__friends-img"
+              />
+              <span className="profile-sidebar-menu__friends-name">
+                John Doe <button className="profile-sidebar-menu__friends-options">...</button>
               </span>
             </a>
           </li>

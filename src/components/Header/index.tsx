@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSession, signOut } from "next-auth/react";
@@ -16,12 +16,19 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const navRef = useRef<HTMLDivElement>(null);
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const path = usePathname();
-  const { data: session } = useSession();
-  if (session?.user?.name === "undefined undefined") signOut();
+  const { data: session, update } = useSession();
+  if (session?.user?.name === "undefined undefined" || session?.user?.name === "null null") signOut();
+  console.log(session?.user?.name);
 
   // debugging purposes
   console.log(session);
-
+  useEffect(() => {
+    // TIP: You can also use `navigator.onLine` and some extra event handlers
+    // to check if the user is online and only update the session if they are.
+    // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine
+    const interval = setInterval(() => update(), 1000 * 60 * 60);
+    return () => clearInterval(interval);
+  }, [update]);
   return (
     <>
       <header
