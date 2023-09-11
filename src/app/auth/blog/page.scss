@@ -1,7 +1,7 @@
 @import "@/styles/mixins.scss";
 
 .blog {
-  padding-top: 75px;
+  padding-top: 85px;
   display: flex;
   flex-direction: column;
   background-color: var(--matteGrey);
@@ -89,8 +89,9 @@
     }
   }
   .blog__create-wrapper {
-    padding-left: 35px;
-    .blog__create {
+    // padding-left: 35px;
+    margin-left: 5%;
+    .blog__create-btn {
       cursor: pointer;
       appearance: none;
       background-color: var(--tertiary);

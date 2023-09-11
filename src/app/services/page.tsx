@@ -28,9 +28,9 @@ const Services: React.FunctionComponent = (): JSX.Element => {
           alt="logo"
           width={965}
           height={477.55}
-          className="content__logo"
+          className="services__logo"
         />
-        <h1>Services</h1>
+        <h1 className="services__title">Services</h1>
       </Intro>
       <section className="services__cards">
         <div className="services__cards-group">
@@ -41,13 +41,13 @@ const Services: React.FunctionComponent = (): JSX.Element => {
             viewport={{ margin: "-150px -150px -150px -150px", once: true }}
             className="services__card"
           >
-            <div className="card__header">
+            <div className="services__card-header">
               <h1>
                 Mentoring and Consulting for New Teachers and Teachers in
                 Training
               </h1>
             </div>
-            <p className="card__desc">
+            <p className="services__card-desc">
               Mentoring and facilitative coaching with teachers in training, new
               teachers, and veteran teachers who desire a supportive space to
               share their creative ideas, professional challenges, and engage in
@@ -57,15 +57,16 @@ const Services: React.FunctionComponent = (): JSX.Element => {
             </p>
           </motion.div>
           <motion.div 
-          variants={fadeEffectDelay2}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
-          className="services__card">
-            <div className="card__header">
+            variants={fadeEffectDelay2}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+            className="services__card"
+          >
+            <div className="services__card-header">
               <h1>Consulting and Conferring with Parents and Caregivers</h1>
             </div>
-            <p className="card__desc">
+            <p className="services__card-desc">
               Consultation services for parents and caregivers of elementary
               education students, including students with disabilities. "Helping
               you, help your child, implement strategies to address their
@@ -73,18 +74,19 @@ const Services: React.FunctionComponent = (): JSX.Element => {
             </p>
           </motion.div>
           <motion.div 
-          variants={fadeEffectDelay3}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ margin: "-150px -150px -150px -150px", once: true }}
-          className="services__card">
-            <div className="card__header">
+            variants={fadeEffectDelay3}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ margin: "-150px -150px -150px -150px", once: true }}
+            className="services__card"
+          >
+            <div className="services__card-header">
               <h1>
                 Increasing the Awareness of Diverse Literature to Increase
                 Childhood Literacy
               </h1>
             </div>
-            <p className="card__desc">
+            <p className="services__card-desc">
               Promoting the advancement of childhood literacy via writing for
               publication and circulating its literary works into the world is a
               passion. Sharing about books across all genres that is reflective
@@ -101,18 +103,18 @@ const Services: React.FunctionComponent = (): JSX.Element => {
           initial="hidden"
           whileInView="visible"
           viewport={{ margin: "-150px -150px -150px -150px", once: true }}
-          className="about__badges"
+          className="services__badges"
         >
-          <div className="badge">
-            <FontAwesomeIcon icon={faSchool} className="badge__icon" />
+          <div className="badge services__badge">
+            <FontAwesomeIcon icon={faSchool} className="services__badge-icon" />
             <h2>Quick Support</h2>
           </div>
-          <div className="badge">
-            <FontAwesomeIcon icon={faBookOpen} className="badge__icon" />
+          <div className="badge services__badge">
+            <FontAwesomeIcon icon={faBookOpen} className="services__badge-icon" />
             <h2>2+ Books Written</h2>
           </div>
-          <div className="badge">
-            <FontAwesomeIcon icon={faFaceGrinBeam} className="badge__icon" />
+          <div className="badge services__badge">
+            <FontAwesomeIcon icon={faFaceGrinBeam} className="services__badge-icon" />
             <h2>100+ Members</h2>
           </div>
         </motion.div>
@@ -123,7 +125,7 @@ const Services: React.FunctionComponent = (): JSX.Element => {
           alt="logo"
           width={975}
           height={475}
-          className="contact__logo"
+          className="services__contact-logo"
         />
         <SessionForm />
       </section>

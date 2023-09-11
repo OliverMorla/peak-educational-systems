@@ -82,13 +82,12 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
               />
             ))}
           </aside>
-          
         </section>
         <section className="blog__create-wrapper">
-            <Link href="/auth/blog/create">
-              <button className="blog__create">Create a Blog Post</button>
-            </Link>
-          </section>
+          <Link href="/auth/blog/create">
+            <button className="blog__create-btn">Create a Blog Post</button>
+          </Link>
+        </section>
         <section className="blog__posts">
           <h2>Most Popular </h2>
           <section className="blog__overflow">
