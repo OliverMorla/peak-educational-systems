@@ -8,18 +8,17 @@ datasource db {
 }
 
 model blogs {
-  id                 Int        @id @default(autoincrement())
-  author             String     @db.VarChar(255)
-  content            String
-  user_id            Int?
-  title              String     @db.VarChar(255)
-  number_of_comments Int
-  photo_cover_url    String     @db.VarChar(255)
-  category           String?    @db.VarChar(255)
-  updated_at         DateTime?  @default(now()) @db.Timestamptz(6)
-  created_at         DateTime?  @default(now()) @db.Timestamptz(6)
-  users              users?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "blogs_author_id_fkey")
-  comments           comments[]
+  blog_id         Int        @id @default(autoincrement())
+  author          String     @db.VarChar(255)
+  content         String
+  user_id         Int?
+  title           String     @db.VarChar(255)
+  photo_cover_url String     @db.VarChar(255)
+  category        String?    @db.VarChar(255)
+  updated_at      DateTime?  @default(now()) @db.Timestamptz(6)
+  created_at      DateTime?  @default(now()) @db.Timestamptz(6)
+  users           users?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "blogs_author_id_fkey")
+  comments        comments[]
 }
 
 model comments {
@@ -29,7 +28,7 @@ model comments {
   created_at DateTime? @default(now()) @db.Timestamptz(6)
   updated_at DateTime? @default(now()) @db.Timestamptz(6)
   blog_id    Int
-  blogs      blogs     @relation(fields: [blog_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  blogs      blogs     @relation(fields: [blog_id], references: [blog_id], onDelete: Cascade, onUpdate: NoAction)
   users      users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
@@ -54,65 +53,55 @@ model quotes {
 }
 
 model users {
-  id                Int        @id @default(autoincrement())
-  first_name        String     @db.VarChar(255)
-  last_name         String     @db.VarChar(255)
-  email             String     @unique @db.VarChar(255)
-  password          String?    @db.VarChar(255)
-  date_of_birth     DateTime?  @db.Date
-  title             String?    @db.VarChar(255)
-  emp_type          String?    @db.VarChar(255)
-  emp_region        String?    @db.VarChar(255)
-  child_grade_level String?    @db.VarChar(255)
-  school_type       String?    @db.VarChar(255)
-  school_region     String?    @db.VarChar(255)
-  created_at        DateTime?  @default(now()) @db.Timestamptz(6)
-  blogs             blogs[]
-  comments          comments[]
-  news              news[]
+  id                                              Int             @id @default(autoincrement())
+  first_name                                      String          @db.VarChar(255)
+  last_name                                       String          @db.VarChar(255)
+  email                                           String          @unique @db.VarChar(255)
+  password                                        String          @db.VarChar(255)
+  date_of_birth                                   DateTime        @db.Date
+  title                                           String?         @db.VarChar(255)
+  employment_type                                 String?         @db.VarChar(255)
+  employment_region                               String?         @db.VarChar(255)
+  child_grade_level                               String?         @db.VarChar(255)
+  school_type                                     String?         @db.VarChar(255)
+  school_region                                   String?         @db.VarChar(255)
+  created_at                                      DateTime?       @default(now()) @db.Timestamptz(6)
+  role                                            String          @default("user") @db.VarChar(255)
+  updated_at                                      DateTime?       @default(now()) @db.Timestamptz(6)
+  blogs                                           blogs[]
+  chat_messages_chat_messages_from_user_idTousers chat_messages[] @relation("chat_messages_from_user_idTousers")
+  chat_messages_chat_messages_to_user_idTousers   chat_messages[] @relation("chat_messages_to_user_idTousers")
+  comments                                        comments[]
+  friends_friends_friend_idTousers                friends[]       @relation("friends_friend_idTousers")
+  friends_friends_user_idTousers                  friends[]       @relation("friends_user_idTousers")
+  news                                            news[]
 }
 
-model Account {
-  id                String  @id @default(cuid())
-  userId            String
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.Text
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
+model chat_messages {
+  message_id                              Int       @id @default(autoincrement())
+  from_user_id                            Int?
+  to_user_id                              Int?
+  message_text                            String?
+  timestamp                               DateTime? @default(now()) @db.Timestamptz(6)
+  users_chat_messages_from_user_idTousers users?    @relation("chat_messages_from_user_idTousers", fields: [from_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users_chat_messages_to_user_idTousers   users?    @relation("chat_messages_to_user_idTousers", fields: [to_user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
-model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
-  userId       String
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model friends {
+  user_id                        Int
+  friend_id                      Int
+  status                         friendship_status?
+  created_at                     DateTime?          @default(now()) @db.Timestamp(6)
+  updated_at                     DateTime?          @default(now()) @db.Timestamp(6)
+  users_friends_friend_idTousers users              @relation("friends_friend_idTousers", fields: [friend_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users_friends_user_idTousers   users              @relation("friends_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@id([user_id, friend_id])
 }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
-
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+enum friendship_status {
+  pending
+  accepted
+  blocked
 }

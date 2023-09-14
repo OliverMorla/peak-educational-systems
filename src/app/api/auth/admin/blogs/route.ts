@@ -13,7 +13,7 @@ export async function DELETE(req: NextRequest) {
   try {
     const blogs = await prisma.blogs.delete({
       where: {
-        id: Number(blog_id),
+        blog_id: Number(blog_id),
       },
     });
 

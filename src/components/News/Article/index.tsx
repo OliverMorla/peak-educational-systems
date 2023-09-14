@@ -17,7 +17,6 @@ const Article: React.FunctionComponent<Article> = ({
   article_author,
   photo_cover_url,
   article_category,
-  number_of_comments,
   article_id,
   user_id,
   article_created_at,
@@ -30,7 +29,7 @@ const Article: React.FunctionComponent<Article> = ({
   const handleComment = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comments/${article_id}`,
         {
           method: "POST",
           body: JSON.stringify(commentInput),
@@ -51,14 +50,14 @@ const Article: React.FunctionComponent<Article> = ({
   const getComments = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/comments/${article_id}?article_id=${article_id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comments/${article_id}?article_id=${article_id}`,
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
-      const response = (await res.json()) as CommentRequest;
+      const response = await res.json() as CommentsReponse;
       setComments(response?.comments);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
@@ -96,9 +95,9 @@ const Article: React.FunctionComponent<Article> = ({
         </div>
       </section>
       <section className="article__content">
-      <div className="App" data-color-mode="light">
-        <MarkdownEditor.Markdown source={article_content} />
-      </div>
+        <div className="App" data-color-mode="light">
+          <MarkdownEditor.Markdown source={article_content} />
+        </div>
       </section>
       <section className="article__share ">
         <h2>Share</h2>

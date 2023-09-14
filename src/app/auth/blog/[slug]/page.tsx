@@ -18,7 +18,7 @@ const Post = ({
     try {
       setLoading(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs/${params.slug}`
+        `${process.env.NEXT_PUBLIC_API_URL}/blogs/${params.slug}`
       );
       const response = await res.json();
       setLoading(false);
@@ -46,11 +46,10 @@ const Post = ({
     return (
       <>
         <Article
-          article_id={post?.id}
+          article_id={post?.blog_id}
           user_id={post?.user_id}
           article_title={post?.title}
           article_author={post?.author}
-          number_of_comments={post?.number_of_comments}
           article_content={post?.content}
           article_created_at={post?.created_at}
           photo_cover_url={post?.photo_cover_url}

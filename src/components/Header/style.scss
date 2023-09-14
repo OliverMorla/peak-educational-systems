@@ -25,6 +25,10 @@
     flex-direction: column;
   }
 
+  @include lg-down {
+    justify-content: center;
+  }
+
   .header__title-section {
     display: flex;
     align-items: center;

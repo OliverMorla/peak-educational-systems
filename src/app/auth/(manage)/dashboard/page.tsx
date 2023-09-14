@@ -99,11 +99,11 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
               </li>
               <li>
                 <span>Employment Type:</span>
-                {user?.emp_type}
+                {user?.employment_type}
               </li>
               <li>
                 <span>Employment Region:</span>
-                {user?.emp_region}
+                {user?.employment_region}
               </li>
               <li>
                 <span>Child Grade Level:</span>

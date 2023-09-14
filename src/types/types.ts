@@ -1,3 +1,4 @@
+// Component Types
 interface Modal {
   text: string;
   type: "Success" | "Error" | "Warning" | "Info";
@@ -12,13 +13,13 @@ interface PostCardProps {
   number_of_comments?: number;
   photo_cover_url?: string;
   category?: string;
-  created_at?: string;
+  created_at: string;
   updated_at?: string;
 }
 
 interface News extends PostCardProps {}
-interface Blog extends PostCardProps {}
 
+// API Response Types
 interface Category {
   id: number;
   category: string;
@@ -36,12 +37,26 @@ interface User {
   password: string;
   date_of_birth: string;
   title: string;
-  emp_type: string;
-  emp_region: string;
+  employment_type: string;
+  employment_region: string;
   child_grade_level: string;
   school_type: string;
   school_region: string;
   created_at: string;
+  role: string;
+}
+
+interface Blog {
+  blog_id: number;
+  author: string;
+  content: string;
+  user_id: number;
+  title: string;
+  photo_cover_url: string;
+  category: string;
+  created_at: string;
+  updated_at: string;
+  number_of_comments?: number;
 }
 
 interface Quote {
@@ -57,7 +72,6 @@ interface Article {
   article_title?: string;
   article_content?: string;
   photo_cover_url?: string;
-  number_of_comments?: number;
   article_category?: string;
   article_created_at?: string | any;
   article_updated_at?: string;
@@ -73,47 +87,55 @@ interface Comment {
   first_name?: string;
 }
 
+interface Friend {
+  user_id: number;
+  friend_id: number;
+  created_at: string;
+  updated_at: string;
+  friend_name?: string;
+  status: "pending" | "accepted" | "blocked";
+}
+
+interface Chat_Message {
+  message_id: number;
+  from_user_id: number;
+  to_user_id: number;
+  message: string;
+  timestamp: Date;
+}
+
 // For Admin Page
-interface UserAdminReq {
+interface AdminResponse<T> {
   status: number;
   ok: boolean;
-  users: User[];
+  data: T[];
 }
 
-interface QuoteAdminReq {
-  status: number;
-  ok: boolean;
-  quotes: Quote[];
-}
-
-interface NewsAdminReq {
-  status: number;
-  ok: boolean;
-  news: News[];
-}
-
-interface BlogsAdminReq {
-  status: number;
-  ok: boolean;
-  news: Blog[];
-}
-
-interface CommentAdminReq {
-  status: number;
-  ok: boolean;
-  comments: Comment[];
-}
+type UsersAdminResponse = AdminResponse<User>;
+type QuotesAdminResponse = AdminResponse<Quote>;
+type NewsAdminResponse = AdminResponse<News>;
+type BlogsAdminResponse = AdminResponse<Blog>;
+type CommentsAdminResponse = AdminResponse<Comment>;
+type FriendsAdminResponse = AdminResponse<Friend>;
 
 // API Request Types
-interface CommentRequest {
+interface CommentsReponse {
   status: number;
   ok: boolean;
   comments: Comment[];
 }
 
 // Authentication Types
-type empl = "private" | "public" | "home" | "other" | "";
-type regions = "nyc" | "nassau" | "suffolk" | "";
+type EmploymentType =
+  | "Freelance"
+  | "Part-time"
+  | "Full-time"
+  | "Contract"
+  | "Unemployed"
+  | "Other"
+  | null;
+type SchoolType = "Private" | "Public" | "Home" | "Other" | null;
+type Regions = "NYC" | "Nassau" | "Suffolk" | "Westchester" | "Other" | null;
 
 interface RegisterInputs {
   first_name: string;
@@ -122,13 +144,13 @@ interface RegisterInputs {
   password: string;
   password_confirm: string;
   date_of_birth: string;
+  role: string;
   title: string;
-  emp_type: empl;
-  emp_region: regions;
-  school_type: empl;
-  school_region: regions;
+  employment_type: EmploymentType;
+  employment_region: Regions;
+  school_type: SchoolType;
+  school_region: Regions;
   child_grade_level: string;
-  what_are_you?: string;
 }
 
 interface LoginInputs {
@@ -136,6 +158,16 @@ interface LoginInputs {
   password: string;
 }
 
+interface BlogFormInputs {
+  title: string;
+  content: string;
+  category: string;
+  photo_cover_url: string;
+  author: string;
+  user_id: string;
+}
+
+// Context Types
 interface AuthContextTypes {
   loading: boolean;
   register: (inputs: RequestInit) => Promise<any>;

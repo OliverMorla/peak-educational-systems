@@ -63,6 +63,7 @@
   .news {
     width: 100%;
     height: 100px;
+
     overflow-y: scroll;
 
     h2 {
@@ -70,7 +71,6 @@
 
     .news__list {
       .news__item {
-        overflow: hidden;
         table {
           border-collapse: collapse;
           tbody {
@@ -111,14 +111,14 @@
 
   .blogs {
     width: 100%;
-    height: 110px;
+    height: 100px;
+
     overflow-y: scroll;
     h2 {
     }
 
     .blogs__list {
       .blogs__item {
-        overflow: hidden;
         table {
           border-collapse: collapse;
           tbody {
@@ -159,15 +159,14 @@
 
   .quotes {
     width: 100%;
+    height: 100px;
 
-    height: 110px;
     overflow-y: scroll;
     h2 {
     }
 
     .quotes__list {
       .quotes__item {
-        overflow: hidden;
         table {
           border-collapse: collapse;
           tbody {
@@ -208,13 +207,13 @@
 
   .comments {
     width: 100%;
-    height: 110px;
+    height: 100px;
     overflow-y: scroll;
     h2 {
     }
 
-    .quotes__list {
-      .quotes__item {
+    .comments__list {
+      .comments__item {
         overflow: hidden;
         table {
           border-collapse: collapse;

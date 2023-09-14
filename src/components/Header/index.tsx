@@ -128,15 +128,15 @@ const Header: React.FunctionComponent = (): JSX.Element => {
               className="nav__item logout-btn"
             >
               <button onClick={() => signOut()}>Log Out</button>
-            </motion.div>
+            </motion.div> 
           )}
         </nav>
 
-        {session?.user === undefined && isLoginOpen === false && (
+        {isLoginOpen && session?.user === undefined ? (
           <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
-        )}
+        ) : null}
       </header>
-      {/* {true && <ProfileSidebarMenu />} */}
+      {session?.user && <ProfileSidebarMenu session={session}/>}
     </>
   );
 };

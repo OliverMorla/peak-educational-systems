@@ -3,7 +3,9 @@ import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 
-let user = {};
+let user: {
+  id?: number;
+} = {};
 
 export async function POST(
   req: NextRequest,
@@ -16,13 +18,11 @@ export async function POST(
   }
 ) {
   const comment: string = await req.json();
-  //@ts-ignore
   if (user?.id && comment) {
     const comments = await prisma.comments.create({
       data: {
         blog_id: Number(params.article_id),
         content: comment,
-        //@ts-ignore
         user_id: Number(user?.id),
       },
     });

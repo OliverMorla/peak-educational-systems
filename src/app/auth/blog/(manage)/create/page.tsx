@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import MarkdownEditor from "@uiw/react-markdown-editor";
@@ -8,34 +8,48 @@ import "./page.scss";
 const Create: React.FunctionComponent = (): JSX.Element => {
   const [markdown, setMarkdown] = useState("");
   const { data: session, status } = useSession();
-  console.log(session);
+  const [formInputs, setFormInputs] = useState<BlogFormInputs>({
+    title: "",
+    content: "",
+    category: "",
+    photo_cover_url: "",
+    author: "",
+    user_id: "",
+  });
+  useEffect(() => {
+    setFormInputs({
+      ...formInputs,
+      //@ts-ignore
+      author: session?.user?.name,
+      //@ts-ignore
+      user_id: session?.user?.id,
+    });
+    //@ts-ignore
+  }, [session?.user?.name, session?.user?.id]);
+  console.log(formInputs);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // @ts-ignore
-    const title = e.currentTarget.title?.value;
-    const category = e.currentTarget.category?.value;
-    const coverPhoto = e.currentTarget.coverPhoto?.value;
-
-    let FormInputs = {
-      title: title,
-      content: markdown,
-      category: category,
-      coverPhoto: coverPhoto,
-      author: session?.user?.name,
-      // @ts-ignore
-      user_id: session?.user?.id,
-      number_of_comments: 0,
-    };
-
     try {
+      if (
+        formInputs.title === "" ||
+        formInputs.category === "" ||
+        formInputs.photo_cover_url === "" ||
+        formInputs.content === ""
+      ) {
+        alert("Please fill out all fields");
+      }
+
+      if (formInputs.user_id === undefined || formInputs.author === undefined) {
+        alert("Please sign in/re-signin to create a blog post");
+      }
+
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(FormInputs),
+        body: JSON.stringify(formInputs),
       });
       const data = await res.json();
       if (data.ok) {
@@ -45,9 +59,6 @@ const Create: React.FunctionComponent = (): JSX.Element => {
       }
     } catch (err) {
       if (err instanceof Error) alert(err.message);
-    }
-    if (title === "" || category === "" || coverPhoto === "") {
-      alert("Please fill out all fields");
     }
   };
   if (status === "unauthenticated" || status === "loading") {
@@ -68,40 +79,70 @@ const Create: React.FunctionComponent = (): JSX.Element => {
         <form action="" className="create__form" onSubmit={handleSubmit}>
           <div className="form__group">
             <label htmlFor="title"> Title </label>
-            <input type="text" name="title" id="title" />
+            <input
+              type="text"
+              name="title"
+              id="title"
+              onChange={(e) =>
+                setFormInputs({
+                  ...formInputs,
+                  [e.currentTarget.name]: e.currentTarget.value,
+                })
+              }
+            />
           </div>
           <div className="form__group">
             <label htmlFor="content"> Content </label>
-            {/* <input name="content" id="content" /> */}
             <MarkdownEditor
               value={markdown}
               height="200px"
               style={{
                 fontSize: 16,
               }}
-              onChange={(value, viewUpdate) => setMarkdown(value)}
+              onChange={(value, viewUpdate) =>
+                setFormInputs({ ...formInputs, content: value })
+              }
             />
           </div>
           <div className="form__group">
             <label htmlFor="category">Category</label>
-            <select name="category" id="category">
-              <option value="technology">Technology</option>
-              <option value="health">Health</option>
-              <option value="travel">Travel</option>
-              <option value="food">Food</option>
-              <option value="lifestyle">Lifestyle</option>
-              <option value="finance">Finance</option>
-              <option value="entertainment">Entertainment</option>
-              <option value="sports">Sports</option>
-              <option value="education">Education</option>
-              <option value="politics">Politics</option>
+            <select
+              name="category"
+              id="category"
+              onChange={(e) =>
+                setFormInputs({
+                  ...formInputs,
+                  [e.currentTarget.name]: e.currentTarget.value,
+                })
+              }
+            >
+              <option value="Technology">Technology</option>
+              <option value="Health">Health</option>
+              <option value="Travel">Travel</option>
+              <option value="Food">Food</option>
+              <option value="Lifestyle">Lifestyle</option>
+              <option value="Finance">Finance</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Sports">Sports</option>
+              <option value="Education">Education</option>
+              <option value="Politics">Politics</option>
             </select>
           </div>
           <div className="form__group">
             <label htmlFor="cover-photo">
               Cover Photo (use a unsplash.com url)
             </label>
-            <input type="text" name="coverPhoto" id="coverPhoto" />
+            <input
+              type="text"
+              name="photo_cover_url"
+              id="photo_cover_url"
+              onChange={(e) =>
+                setFormInputs({
+                  ...formInputs,
+                  [e.currentTarget.name]: e.currentTarget.value,
+                })
+              }
+            />
           </div>
           <button type="submit"> Create </button>
         </form>

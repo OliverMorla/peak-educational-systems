@@ -1,3 +1,5 @@
+@import "@/styles/mixins.scss";
+
 .register {
   display: flex;
   background-color: var(--secondary);
@@ -9,25 +11,28 @@
   align-items: center;
   flex-direction: column;
 
-  form {
+  .register__form {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
 
-    .form__group {
+    .register__form-group {
       display: flex;
-      flex-direction: row;
-      align-items: center;
+      flex-flow: row wrap;
       gap: 10px;
 
+      @include sm-down {
+        flex-direction: column;
+      }
+
       &:nth-child(3),
-      &:nth-child(4){
+      &:nth-child(4) {
         flex-direction: column;
         gap: 5px;
       }
 
-      .group {
+      .form-group__item {
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -37,7 +42,7 @@
           font-weight: 900;
         }
 
-        input {
+        .form-group__input {
           width: 300px;
           height: 50px;
           font-size: 18px;
@@ -45,16 +50,16 @@
         }
       }
 
-      label {
-        color: var(--primary);
-        font-weight: 900;
-      }
-
       input {
         width: 300px;
         height: 50px;
         font-size: 18px;
         padding: 0px 10px;
+      }
+
+      label {
+        color: var(--primary);
+        font-weight: 900;
       }
 
       .emp-type__fieldset {
@@ -69,7 +74,8 @@
           font-weight: 900;
         }
 
-        .emp-type__group {
+        .emp-type__group,
+        .fieldset__item {
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -107,7 +113,8 @@
         }
       }
 
-      .emp-region__fieldset {
+      .employment-region__fieldset-group,
+      .form-group__fieldset {
         display: flex;
         flex-flow: row wrap;
         gap: 10px;
@@ -115,10 +122,11 @@
 
         legend {
           font-weight: 900;
-          color: var(--primary)
+          color: var(--primary);
         }
 
-        .emp-region__group {
+        .employment-region__fieldset-item,
+        .fieldset-group__item {
           position: relative;
           display: flex;
           flex-direction: column;
@@ -129,7 +137,7 @@
             appearance: none;
             border: 1px solid var(--primary);
             cursor: pointer;
-            transition: all .15s ease-in-out;
+            transition: all 0.15s ease-in-out;
 
             &:hover {
               background-color: var(--primary);
@@ -149,7 +157,7 @@
         }
       }
 
-      #grade__level {
+      .form-group__select {
         width: 300px;
         height: 50px;
         font-size: 18px;
@@ -206,7 +214,7 @@
         }
       }
 
-      .school-region__fieldset{
+      .school-region__fieldset {
         display: flex;
         flex-flow: row wrap;
         gap: 10px;
@@ -214,7 +222,7 @@
 
         legend {
           font-weight: 900;
-          color: var(--primary)
+          color: var(--primary);
         }
 
         .school-region__group {
@@ -228,7 +236,7 @@
             appearance: none;
             border: 1px solid var(--primary);
             cursor: pointer;
-            transition: all .15s ease-in-out;
+            transition: all 0.15s ease-in-out;
 
             &:hover {
               background-color: var(--primary);
@@ -240,7 +248,6 @@
               box-shadow: 0 0 0 2px var(--primary);
             }
           }
-
           label {
             color: var(--white);
             position: absolute;
@@ -249,7 +256,7 @@
       }
     }
 
-    .form__register-btn {
+    .register__submit-btn {
       background-color: var(--primary);
       color: var(--white);
       font-size: 18px;
@@ -267,7 +274,7 @@
     }
   }
 
-  .register__login-btn {
+  .register__login-link {
     background-color: var(--secondary);
     color: var(--white);
     font-size: 18px;

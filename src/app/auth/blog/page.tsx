@@ -16,12 +16,10 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
   const getBlogs = async () => {
     try {
       setLoading(true);
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs`
-      );
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`);
       const response = await res.json();
       setLoading(false);
-      return response?.blogs;
+      return response;
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
@@ -39,8 +37,12 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
     }
   };
 
-  const [blogs, setBlogs] = useState<Blog[]>((): any => {
-    getBlogs().then((data) => setBlogs(data));
+  const [PopularBlogs, setPopularBlogs] = useState<Blog[]>((): any => {
+    getBlogs().then((data) => setPopularBlogs(data?.PopularBlogs));
+  });
+
+  const [LatestBlogs, setLatestBlogs] = useState<Blog[]>((): any => {
+    getBlogs().then((data) => setLatestBlogs(data?.LatestBlogs));
   });
 
   const [categories, setCategories] = useState<Category[]>((): any => {
@@ -94,16 +96,16 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
             {loading ? (
               <Loading />
             ) : (
-              blogs?.map((post) => (
-                <Link href={`/auth/blog/${post.id}`} key={post.id}>
+              PopularBlogs?.map((post, index) => (
+                <Link href={`/auth/blog/${post.blog_id}`} key={post.blog_id}>
                   <Card
                     author={post.author}
                     title={post.title}
                     content={post.content}
                     photo_cover_url={post.photo_cover_url}
-                    number_of_comments={post.number_of_comments}
+                    number_of_comments={post.number_of_comments || 0}
                     user_id={post.user_id}
-                    id={post.id}
+                    id={post.blog_id}
                     category={post.category}
                     created_at={post.created_at}
                     updated_at={post.updated_at}
@@ -119,8 +121,8 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
             {loading ? (
               <Loading />
             ) : (
-              blogs?.map((post) => (
-                <Link href={`/auth/blog/${post.id}`} key={post.id}>
+              LatestBlogs?.map((post) => (
+                <Link href={`/auth/blog/${post.blog_id}`} key={post.blog_id}>
                   <Card
                     author={post.author}
                     title={post.title}
@@ -128,7 +130,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                     photo_cover_url={post.photo_cover_url}
                     number_of_comments={post.number_of_comments}
                     user_id={post.user_id}
-                    id={post.id}
+                    id={post.blog_id}
                     category={post.category}
                     created_at={post.created_at}
                     updated_at={post.updated_at}

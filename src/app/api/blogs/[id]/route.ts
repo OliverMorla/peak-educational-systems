@@ -15,7 +15,7 @@ export async function GET(
 ) {
   const post = await prisma.blogs.findUnique({
     where: {
-      id: Number(params.id),
+      blog_id: Number(params.id),
     },
   });
 
@@ -40,7 +40,7 @@ export async function PUT(
   const { id, title, content, category, coverPhotoUrl } = await req.json();
   const post = await prisma.blogs.update({
     where: {
-      id: Number(id),
+      blog_id: Number(id),
     },
     data: {
       title: title,

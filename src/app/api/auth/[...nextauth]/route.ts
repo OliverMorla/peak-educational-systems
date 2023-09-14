@@ -86,9 +86,9 @@ const handler = NextAuth({
           },
         };
         // Consolidate first and last name for a more user-friendly display.
-        console.log(token);
-        console.log(userTemp);
-        console.log(currentUserSession);
+        // console.log(token);
+        // console.log(userTemp);
+        // console.log(currentUserSession);
 
         if (
           (userTemp?.first_name !== undefined ||

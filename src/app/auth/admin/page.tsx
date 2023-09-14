@@ -187,6 +187,7 @@ const Panel = () => {
                     <th> child_grade_level </th>
                     <th> school_type </th>
                     <th> school_region </th>
+                    <th> role </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -205,11 +206,12 @@ const Panel = () => {
                         <td>{user.email}</td>
                         <td>{user.date_of_birth}</td>
                         <td>{user.title}</td>
-                        <td>{user.emp_type}</td>
-                        <td>{user.emp_region}</td>
+                        <td>{user.employment_type}</td>
+                        <td>{user.employment_region}</td>
                         <td>{user.child_grade_level}</td>
                         <td>{user.school_type}</td>
                         <td>{user.school_region}</td>
+                        <td>{user.role}</td>
                         <td>
                           <button
                             name="user-delete-btn"
@@ -238,9 +240,11 @@ const Panel = () => {
                     <th> id </th>
                     <th> title </th>
                     <th> author </th>
-                    <th> comments </th>
-                    <th> author_id </th>
+                    <th> number_of_comments </th>
+                    <th> author </th>
+                    <th> category </th>
                     <th> photo_cover_url </th>
+                    <th> created_at </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -257,9 +261,10 @@ const Panel = () => {
                         <td>{news.title}</td>
                         <td>{news.author}</td>
                         <td>{news.number_of_comments}</td>
-                        <td>{news.user_id}</td>
+                        <td>{news.author}</td>
+                        <td>{news.category}</td>
                         <td>{news.photo_cover_url}</td>
-                        <td>{news.created_at}</td>
+                        <td>{new Date(news.created_at).toDateString()}</td>
                         <td>
                           <button
                             name="news-delete-btn"
@@ -285,11 +290,13 @@ const Panel = () => {
               <table>
                 <thead>
                   <tr>
-                    <th> id </th>
-                    <th> title </th>
+                    <th> blog_id </th>
                     <th> author </th>
-                    <th> comments </th>
-                    <th> photo_cover </th>
+                    <th> title </th>
+                    <th> photo_cover_url </th>
+                    <th> category </th>
+                    <th> number_of_comments </th>
+                    <th> created_at </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -301,17 +308,18 @@ const Panel = () => {
                     </tr>
                   ) : (
                     blogs?.map((blog) => (
-                      <tr key={blog.id}>
-                        <td>{blog.id}</td>
-                        <td>{blog.title}</td>
+                      <tr key={blog.blog_id}>
+                        <td>{blog.blog_id}</td>
                         <td>{blog.author}</td>
-                        <td>{blog.number_of_comments}</td>
+                        <td>{blog.title}</td>
                         <td>{blog.photo_cover_url}</td>
-                        <td>{blog.created_at}</td>
+                        <td>{blog.category}</td>
+                        <td>{blog.number_of_comments}</td>
+                        <td>{new Date(blog.created_at).toDateString()}</td>
                         <td>
                           <button
                             name="blog-delete-btn"
-                            onClick={(e) => handleDelete(e, blog.id)}
+                            onClick={(e) => handleDelete(e, blog.blog_id)}
                             className="delete-btn"
                           >
                             Delete
@@ -371,8 +379,8 @@ const Panel = () => {
 
         <section className="comments">
           <h2> Comments </h2>
-          <div className="quotes__list">
-            <div className="quotes__item">
+          <div className="comments__list">
+            <div className="comments__item">
               <table>
                 <thead>
                   <tr>

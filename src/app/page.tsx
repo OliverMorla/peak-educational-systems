@@ -85,7 +85,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
   return (
     <main className="home">
       <Modal
-        text="This page is still under construction hence, not everything is functional"
+        text="This website is still under construction hence, not everything is functional"
         type="Warning"
       />
       <section className="home__intro-section">
