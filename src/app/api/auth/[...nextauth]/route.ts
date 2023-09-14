@@ -5,22 +5,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma";
 
-type UserTempType = {
-  id?: number | null;
-  name?: string | null;
-  first_name?: string | null;
-  last_name?: string | null;
-  email?: string | null;
-  date_of_birth?: Date | null;
-  title?: string | null;
-  emp_type?: string | null;
-  emp_region?: string | null;
-  child_grade_level?: string | null;
-  school_type?: string | null;
-  school_region?: string | null;
-};
-
-let userTemp: UserTempType = {};
+//@ts-ignore
+const TemporaryUser = [];
 
 const handler = NextAuth({
   session: {
@@ -62,9 +48,10 @@ const handler = NextAuth({
             user &&
             bcrypt.compareSync(credentials?.password, user?.password ?? "")
           ) {
-            userTemp = {
+            TemporaryUser.push({
+              //@ts-ignore
               ...user,
-            };
+            });
             return user;
           }
         } else {
@@ -76,6 +63,8 @@ const handler = NextAuth({
   callbacks: {
     // Modifies the default session to better fit our application's user structure.
     async session({ session, user, token }) {
+      //@ts-ignore
+      let userTemp = TemporaryUser[0];
       if (userTemp.hasOwnProperty("id")) {
         const currentUserSession = {
           expires: session.expires,
@@ -85,6 +74,7 @@ const handler = NextAuth({
             password: undefined,
           },
         };
+        
         // Consolidate first and last name for a more user-friendly display.
         // console.log(token);
         // console.log(userTemp);

@@ -125,6 +125,25 @@ interface CommentsReponse {
   comments: Comment[];
 }
 
+// NextAuth Types
+interface TemporaryUser {
+  id?: number;
+  name?: string;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  password?: string;
+  date_of_birth?: string;
+  title?: string;
+  employment_type?: string;
+  employment_region?: string;
+  child_grade_level?: string;
+  school_type?: string;
+  school_region?: string;
+  created_at?: string;
+  role?: string;
+}
+
 // Authentication Types
 type EmploymentType =
   | "Freelance"
