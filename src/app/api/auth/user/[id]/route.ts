@@ -13,16 +13,20 @@ export async function GET(
     params: Params;
   }
 ) {
-  const user = await prisma.users.findUnique({
-    where: {
-      id: Number(params.id),
-    },
-  });
+  try {
+    const user = await prisma.users.findUnique({
+      where: {
+        id: Number(params.id),
+      },
+    });
 
-  if (user) return NextResponse.json({ status: 200, user });
-
-  return NextResponse.json({
-    status: 404,
-    message: "Failed to get User from server!",
-  });
+    if (user) return NextResponse.json({ status: 200, ok: true, user: user });
+  } catch (err) {
+    return NextResponse.json({
+      status: 500,
+      ok: false,
+      message: "Failed to fetch user!",
+      prisma_error: err instanceof Error ? err.message : undefined,
+    });
+  }
 }

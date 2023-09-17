@@ -3,24 +3,41 @@ import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
-  const comments = await prisma.$queryRaw(
-    Prisma.sql`
-    SELECT 
-      c.id,
-      c.content,
-      c.created_at,
-      c.updated_at,
-      u.first_name
-    FROM comments c
-    INNER JOIN users u ON c.user_id = u.id;`
-  );
-  if (comments)
-    return NextResponse.json({ status: 200, ok: true, comments: comments });
+  try {
+    const comments = await prisma.$queryRaw(
+      Prisma.sql`
+      SELECT 
+        c.id,
+        c.content,
+        c.created_at,
+        c.updated_at,
+        u.first_name
+      FROM comments c
+      INNER JOIN users u ON c.user_id = u.id;`
+    );
+    if (comments)
+      return NextResponse.json({ status: 200, ok: true, comments: comments });
+  } catch (err) {
+    if (err instanceof Error)
+      return NextResponse.json({
+        status: 500,
+        ok: false,
+        message: "Failed to fetch comments",
+        prisma_error: err.message,
+      });
+  }
 }
 
 export async function DELETE(req: NextRequest) {
   const url = new URL(req.url as string, process.env.NEXT_PUBLIC_CLIENT_URL);
   const comment_id = url.searchParams.get("id");
+
+  if (!comment_id)
+    return NextResponse.json({
+      status: 400,
+      ok: false,
+      message: "Comment id is required",
+    });
 
   try {
     const comment = await prisma.comments.delete({
@@ -37,10 +54,12 @@ export async function DELETE(req: NextRequest) {
       });
     }
   } catch (err) {
-    return NextResponse.json({
-      status: 400,
-      ok: false,
-      message: "Comment failed to delete!",
-    });
+    if (err instanceof Error)
+      return NextResponse.json({
+        status: 400,
+        ok: false,
+        message: "Comment failed to delete!",
+        prisma_error: err.message,
+      });
   }
 }

@@ -1,0 +1,97 @@
+@import "/src/styles/mixins.scss";
+
+.chat-box__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 500px;
+  height: 500px;
+  background-color: var(--senary);
+
+  .chat-box__header {
+    .chat-box__header-left {
+    }
+    .chat-box__header-right {
+    }
+  }
+
+  .chat-box__body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    .chat-box__body-left {
+      background: var(--secondary);
+      width: 450px;
+      .chat-box__body-left__message {
+        .chat-box__body-left__message__sender {
+          .chat-box__body-left__message__sender__avatar {
+          }
+          .chat-box__body-left__message__sender__name {
+          }
+        }
+        .chat-box__body-left__message__content {
+          .chat-box__body-left__message__content__text {
+          }
+          .chat-box__body-left__message__content__time {
+          }
+        }
+      }
+    }
+    .chat-box__body-right {
+      align-self: flex-end;
+      background: var(--secondary);
+      width: 450px;
+      .chat-box__body-right__message {
+        .chat-box__body-right__message__sender {
+          .chat-box__body-right__message__sender__avatar {
+          }
+          .chat-box__body-right__message__sender__name {
+            text-align: end;
+          }
+        }
+        .chat-box__body-right__message__content {
+          .chat-box__body-right__message__content__text {
+            text-align: end;
+          }
+          .chat-box__body-right__message__content__time {
+            text-align: end;
+          }
+        }
+      }
+    }
+  }
+
+  .chat-box__footer {
+    display: flex;
+    align-self: flex-end;
+    width: 100%;
+    .chat-box__footer-left {
+      width: 100%;
+      height: 50px;
+
+      .chat-box__footer-left__input {
+        width: 100%;
+        border: none;
+        outline: none;
+        height: 50px;
+        // font-size: 1.2rem;
+        color: black;
+        background-color: var(--white);
+      }
+    }
+    .chat-box__footer-right {
+      .chat-box__footer-right__button {
+        width: 50px;
+        height: 50px;
+        border: none;
+        outline: none;
+        background-color: var(--primary);
+        color: var(--matteBlack);
+        cursor: pointer;
+      }
+    }
+  }
+}

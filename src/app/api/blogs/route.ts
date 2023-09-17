@@ -3,35 +3,44 @@ import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const PopularBlogs = await prisma.$queryRaw(
-    Prisma.sql`
-    SELECT b.blog_id, b.author, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
-    FROM blogs b
-    LEFT JOIN (
-        SELECT blog_id, COUNT(blog_id) as number_of_comments
-        FROM comments
-        GROUP BY blog_id
-    ) AS c ON b.blog_id = c.blog_id
-	  ORDER BY COALESCE(c.number_of_comments, 0) DESC
-    LIMIT 10;
-    `
-  );
-  const LatestBlogs = await prisma.$queryRaw(
-    Prisma.sql`
-    SELECT b.blog_id, b.author, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
-    FROM blogs b
-    LEFT JOIN (
-        SELECT blog_id, COUNT(blog_id) as number_of_comments
-        FROM comments
-        GROUP BY blog_id
-    ) AS c ON b.blog_id = c.blog_id
-    ORDER BY b.created_at DESC
-    LIMIT 10;
-    `
-  );
-
-  if (PopularBlogs && LatestBlogs)
-    return NextResponse.json({ status: 200, PopularBlogs, LatestBlogs });
+  try {
+    const PopularBlogs = await prisma.$queryRaw(
+      Prisma.sql`
+      SELECT b.blog_id, b.author, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
+      FROM blogs b
+      LEFT JOIN (
+          SELECT blog_id, COUNT(blog_id) as number_of_comments
+          FROM comments
+          GROUP BY blog_id
+      ) AS c ON b.blog_id = c.blog_id
+      ORDER BY COALESCE(c.number_of_comments, 0) DESC
+      LIMIT 10;
+      `
+    );
+    const LatestBlogs = await prisma.$queryRaw(
+      Prisma.sql`
+      SELECT b.blog_id, b.author, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
+      FROM blogs b
+      LEFT JOIN (
+          SELECT blog_id, COUNT(blog_id) as number_of_comments
+          FROM comments
+          GROUP BY blog_id
+      ) AS c ON b.blog_id = c.blog_id
+      ORDER BY b.created_at DESC
+      LIMIT 10;
+      `
+    );
+  
+    if (PopularBlogs && LatestBlogs)
+      return NextResponse.json({ status: 200, ok: true, PopularBlogs, LatestBlogs });
+  } catch (err) {
+    return NextResponse.json({
+      status: 500,
+      ok: false,
+      message: "Failed to fetch blogs!",
+      prisma_error: err instanceof Error ? err.message : undefined,
+    })
+  }
 }
 
 export async function POST(req: NextRequest) {

@@ -1,11 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import "./page.scss";
 import Loading from "@/components/Loading";
+import "./page.scss";
 
 const Panel = () => {
   const { data: session, status } = useSession();
@@ -35,6 +34,7 @@ const Panel = () => {
       if (response.ok) {
         setter(response[endpoint]);
       }
+      throw new Error(response.message);
     } catch (err) {
       if (err instanceof Error)
         setErrors({ ...errors, [errorKey]: err.message });
@@ -48,6 +48,9 @@ const Panel = () => {
     getData("news", setNews, "newsError");
     getData("comments", setComments, "commentsError");
   }, []);
+
+  // to check if the data is fetched
+  console.log(errors);
 
   const handleDelete = async (
     e: React.MouseEvent<HTMLButtonElement>,

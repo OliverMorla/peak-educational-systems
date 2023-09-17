@@ -5,8 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import prisma from "@/lib/prisma";
 
-//@ts-ignore
-const TemporaryUser = [];
+const TemporaryUser: any[] = [];
 
 const handler = NextAuth({
   session: {
@@ -48,10 +47,7 @@ const handler = NextAuth({
             user &&
             bcrypt.compareSync(credentials?.password, user?.password ?? "")
           ) {
-            TemporaryUser.push({
-              //@ts-ignore
-              ...user,
-            });
+            TemporaryUser.push(user);
             return user;
           }
         } else {
@@ -63,9 +59,9 @@ const handler = NextAuth({
   callbacks: {
     // Modifies the default session to better fit our application's user structure.
     async session({ session, user, token }) {
-      //@ts-ignore
-      let userTemp = TemporaryUser[0];
-      if (userTemp.hasOwnProperty("id")) {
+      const userTemp = TemporaryUser[0];
+
+      if (userTemp?.hasOwnProperty("id")) {
         const currentUserSession = {
           expires: session.expires,
           user: {
@@ -74,31 +70,15 @@ const handler = NextAuth({
             password: undefined,
           },
         };
-        
-        // Consolidate first and last name for a more user-friendly display.
-        // console.log(token);
-        // console.log(userTemp);
-        // console.log(currentUserSession);
-
         if (
-          (userTemp?.first_name !== undefined ||
-            currentUserSession?.user.first_name !== undefined) &&
-          session?.user?.name === undefined
+          session.user?.name === undefined &&
+          session.user?.image === undefined
         ) {
-          // let name = userTemp?.first_name + " " + userTemp?.last_name;
-          // console.log(name);
-          // const sessionTemp = {
-          //   expires: session.expires,
-          //   user: {
-          //     ...userTemp,
-          //     name: name,
-          //     password: undefined,
-          //   },
-          // };
           return currentUserSession;
+        } else {
+          return session;
         }
       }
-      userTemp = {};
       return session;
     },
   },

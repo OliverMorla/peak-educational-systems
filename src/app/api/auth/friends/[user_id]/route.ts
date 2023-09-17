@@ -1,59 +1,6 @@
-import prisma from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
-
 import { NextRequest, NextResponse } from "next/server";
-
-// export async function handler(
-//   req: NextRequest,
-//   { params }
-// ): Promise<NextResponse> {
-//   switch (req.method) {
-//     case "GET":
-//       console.log("params", params);
-
-//       try {
-//         const friends = await prisma.friends.findMany({
-//           where: {
-//             user_id: Number(params.user_id),
-//           },
-//         });
-//         return NextResponse.json({ status: 200, ok: true, friends: friends });
-//       } catch (error) {
-//         console.error("Error fetching friends:", error);
-//         return NextResponse.json(
-//           { error: "Unable to fetch friends" },
-//           { status: 500 }
-//         );
-//       }
-
-//     case "POST":
-//       // Implement POST logic here
-//       return NextResponse.json(
-//         { message: "POST not implemented" },
-//         { status: 501 }
-//       );
-
-//     case "PUT":
-//       // Implement PUT logic here
-//       return NextResponse.json(
-//         { message: "PUT not implemented" },
-//         { status: 501 }
-//       );
-
-//     case "DELETE":
-//       // Implement DELETE logic here
-//       return NextResponse.json(
-//         { message: "DELETE not implemented" },
-//         { status: 501 }
-//       );
-
-//     default:
-//       return NextResponse.json(
-//         { message: "Method not supported" },
-//         { status: 405 }
-//       );
-//   }
-// }
+import { Prisma } from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 export async function GET(
   req: NextRequest,
@@ -65,8 +12,10 @@ export async function GET(
     };
   }
 ) {
-  console.log("params", params);
-
+  // testing
+  // console.log("params", params);
+  if (!params.user_id)
+    return NextResponse.json({ error: "User id is required" }, { status: 400 });
   try {
     const currentFriends = await prisma.$queryRaw(Prisma.sql`
         SELECT 
@@ -96,7 +45,7 @@ export async function GET(
         f.status
         FROM friends f
         JOIN users u ON f.friend_id = u.id
-        WHERE f.user_id = ${Number(params.user_id)} AND f.status = 'pending'`);
+        WHERE f.user_id = ${Number(params.user_id)} AND f.status = 'blocked'`);
     return NextResponse.json({
       status: 200,
       ok: true,
@@ -104,11 +53,13 @@ export async function GET(
       pendingFriends: pendingFriends,
       blockedFriends: blockedFriends,
     });
-  } catch (error) {
-    console.error("Error fetching friends:", error);
-    return NextResponse.json(
-      { error: "Unable to fetch friends" },
-      { status: 500 }
-    );
+  } catch (err) {
+    if (err instanceof Error)
+      return NextResponse.json({
+        status: 500,
+        ok: false,
+        message: "Failed to fetch friends",
+        prisma_error: err.message,
+      });
   }
 }

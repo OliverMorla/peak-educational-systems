@@ -11,6 +11,7 @@ import {
 import { useEffect, useState, useRef } from "react";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
 import { Session } from "next-auth";
+import Chat from "../Chat";
 
 interface Props {
   session: Session;
@@ -19,6 +20,10 @@ interface Props {
 const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
   session,
 }): JSX.Element | JSX.Element[] => {
+
+  
+  const [openChatBox, setOpenChatBox] = useState<boolean>(false);
+  console.log(openChatBox)
   const [currentFriends, setCurrentFriends] = useState<Friend[]>([]);
   const [pendingFriends, setPendingFriends] = useState<Friend[]>([]);
   const [blockedFriends, setBlockedFriends] = useState<Friend[]>([]);
@@ -42,6 +47,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
   }, [session?.user?.id]);
   return (
     <aside className="profile-sidebar-menu" ref={sidebarRef}>
+      {openChatBox && <Chat />}
       <section
         className="profile-sidebar-menu__drag-arrow-wrapper"
         onClick={() => sidebarRef.current?.classList.toggle("open")}
@@ -74,7 +80,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                       <FontAwesomeIcon icon={faUser} />
                       <span className="profile-sidebar-menu__friends-name">
                         {friend.friend_name}&nbsp;
-                        <button className="profile-sidebar-menu__friends-options">
+                        <button className="profile-sidebar-menu__friends-options" onClick={() => setOpenChatBox(!openChatBox)}>
                           ...
                         </button>
                       </span>

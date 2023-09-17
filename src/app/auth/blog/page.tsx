@@ -18,6 +18,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
       setLoading(true);
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/blogs`);
       const response = await res.json();
+      console.log(response);
       setLoading(false);
       return response;
     } catch (err) {

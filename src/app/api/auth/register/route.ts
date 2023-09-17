@@ -26,6 +26,7 @@ export async function POST(req: NextRequest) {
         message: "All fields are required.",
       });
     }
+
     // Debugging Purposes
     // console.log(body);
 
@@ -75,7 +76,6 @@ export async function POST(req: NextRequest) {
       }
     }
   } catch (err) {
-    console.log(err);
     return NextResponse.json({
       status: 400,
       account_created: false,
