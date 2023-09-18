@@ -191,6 +191,7 @@ const Panel = () => {
                     <th> school_type </th>
                     <th> school_region </th>
                     <th> role </th>
+                    <th> created_at </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -215,6 +216,7 @@ const Panel = () => {
                         <td>{user.school_type}</td>
                         <td>{user.school_region}</td>
                         <td>{user.role}</td>
+                        <td>{user.created_at}</td>
                         <td>
                           <button
                             name="user-delete-btn"
@@ -298,7 +300,6 @@ const Panel = () => {
                     <th> title </th>
                     <th> photo_cover_url </th>
                     <th> category </th>
-                    <th> number_of_comments </th>
                     <th> created_at </th>
                   </tr>
                 </thead>
@@ -317,7 +318,7 @@ const Panel = () => {
                         <td>{blog.title}</td>
                         <td>{blog.photo_cover_url}</td>
                         <td>{blog.category}</td>
-                        <td>{blog.number_of_comments}</td>
+                        <td>{blog.created_at}</td>
                         <td>{new Date(blog.created_at).toDateString()}</td>
                         <td>
                           <button
