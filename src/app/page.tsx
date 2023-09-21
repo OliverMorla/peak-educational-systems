@@ -25,6 +25,7 @@ import Marquee from "react-fast-marquee";
 import Typewriter from "typewriter-effect";
 import Card from "@/components/News/Card";
 import Modal from "@/components/Modal";
+import { useSocket } from "@/contexts/SocketContext";
 import SessionForm from "@/components/Session/Form";
 import { Counter } from "@/components/Counter";
 import "./page.scss";
@@ -84,10 +85,10 @@ const Home: React.FunctionComponent = (): JSX.Element => {
 
   return (
     <main className="home">
-      <Modal
+      {/* <Modal
         text="This website is still under construction hence, not everything is functional"
         type="Warning"
-      />
+      /> */}
       <section className="home__intro-section">
         <section className="home__section-bg">
           <motion.div

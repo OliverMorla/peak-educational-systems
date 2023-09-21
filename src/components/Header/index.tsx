@@ -9,8 +9,8 @@ import { motion } from "framer-motion";
 import Login from "@/components/Modal/Login";
 import Image from "next/image";
 import Link from "next/link";
-import "./style.scss";
 import ProfileSidebarMenu from "../Modal/ProfileSidebarMenu";
+import "./style.scss";
 
 const Header: React.FunctionComponent = (): JSX.Element => {
   const navRef = useRef<HTMLDivElement>(null);
@@ -18,18 +18,15 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const path = usePathname();
   const { data: session, update } = useSession();
   if (
-    session?.user?.name === "undefined undefined" ||
-    session?.user?.name === "null null"
+    (session?.user?.name === undefined || session?.user?.image) &&
+    session?.user?.email
   )
     signOut();
-  console.log(session?.user?.name);
 
   // debugging purposes
-  console.log(session);
+  console.log(session?.user ? "You are logged in" : "You are not logged in");
+
   useEffect(() => {
-    // TIP: You can also use `navigator.onLine` and some extra event handlers
-    // to check if the user is online and only update the session if they are.
-    // https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine
     const interval = setInterval(() => update(), 1000 * 60 * 60);
     return () => clearInterval(interval);
   }, [update]);
@@ -38,7 +35,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
       <header
         className="header"
         style={{
-          backgroundColor: path.startsWith("/auth") ? "var(--senary)" : "",
+          backgroundColor: path?.startsWith("/auth") ? "var(--senary)" : "",
         }}
       >
         <section className="header__title-section">
@@ -128,7 +125,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
               className="nav__item logout-btn"
             >
               <button onClick={() => signOut()}>Log Out</button>
-            </motion.div> 
+            </motion.div>
           )}
         </nav>
 
@@ -136,7 +133,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
           <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
         ) : null}
       </header>
-      {session?.user && <ProfileSidebarMenu session={session}/>}
+      {session?.user && <ProfileSidebarMenu session={session} key={1}/>}
     </>
   );
 };

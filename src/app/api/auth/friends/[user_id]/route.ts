@@ -13,7 +13,7 @@ export async function GET(
   }
 ) {
   // testing
-  // console.log("params", params);
+  console.log("params", params);
   if (!params.user_id)
     return NextResponse.json({ error: "User id is required" }, { status: 400 });
   try {
@@ -26,6 +26,8 @@ export async function GET(
         FROM friends f
         JOIN users u ON f.friend_id = u.id
         WHERE f.user_id = ${Number(params.user_id)} AND f.status = 'accepted'`);
+
+        
 
     const pendingFriends = await prisma.$queryRaw(Prisma.sql`
         SELECT 
@@ -46,6 +48,7 @@ export async function GET(
         FROM friends f
         JOIN users u ON f.friend_id = u.id
         WHERE f.user_id = ${Number(params.user_id)} AND f.status = 'blocked'`);
+        
     return NextResponse.json({
       status: 200,
       ok: true,

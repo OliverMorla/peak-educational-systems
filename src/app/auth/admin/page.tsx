@@ -157,7 +157,7 @@ const Panel = () => {
         break;
     }
   };
-  if (status === "unauthenticated" || status === "loading") {
+  if (session?.user?.email !== "admin@peakeducationalsystems.com") {
     return (
       <main className="error">
         <h1>You have to sign in!</h1>
@@ -216,7 +216,7 @@ const Panel = () => {
                         <td>{user.school_type}</td>
                         <td>{user.school_region}</td>
                         <td>{user.role}</td>
-                        <td>{user.created_at}</td>
+                        <td>{new Date(user.created_at).toDateString()}</td>
                         <td>
                           <button
                             name="user-delete-btn"

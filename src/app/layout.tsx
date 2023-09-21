@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Providers from "@/components/Auth";
 import Loading from "./loading";
 import "./globals.css";
+import { SocketProvider } from "@/contexts/SocketContext";
 
 const roboto = Roboto({
   weight: ["100", "300", "500", "900"],
@@ -16,7 +17,8 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: "Peak Educational Systems",
-  description: "Welcome to Peak Educational Systems. Here you can find all the information you need to know about our company and our services.",
+  description:
+    "Welcome to Peak Educational Systems. Here you can find all the information you need to know about our company and our services.",
   keywords: ["Student Consulting", "Teacher Consulting", "Parent Consulting"],
 };
 
@@ -31,9 +33,11 @@ export default function RootLayout({
         <AuthProvider>
           <Suspense fallback={<Loading />}>
             <Providers>
-              <Header />
-              {children}
-              <Footer />
+              <SocketProvider>
+                <Header />
+                {children}
+                <Footer />
+              </SocketProvider>
             </Providers>
           </Suspense>
         </AuthProvider>

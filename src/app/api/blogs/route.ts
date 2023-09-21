@@ -17,6 +17,7 @@ export async function GET(req: NextRequest) {
       LIMIT 10;
       `
     );
+    
     const LatestBlogs = await prisma.$queryRaw(
       Prisma.sql`
       SELECT b.blog_id, b.author, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
@@ -30,16 +31,21 @@ export async function GET(req: NextRequest) {
       LIMIT 10;
       `
     );
-  
+
     if (PopularBlogs && LatestBlogs)
-      return NextResponse.json({ status: 200, ok: true, PopularBlogs, LatestBlogs });
+      return NextResponse.json({
+        status: 200,
+        ok: true,
+        PopularBlogs,
+        LatestBlogs,
+      });
   } catch (err) {
     return NextResponse.json({
       status: 500,
       ok: false,
       message: "Failed to fetch blogs!",
       prisma_error: err instanceof Error ? err.message : undefined,
-    })
+    });
   }
 }
 

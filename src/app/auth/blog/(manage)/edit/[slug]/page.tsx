@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import "./page.scss";
 
 const Edit: React.FunctionComponent = (): JSX.Element => {
+  // @ts-ignore
   const { slug } = useParams();
   const [blog, setBlog] = useState<Blog>();
 

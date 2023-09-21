@@ -2,10 +2,24 @@ import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
-export async function GET(req: NextRequest, params: { user_id: string }) {
+export async function GET(
+  req: NextRequest,
+  {
+    params,
+  }: {
+    params: {
+      user_id: string | number | undefined;
+    };
+  }
+) {
+  const url = new URL(req.url as string, process.env.NEXT_PUBLIC_CLIENT_URL);
+  const friend_id = url.searchParams.get("friend_id");
   try {
+    console.log(params.user_id);
+    console.log(friend_id)
     const chatHistory = await prisma.$queryRaw(
       Prisma.sql`
+      SELECT * FROM (
         SELECT 
             cm.message_id,
             cm.from_user_id,
@@ -14,7 +28,7 @@ export async function GET(req: NextRequest, params: { user_id: string }) {
             CONCAT(us.first_name, ' ', us.last_name) as receiver_name,
             cm.message_text,
             cm.timestamp
-            FROM chat_messages cm
+        FROM chat_messages cm
         LEFT JOIN (
             SELECT id, first_name, last_name
             FROM users
@@ -23,7 +37,31 @@ export async function GET(req: NextRequest, params: { user_id: string }) {
             SELECT id, first_name, last_name
             FROM users
         ) AS us ON cm.to_user_id = us.id
-        WHERE cm.from_user_id = ${Number(params.user_id)}
+        WHERE cm.from_user_id = ${Number(params.user_id)}  
+    
+        UNION
+    
+        SELECT 
+            cm.message_id,
+            cm.from_user_id,
+            CONCAT(u.first_name, ' ', u.last_name) as sender_name,
+            cm.to_user_id,
+            CONCAT(us.first_name, ' ', us.last_name) as receiver_name,
+            cm.message_text,
+            cm.timestamp
+        FROM chat_messages cm
+        LEFT JOIN (
+            SELECT id, first_name, last_name
+            FROM users
+        ) AS u ON cm.from_user_id = u.id
+        LEFT JOIN (
+            SELECT id, first_name, last_name
+            FROM users
+        ) AS us ON cm.to_user_id = us.id
+        WHERE cm.from_user_id = ${Number(friend_id)} 
+    ) AS combined_result
+    ORDER BY combined_result.timestamp;
+    
         `
     );
     if (chatHistory)
