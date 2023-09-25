@@ -6,7 +6,7 @@ import "./style.scss";
 const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
   const { data: session } = useSession();
   const { socket, isConnected } = useSocket();
-  const [chatHistory, setChatHistory] = useState<any[]>([]);
+  const [chatHistory, setChatHistory] = useState<ChatHistoryMessages[]>([]);
   const [message, setMessage] = useState<string>("");
 
   const getChatHistory = async () => {
@@ -15,21 +15,23 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
         // @ts-ignore
         `${process.env.NEXT_PUBLIC_API_URL}/auth/chat/${session?.user?.id}?friend_id=${friend_id}`
       );
-      const data = await res.json();
-      setChatHistory(data?.chatHistory);
+      const data = (await res.json()) as ChatHistoryResponse;
+      if (data?.ok) {
+        setChatHistory(data?.chatHistory);
+      }
     } catch (err) {
       alert(err instanceof Error ? err.message : console.log(err));
     }
   };
 
   const sendMessage = async () => {
-    const messageData = {
+    const messageData: MessageDataProps = {
       // @ts-ignore
       from_user_id: session?.user?.id,
+      sender_name: session?.user?.name,
       message_text: message,
-      to_user_id: friend_id,
-
-    }
+      to_user_id: Number(friend_id),
+    };
     try {
       const res = await fetch("/api/socket/messages", {
         method: "POST",
@@ -39,19 +41,27 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
         body: JSON.stringify(messageData),
       });
       const data = await res.json();
-      console.log(data);
     } catch (err) {
-      alert(err instanceof Error && console.log(err.message) );
+      alert(err instanceof Error && console.log(err.message));
     }
   };
 
   useEffect(() => {
     getChatHistory();
 
-    socket.on("message", (data:any) => {
+    const handleMessage = (data: any) => {
+      setChatHistory((prevChatHistory) => [...prevChatHistory, data]);
+    };
 
-    });
-  }, [socket]);
+    socket.on("message", handleMessage);
+
+    // Cleanup
+    return () => {
+      socket.off("message", handleMessage);
+    };
+  }, []);
+
+  console.log(chatHistory);
 
   return (
     <div className="chat-box__wrapper">

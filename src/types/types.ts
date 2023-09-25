@@ -17,6 +17,13 @@ interface PostCardProps {
   updated_at?: string;
 }
 
+interface MessageDataProps {
+  from_user_id: number;
+  sender_name: string | null | undefined; 
+  to_user_id: number;
+  message_text: string;
+}
+
 interface News extends PostCardProps {}
 
 // API Response Types
@@ -104,6 +111,16 @@ interface Chat_Message {
   timestamp: Date;
 }
 
+interface ChatHistoryMessages {
+  message_id: number;
+  from_user_id: number;
+  sender_name: string;
+  to_user_id: number;
+  receiver_name: string;
+  message_text: string;
+  timestamp: Date | string;
+}
+
 // For Admin Page
 interface AdminResponse<T> {
   status: number;
@@ -123,6 +140,12 @@ interface CommentsReponse {
   status: number;
   ok: boolean;
   comments: Comment[];
+}
+
+interface ChatHistoryResponse {
+  ok?: boolean;
+  status?: number;
+  chatHistory: ChatHistoryMessages[];
 }
 
 // NextAuth Types

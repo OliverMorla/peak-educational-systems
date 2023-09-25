@@ -22,6 +22,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    overflow-y: scroll;
     .chat-box__body-left {
       background: var(--secondary);
       align-self: flex-start;

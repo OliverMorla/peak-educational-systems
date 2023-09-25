@@ -6,7 +6,7 @@ export async function GET(req: NextRequest) {
   try {
     const PopularBlogs = await prisma.$queryRaw(
       Prisma.sql`
-      SELECT b.blog_id, b.author, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
+      SELECT b.blog_id, b.author, b.title, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
       FROM blogs b
       LEFT JOIN (
           SELECT blog_id, COUNT(blog_id) as number_of_comments
@@ -17,11 +17,11 @@ export async function GET(req: NextRequest) {
       LIMIT 10;
       `
     );
-    
+
     const LatestBlogs = await prisma.$queryRaw(
       Prisma.sql`
-      SELECT b.blog_id, b.author, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
-      FROM blogs b
+      SELECT b.blog_id, b.author, b.title, b.content, b.photo_cover_url, b.category, b.updated_at, b.created_at, CAST(COALESCE(c.number_of_comments, 0) as INT) AS number_of_comments
+      FROM blogs b 
       LEFT JOIN (
           SELECT blog_id, COUNT(blog_id) as number_of_comments
           FROM comments
