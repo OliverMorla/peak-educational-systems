@@ -17,12 +17,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const path = usePathname();
   const { data: session, update } = useSession();
-  if (
-    (session?.user?.name === undefined || session?.user?.image) &&
-    session?.user?.email
-  )
-    signOut();
-
+  
   // debugging purposes
   console.log(session?.user ? "You are logged in" : "You are not logged in");
 

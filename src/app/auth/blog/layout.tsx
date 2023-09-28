@@ -1,4 +1,6 @@
+import Loading from "@/app/loading";
 import { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "PES - Blog",
@@ -40,5 +42,9 @@ export default function BlogLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return (
+    <>
+      <Suspense fallback={<Loading />}>{children}</Suspense>
+    </>
+  );
 }

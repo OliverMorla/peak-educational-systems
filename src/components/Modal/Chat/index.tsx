@@ -61,8 +61,6 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
     };
   }, []);
 
-  console.log(chatHistory);
-
   return (
     <div className="chat-box__wrapper">
       <div className="chat-box__header">
@@ -74,7 +72,7 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
           // @ts-ignore
           if (chat?.from_user_id !== session?.user?.id) {
             return (
-              <div className="chat-box__body-left" key={chat.from_user_id}>
+              <div className="chat-box__body-left" key={chat.message_id}>
                 <div className="chat-box__body-left__message">
                   <div className="chat-box__body-left__message__sender">
                     <div className="chat-box__body-left__message__sender__avatar"></div>
@@ -95,7 +93,7 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
             );
           } else {
             return (
-              <div className="chat-box__body-right" key={chat.to_user_id}>
+              <div className="chat-box__body-right" key={chat.message_id}>
                 <div className="chat-box__body-right__message">
                   <div className="chat-box__body-right__message__sender">
                     <div className="chat-box__body-right__message__sender__avatar"></div>

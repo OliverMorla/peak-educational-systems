@@ -100,6 +100,7 @@ interface Friend {
   created_at: string;
   updated_at: string;
   friend_name?: string;
+  user_name?: string;
   status: "pending" | "accepted" | "blocked";
 }
 
@@ -112,12 +113,12 @@ interface Chat_Message {
 }
 
 interface ChatHistoryMessages {
-  message_id: number;
   from_user_id: number;
-  sender_name: string;
   to_user_id: number;
-  receiver_name: string;
+  message_id: number;
   message_text: string;
+  sender_name: string;
+  receiver_name: string;
   timestamp: Date | string;
 }
 

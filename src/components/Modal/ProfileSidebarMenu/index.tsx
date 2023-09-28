@@ -5,9 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faMagnifyingGlassPlus,
-  faUserPlus,
+  faStopCircle,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
+import { faUser, faMessage } from "@fortawesome/free-regular-svg-icons";
 import { Session } from "next-auth";
 import Chat from "../Chat";
 import "./style.scss";
@@ -23,6 +24,59 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
   const [currentFriends, setCurrentFriends] = useState<Friend[]>([]);
   const [pendingFriends, setPendingFriends] = useState<Friend[]>([]);
   const [blockedFriends, setBlockedFriends] = useState<Friend[]>([]);
+
+  const [findFriends, setFindFriends] = useState<User[]>([]);
+  const [findFriendsModal, setFindFriendsModal] = useState<boolean>(false);
+
+  const [search, setSearch] = useState<string>("");
+
+  const searchFriend = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/friends/search`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(search),
+        }
+      );
+      const data = await res.json();
+      setFindFriends(data?.users);
+      console.log(data);
+      if (data.ok) {
+        setFindFriendsModal(true);
+      }
+      throw new Error(data.message);
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : "An error occured");
+    }
+  };
+
+  const addFriend = async (friend_id: number) => {
+    const friendData = {
+      // @ts-ignore
+      user_id: session?.user?.id,
+      friend_id: friend_id,
+      status: "pending",
+    };
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/friends/add`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(friendData),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {}
+  };
+
   const sidebarRef = useRef<HTMLDivElement>(null);
   const getFriends = async () => {
     const res = await fetch(
@@ -42,46 +96,67 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
     //@ts-ignore
   }, [session?.user?.id]);
   return (
-    <aside className="profile-sidebar-menu" ref={sidebarRef}>
+    <aside className="profile-sidebar" ref={sidebarRef}>
       <section
-        className="profile-sidebar-menu__drag-arrow-wrapper"
+        className="profile-sidebar__drag"
         onClick={() => sidebarRef.current?.classList.toggle("open")}
       >
-        <button className="profile-sidebar-menu__drag-arrow">
+        <button className="profile-sidebar__drag-btn">
           <FontAwesomeIcon icon={faArrowRight} />
         </button>
       </section>
 
-      <section className="profile-sidebar-menu__friends">
-        <h2 className="profile-sidebar-menu__friends-title">Friends</h2>
-        <section className="profile-sidebar-menu__friends-btns">
-          <button className="profile-sidebar-menu__add-friend-btn">
-            <FontAwesomeIcon icon={faUserPlus} />
-            Add Friend
-          </button>
-          <button className="profile-sidebar-menu__find-friend-btn">
+      <section className="profile-sidebar__friends">
+        <h2 className="profile-sidebar__title">Friends</h2>
+        <section className="profile-sidebar__search">
+          <input
+            type="text"
+            name="search-friend-input"
+            className="profile-sidebar__search-input"
+            placeholder="Search for friends"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearch(e.currentTarget.value)
+            }
+          />
+          <button
+            className="profile-sidebar__search-btn"
+            onClick={searchFriend}
+          >
             <FontAwesomeIcon icon={faMagnifyingGlassPlus} />
             Find Friend
           </button>
         </section>
-        <ul className="profile-sidebar-menu__friends-list">
+
+        <ul className="profile-sidebar__list">
           <h4> Current Friends </h4>
           {currentFriends?.length === 0
             ? "Be the first to add a friend!"
             : currentFriends?.map((friend) => (
                 <li
-                  className="profile-sidebar-menu__friends-item"
+                  className="profile-sidebar__item"
                   key={friend.friend_id}
                 >
-                  <a href="#" className="profile-sidebar-menu__friends-link">
-                    <FontAwesomeIcon icon={faUser} />
-                    <span className="profile-sidebar-menu__friends-name">
+                  <a href="#" className="profile-sidebar__link">
+                    <FontAwesomeIcon icon={faUser} className="profile-sidebar__photo"/>
+                    <span className="profile-sidebar__name">
                       {friend.friend_name}&nbsp;
                       <button
-                        className="profile-sidebar-menu__friends-options"
+                        className="profile-sidebar__options-chat"
                         onClick={() => setOpenChatBox(!openChatBox)}
                       >
-                        ...
+                        <FontAwesomeIcon icon={faMessage} />
+                      </button>
+                      <button
+                        className="profile-sidebar__options-decline"
+                        onClick={() => setOpenChatBox(!openChatBox)}
+                      >
+                        <FontAwesomeIcon icon={faXmark} />
+                      </button>
+                      <button
+                        className="profile-sidebar__options-block"
+                        onClick={() => setOpenChatBox(!openChatBox)}
+                      >
+                        <FontAwesomeIcon icon={faStopCircle} />
                       </button>
                     </span>
                   </a>
@@ -89,42 +164,77 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                 </li>
               ))}
         </ul>
-        <ul className="profile-sidebar-menu__friends-list">
+
+        <ul className="profile-sidebar__list">
           <h4> Pending Request </h4>
           {pendingFriends?.length === 0
             ? "You have no pending request!"
-            : pendingFriends?.map((friend) => (
-                <li
-                  className="profile-sidebar-menu__friends-item"
-                  key={friend.friend_id}
-                >
-                  <a href="#" className="profile-sidebar-menu__friends-link">
-                    <FontAwesomeIcon icon={faUser} />
-                    <span className="profile-sidebar-menu__friends-name">
-                      {friend.friend_name}&nbsp;
-                      <button className="profile-sidebar-menu__friends-options">
-                        ...
-                      </button>
-                    </span>
-                  </a>
-                </li>
-              ))}
+            : pendingFriends?.map((friend, index) => {
+                //@ts-ignore
+                if (friend.user_id === session?.user?.id) {
+                  return (
+                    <li
+                      className="profile-sidebar__item"
+                      key={index}
+                    >
+                      <a
+                        href="#"
+                        className="profile-sidebar__link"
+                      >
+                        <FontAwesomeIcon icon={faUser} className="profile-sidebar__photo"/>
+                        <span className="profile-sidebar__name">
+                          {friend.friend_name}&nbsp;
+                          <button className="profile-sidebar__options-decline">
+                            X
+                          </button>
+                          <button className="profile-sidebar__options-add">
+                            ✔
+                          </button>
+                        </span>
+                      </a>
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li
+                      className="profile-sidebar__item"
+                      key={index}
+                    >
+                      <a
+                        href="#"
+                        className="profile-sidebar__link"
+                      >
+                        <FontAwesomeIcon icon={faUser} className="profile-sidebar__photo"/>
+                        <span className="profile-sidebar__name">
+                          {friend.user_name}&nbsp;
+                          <button className="profile-sidebar__options-decline">
+                            X
+                          </button>
+                          <button className="profile-sidebar__options-add">
+                            ✔
+                          </button>
+                        </span>
+                      </a>
+                    </li>
+                  );
+                }
+              })}
         </ul>
-        <ul className="profile-sidebar-menu__friends-list">
-          <h4> Blocked Users </h4>
 
+        <ul className="profile-sidebar__list">
+          <h4> Blocked Users </h4>
           {blockedFriends?.length === 0
             ? "No blocked users!"
             : blockedFriends?.map((friend) => (
                 <li
-                  className="profile-sidebar-menu__friends-item"
+                  className="profile-sidebar__item"
                   key={friend.friend_id}
                 >
-                  <a href="#" className="profile-sidebar-menu__friends-link">
-                    <FontAwesomeIcon icon={faUser} />
-                    <span className="profile-sidebar-menu__friends-name">
+                  <a href="#" className="profile-sidebar__link">
+                    <FontAwesomeIcon icon={faUser} className="profile-sidebar__photo"/>
+                    <span className="profile-sidebar__name">
                       {friend.friend_name}&nbsp;
-                      <button className="profile-sidebar-menu__friends-options">
+                      <button className="profile-sidebar__options-btn">
                         ...
                       </button>
                     </span>
@@ -133,6 +243,25 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
               ))}
         </ul>
       </section>
+
+      {findFriendsModal && (
+        <section className="profile-sidebar__find-friends">
+          <h2>List of Users</h2>
+          <ul className="find-friends__modal-list">
+            {findFriends?.map((friend) => (
+              <li key={friend.id} className="find-friends__item">
+                {friend.first_name} ({friend.email})
+                <button
+                  className="find-friends__add-btn"
+                  onClick={() => addFriend(friend.id)}
+                >
+                  Add
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </aside>
   );
 };
