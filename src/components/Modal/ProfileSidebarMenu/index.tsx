@@ -20,6 +20,8 @@ interface Props {
 const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
   session,
 }): JSX.Element | JSX.Element[] => {
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
   const [openChatBox, setOpenChatBox] = useState<boolean>(false);
   const [currentFriends, setCurrentFriends] = useState<Friend[]>([]);
   const [pendingFriends, setPendingFriends] = useState<Friend[]>([]);
@@ -44,7 +46,6 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
       );
       const data = await res.json();
       setFindFriends(data?.users);
-      console.log(data);
       if (data.ok) {
         setFindFriendsModal(true);
       }
@@ -77,7 +78,26 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
     } catch (err) {}
   };
 
-  const sidebarRef = useRef<HTMLDivElement>(null);
+  const removeFriend = async (friend_id: number) => {};
+
+  const acceptFriend = async (friend_id: number) => {};
+
+  const blockFriend = async (friend_id: number) => {};
+
+  const unblockFriend = async (friend_id: number) => {};
+
+  const declineFriend = async (friend_id: number) => {
+    const friendData = {
+      
+    }
+    
+    try {
+     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/friends/decline`, {}) 
+    } catch (err) {
+      
+    }
+  };
+
   const getFriends = async () => {
     const res = await fetch(
       //@ts-ignore
@@ -132,12 +152,12 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
           {currentFriends?.length === 0
             ? "Be the first to add a friend!"
             : currentFriends?.map((friend) => (
-                <li
-                  className="profile-sidebar__item"
-                  key={friend.friend_id}
-                >
+                <li className="profile-sidebar__item" key={friend.friend_id}>
                   <a href="#" className="profile-sidebar__link">
-                    <FontAwesomeIcon icon={faUser} className="profile-sidebar__photo"/>
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      className="profile-sidebar__photo"
+                    />
                     <span className="profile-sidebar__name">
                       {friend.friend_name}&nbsp;
                       <button
@@ -173,15 +193,12 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                 //@ts-ignore
                 if (friend.user_id === session?.user?.id) {
                   return (
-                    <li
-                      className="profile-sidebar__item"
-                      key={index}
-                    >
-                      <a
-                        href="#"
-                        className="profile-sidebar__link"
-                      >
-                        <FontAwesomeIcon icon={faUser} className="profile-sidebar__photo"/>
+                    <li className="profile-sidebar__item" key={index}>
+                      <a href="#" className="profile-sidebar__link">
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          className="profile-sidebar__photo"
+                        />
                         <span className="profile-sidebar__name">
                           {friend.friend_name}&nbsp;
                           <button className="profile-sidebar__options-decline">
@@ -196,15 +213,12 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                   );
                 } else {
                   return (
-                    <li
-                      className="profile-sidebar__item"
-                      key={index}
-                    >
-                      <a
-                        href="#"
-                        className="profile-sidebar__link"
-                      >
-                        <FontAwesomeIcon icon={faUser} className="profile-sidebar__photo"/>
+                    <li className="profile-sidebar__item" key={index}>
+                      <a href="#" className="profile-sidebar__link">
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          className="profile-sidebar__photo"
+                        />
                         <span className="profile-sidebar__name">
                           {friend.user_name}&nbsp;
                           <button className="profile-sidebar__options-decline">
@@ -226,12 +240,12 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
           {blockedFriends?.length === 0
             ? "No blocked users!"
             : blockedFriends?.map((friend) => (
-                <li
-                  className="profile-sidebar__item"
-                  key={friend.friend_id}
-                >
+                <li className="profile-sidebar__item" key={friend.friend_id}>
                   <a href="#" className="profile-sidebar__link">
-                    <FontAwesomeIcon icon={faUser} className="profile-sidebar__photo"/>
+                    <FontAwesomeIcon
+                      icon={faUser}
+                      className="profile-sidebar__photo"
+                    />
                     <span className="profile-sidebar__name">
                       {friend.friend_name}&nbsp;
                       <button className="profile-sidebar__options-btn">

@@ -62,6 +62,18 @@ const Login: React.FunctionComponent<Props> = ({
       <h2 className="modal__login__title">
         {session?.user ? session.user.name : "Login"}
       </h2>
+      <p
+        className="modal__guest_login"
+        style={{
+          textAlign: "center",
+          fontSize: ".7rem",
+          fontWeight: "300",
+        }}
+      >
+        <b>email</b>: guest@peakeducationalsystems.com
+        <br />
+        <b>password</b>: password
+      </p>
       {session?.user === undefined && (
         <>
           {error && <div style={{ textAlign: "center" }}>{error}</div>}
