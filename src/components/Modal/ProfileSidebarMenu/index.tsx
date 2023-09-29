@@ -86,15 +86,25 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
 
   const unblockFriend = async (friend_id: number) => {};
 
-  const declineFriend = async (friend_id: number) => {
-    const friendData = {
-      
-    }
-    
+  const declineRequest = async (friend_id: number) => {
+    console.log(friend_id);
     try {
-     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/friends/decline`, {}) 
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/friends/remove`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(friend_id),
+        }
+      );
+      const data = await res.json();
+      if (data.ok) {
+        alert(data.message);
+      }
     } catch (err) {
-      
+      console.log(err instanceof Error ? err.message : "An error occured");
     }
   };
 
@@ -201,7 +211,10 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                         />
                         <span className="profile-sidebar__name">
                           {friend.friend_name}&nbsp;
-                          <button className="profile-sidebar__options-decline">
+                          <button
+                            className="profile-sidebar__options-decline"
+                            onClick={() => declineRequest(friend.friend_id)}
+                          >
                             X
                           </button>
                           <button className="profile-sidebar__options-add">
@@ -221,7 +234,10 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                         />
                         <span className="profile-sidebar__name">
                           {friend.user_name}&nbsp;
-                          <button className="profile-sidebar__options-decline">
+                          <button
+                            className="profile-sidebar__options-decline"
+                            onClick={() => declineRequest(friend.friend_id)}
+                          >
                             X
                           </button>
                           <button className="profile-sidebar__options-add">
