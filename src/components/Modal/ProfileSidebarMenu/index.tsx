@@ -22,6 +22,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
 }): JSX.Element | JSX.Element[] => {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
+  const [openChatBoxFor, setOpenChatBoxFor] = useState<number>(0);
   const [openChatBox, setOpenChatBox] = useState<boolean>(false);
   const [currentFriends, setCurrentFriends] = useState<Friend[]>([]);
   const [pendingFriends, setPendingFriends] = useState<Friend[]>([]);
@@ -75,19 +76,18 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
       );
       const data = await res.json();
       console.log(data);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : "An error occured");
+    }
   };
 
-  const removeFriend = async (friend_id: number) => {};
-
-  const acceptFriend = async (friend_id: number) => {};
-
-  const blockFriend = async (friend_id: number) => {};
-
-  const unblockFriend = async (friend_id: number) => {};
-
-  const declineRequest = async (friend_id: number) => {
-    console.log(friend_id);
+  const removeFriend = async (friend_id: number) => {
+    const friendData = {
+      // @ts-ignore
+      user_id: session?.user?.id,
+      friend_id: friend_id,
+    };
+    console.log(friendData);
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/friends/remove`,
@@ -96,12 +96,68 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(friend_id),
+          body: JSON.stringify(friendData),
         }
       );
       const data = await res.json();
       if (data.ok) {
-        alert(data.message);
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : "An error occured");
+    }
+  };
+
+  const acceptFriend = async (friend_id: number) => {
+    const friendData = {
+      // @ts-ignore
+      user_id: session?.user?.id,
+      friend_id: friend_id,
+      status: "accepted",
+    };
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/friends/accept`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(friendData),
+        }
+      );
+      const data = await res.json();
+      console.log(data);
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : "An error occured");
+    }
+  };
+
+  const blockFriend = async (friend_id: number) => {};
+
+  const unblockFriend = async (friend_id: number) => {};
+
+  const declineRequest = async (friend_id: number) => {
+    const friendData = {
+      // @ts-ignore
+      user_id: session?.user?.id,
+      friend_id: friend_id,
+    };
+    console.log(friendData);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/friends/decline`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(friendData),
+        }
+      );
+      const data = await res.json();
+      if (data.ok) {
+        console.log(data.message);
       }
     } catch (err) {
       console.log(err instanceof Error ? err.message : "An error occured");
@@ -117,6 +173,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
       }
     );
     const data = await res.json();
+    console.log(data);
     setCurrentFriends(data?.currentFriends);
     setBlockedFriends(data?.blockedFriends);
     setPendingFriends(data?.pendingFriends);
@@ -125,6 +182,13 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
     getFriends();
     //@ts-ignore
   }, [session?.user?.id]);
+
+  const handleOpenChatBoxFor = (friend_id: number) => {
+    console.log(friend_id)
+    setOpenChatBoxFor(friend_id);
+    setOpenChatBox(!openChatBox);
+  }
+
   return (
     <aside className="profile-sidebar" ref={sidebarRef}>
       <section
@@ -161,38 +225,83 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
           <h4> Current Friends </h4>
           {currentFriends?.length === 0
             ? "Be the first to add a friend!"
-            : currentFriends?.map((friend) => (
-                <li className="profile-sidebar__item" key={friend.friend_id}>
-                  <a href="#" className="profile-sidebar__link">
-                    <FontAwesomeIcon
-                      icon={faUser}
-                      className="profile-sidebar__photo"
-                    />
-                    <span className="profile-sidebar__name">
-                      {friend.friend_name}&nbsp;
-                      <button
-                        className="profile-sidebar__options-chat"
-                        onClick={() => setOpenChatBox(!openChatBox)}
-                      >
-                        <FontAwesomeIcon icon={faMessage} />
-                      </button>
-                      <button
-                        className="profile-sidebar__options-decline"
-                        onClick={() => setOpenChatBox(!openChatBox)}
-                      >
-                        <FontAwesomeIcon icon={faXmark} />
-                      </button>
-                      <button
-                        className="profile-sidebar__options-block"
-                        onClick={() => setOpenChatBox(!openChatBox)}
-                      >
-                        <FontAwesomeIcon icon={faStopCircle} />
-                      </button>
-                    </span>
-                  </a>
-                  {openChatBox && <Chat friend_id={friend.friend_id} />}
-                </li>
-              ))}
+            : currentFriends?.map((friend, index) => {
+                // @ts-ignore
+                if (friend.user_id === session?.user?.id) {
+                  
+                  return (
+                    <li
+                      className="profile-sidebar__item"
+                      key={index}
+                    >
+                      <a href="#" className="profile-sidebar__link">
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          className="profile-sidebar__photo"
+                        />
+                        <span className="profile-sidebar__name">
+                          {friend.friend_name}&nbsp;
+                          <button
+                            className="profile-sidebar__options-chat"
+                            onClick={() => handleOpenChatBoxFor(friend.friend_id)}
+                          >
+                            <FontAwesomeIcon icon={faMessage} />
+                          </button>
+                          <button
+                            className="profile-sidebar__options-decline"
+                            onClick={() => removeFriend(friend.friend_id)}
+                          >
+                            <FontAwesomeIcon icon={faXmark} />
+                          </button>
+                          <button
+                            className="profile-sidebar__options-block"
+                            onClick={() => setOpenChatBox(!openChatBox)}
+                          >
+                            <FontAwesomeIcon icon={faStopCircle} />
+                          </button>
+                        </span>
+                      </a>
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li
+                      className="profile-sidebar__item"
+                      key={index}
+                    >
+                      <a href="#" className="profile-sidebar__link">
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          className="profile-sidebar__photo"
+                        />
+                        <span className="profile-sidebar__name">
+                          {friend.user_name}&nbsp;
+                          <button
+                            className="profile-sidebar__options-chat"
+                            onClick={() => handleOpenChatBoxFor(friend.user_id)}
+                          >
+                            <FontAwesomeIcon icon={faMessage} />
+                          </button>
+                          <button
+                            className="profile-sidebar__options-decline"
+                            onClick={() => removeFriend(friend.friend_id)}
+                          >
+                            <FontAwesomeIcon icon={faXmark} />
+                          </button>
+                          <button
+                            className="profile-sidebar__options-block"
+                            onClick={() => setOpenChatBox(!openChatBox)}
+                          >
+                            <FontAwesomeIcon icon={faStopCircle} />
+                          </button>
+                        </span>
+                      </a>
+                      
+                    </li>
+                  );
+                }
+              })}
+              {openChatBox && <Chat friend_id={openChatBoxFor} />}
         </ul>
 
         <ul className="profile-sidebar__list">
@@ -236,11 +345,14 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                           {friend.user_name}&nbsp;
                           <button
                             className="profile-sidebar__options-decline"
-                            onClick={() => declineRequest(friend.friend_id)}
+                            onClick={() => declineRequest(friend.user_id)}
                           >
                             X
                           </button>
-                          <button className="profile-sidebar__options-add">
+                          <button
+                            className="profile-sidebar__options-add"
+                            onClick={() => acceptFriend(friend.user_id)}
+                          >
                             ✔
                           </button>
                         </span>

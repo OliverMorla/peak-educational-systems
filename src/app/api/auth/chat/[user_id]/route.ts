@@ -1,5 +1,5 @@
-import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 export async function GET(
@@ -15,8 +15,8 @@ export async function GET(
   const url = new URL(req.url as string, process.env.NEXT_PUBLIC_CLIENT_URL);
   const friend_id = url.searchParams.get("friend_id");
   try {
-    console.log(params.user_id);
-    console.log(friend_id)
+    console.log("user_id: " + params.user_id);
+    console.log("friend_id: " + friend_id);
     const chatHistory = await prisma.$queryRaw(
       Prisma.sql`
       SELECT * FROM (
@@ -37,7 +37,7 @@ export async function GET(
             SELECT id, first_name, last_name
             FROM users
         ) AS us ON cm.to_user_id = us.id
-        WHERE cm.from_user_id = ${Number(params.user_id)}  
+        WHERE cm.from_user_id = ${Number(params.user_id)} AND cm.to_user_id = ${Number(friend_id)}  
     
         UNION
     
@@ -58,12 +58,12 @@ export async function GET(
             SELECT id, first_name, last_name
             FROM users
         ) AS us ON cm.to_user_id = us.id
-        WHERE cm.from_user_id = ${Number(friend_id)} 
-    ) AS combined_result
-    ORDER BY combined_result.timestamp;
-    
+        WHERE cm.from_user_id = ${Number(friend_id)} AND cm.to_user_id = ${Number(params.user_id)}
+        ) AS combined_result
+        ORDER BY combined_result.timestamp;
         `
     );
+    // console.log(chatHistory);
     if (chatHistory)
       return NextResponse.json({
         status: 200,
@@ -100,21 +100,3 @@ export async function POST(req: NextRequest) {
       });
   }
 }
-
-// SELECT
-// cm.message_id,
-// cm.from_user_id,
-// CONCAT(u.first_name, ' ', u.last_name) as sender_name,
-// cm.to_user_id,
-// CONCAT(us.first_name, ' ', us.last_name) as receiver_name,
-// cm.message_text,
-// cm.timestamp
-// FROM chat_messages cm
-// LEFT JOIN (
-// 	SELECT id, first_name, last_name
-// 	FROM users
-// ) AS u ON cm.from_user_id = u.id
-// LEFT JOIN (
-// 	SELECT id, first_name, last_name
-// 	FROM users
-// ) AS us ON cm.to_user_id = us.id;

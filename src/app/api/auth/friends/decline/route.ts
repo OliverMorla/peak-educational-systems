@@ -24,12 +24,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
       where: {
         OR: [
           {
-            status: "accepted",
+            status: "pending",
             user_id: friend_id,
             friend_id: user_id,
           },
           {
-            status: "accepted",
+            status: "pending",
             user_id: user_id,
             friend_id: friend_id,
           }
@@ -41,14 +41,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       return NextResponse.json({
         status: 200,
         ok: true,
-        message: "Friend  removed",
+        message: "Friend request removed",
       });
   } catch (err) {
     if (err instanceof Error)
       return NextResponse.json({
         status: 500,
         ok: false,
-        message: "Failed to remove friend",
+        message: "Failed to remove friend request",
         prisma_error: err.message,
       });
   }

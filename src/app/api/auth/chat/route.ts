@@ -61,21 +61,3 @@ export async function POST(req: NextRequest) {
       });
   }
 }
-
-// SELECT
-// cm.message_id,
-// cm.from_user_id,
-// CONCAT(u.first_name, ' ', u.last_name) as sender_name,
-// cm.to_user_id,
-// CONCAT(us.first_name, ' ', us.last_name) as receiver_name,
-// cm.message_text,
-// cm.timestamp
-// FROM chat_messages cm
-// LEFT JOIN (
-// 	SELECT id, first_name, last_name
-// 	FROM users
-// ) AS u ON cm.from_user_id = u.id
-// LEFT JOIN (
-// 	SELECT id, first_name, last_name
-// 	FROM users
-// ) AS us ON cm.to_user_id = us.id;
