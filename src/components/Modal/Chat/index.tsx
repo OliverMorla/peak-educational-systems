@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSession } from "next-auth/react";
 import { useSocket } from "@/contexts/SocketContext";
 import "./style.scss";
 const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
   const { data: session } = useSession();
+  const ChatBodyRef = useRef<HTMLDivElement>(null);
   const { socket, isConnected } = useSocket();
   const [chatHistory, setChatHistory] = useState<ChatHistoryMessages[]>([]);
   const [message, setMessage] = useState<string>("");
@@ -61,13 +62,20 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
     };
   }, []);
 
+  useEffect(() => {
+    ChatBodyRef.current?.scrollTo({
+      top: ChatBodyRef.current.scrollHeight,
+      behavior: "smooth",
+    });    
+  }, [chatHistory]);
+
   return (
     <div className="chat-box__wrapper">
       <div className="chat-box__header">
         <div className="chat-box__header-left">Chat Room</div>
         <div className="chat-box__header-right"></div>
       </div>
-      <div className="chat-box__body">
+      <div className="chat-box__body" ref={ChatBodyRef}>
         {chatHistory?.map((chat) => {
           // @ts-ignore
           if (chat?.from_user_id !== session?.user?.id) {
