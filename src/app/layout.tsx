@@ -1,13 +1,17 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { Roboto } from "next/font/google";
+import ReactGA from "react-ga4";
+
 import { AuthProvider } from "@/contexts/AuthContext";
+import { SocketProvider } from "@/contexts/SocketContext";
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Providers from "@/components/Auth";
+
 import Loading from "./loading";
 import "./globals.css";
-import { SocketProvider } from "@/contexts/SocketContext";
 
 const roboto = Roboto({
   weight: ["100", "300", "500", "900"],

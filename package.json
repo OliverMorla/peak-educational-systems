@@ -29,6 +29,7 @@
     "react-calendly": "^4.1.1",
     "react-dom": "18.2.0",
     "react-fast-marquee": "^1.6.0",
+    "react-ga4": "^2.1.0",
     "sass": "^1.63.6",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",

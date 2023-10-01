@@ -49,7 +49,7 @@ const Home: React.FunctionComponent = (): JSX.Element => {
 
   const getNews = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/news`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/news/home`);
       const response = await res.json();
       if (response?.news) setNews(response?.news);
     } catch (err) {

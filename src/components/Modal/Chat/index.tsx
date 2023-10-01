@@ -6,8 +6,8 @@ import "./style.scss";
 const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
   const { data: session } = useSession();
   const ChatBodyRef = useRef<HTMLDivElement>(null);
-  const { socket, isConnected } = useSocket();
   const [chatHistory, setChatHistory] = useState<ChatHistoryMessages[]>([]);
+  const { socket, isConnected } = useSocket();
   const [message, setMessage] = useState<string>("");
 
   const getChatHistory = async () => {
