@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import Article from "@/components/News/Article";
+import BlogArticle from "@/components/Blogs/Article";
 import "./page.scss";
 
 const Post = ({
@@ -45,7 +45,7 @@ const Post = ({
   } else {
     return (
       <>
-        <Article
+        <BlogArticle
           article_id={post?.blog_id}
           user_id={post?.user_id}
           article_title={post?.title}

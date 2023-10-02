@@ -15,11 +15,16 @@ interface PostCardProps {
   category?: string;
   created_at: string;
   updated_at?: string;
+  views?: number;
+  users?: {
+    first_name: string;
+    last_name: string;
+  }
 }
 
 interface MessageDataProps {
   from_user_id: number;
-  sender_name: string | null | undefined; 
+  sender_name: string | null | undefined;
   to_user_id: number;
   message_text: string;
 }
@@ -82,6 +87,10 @@ interface Article {
   article_category?: string;
   article_created_at?: string | any;
   article_updated_at?: string;
+  users?: {
+    first_name: string;
+    last_name: string;
+  }
 }
 
 interface Comment {
@@ -90,7 +99,8 @@ interface Comment {
   content: string;
   created_at: string;
   updated_at: string;
-  blog_id: number;
+  blog_id?: number;
+  news_id?: number;
   first_name?: string;
 }
 

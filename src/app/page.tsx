@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation"
 import { motion, useInView } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -28,9 +29,14 @@ import Modal from "@/components/Modal";
 import { useSocket } from "@/contexts/SocketContext";
 import SessionForm from "@/components/Session/Form";
 import { Counter } from "@/components/Counter";
+import ReactGA from "react-ga4";
 import "./page.scss";
 
 const Home: React.FunctionComponent = (): JSX.Element => {
+  const pathname = usePathname()
+  const TrackingID = process.env.NEXT_PUBLIC_GA_TRACKING_ID
+  ReactGA.initialize(TrackingID ?? "")
+  ReactGA.send(pathname);
   const [eventSelect, setEventSelect] = useState("Events");
   const [quotes, setQuotes] = useState<Quote[]>();
   const [news, setNews] = useState<News[]>();

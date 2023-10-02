@@ -1,7 +1,6 @@
 import { Metadata } from "next";
 import { Suspense } from "react";
 import { Roboto } from "next/font/google";
-import ReactGA from "react-ga4";
 
 import { AuthProvider } from "@/contexts/AuthContext";
 import { SocketProvider } from "@/contexts/SocketContext";

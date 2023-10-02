@@ -1,5 +1,5 @@
 "use client";
-import Article from "@/components/News/Article";
+import NewsArticle from "@/components/News/Article";
 import { useState } from "react";
 
 const Post = ({
@@ -10,36 +10,37 @@ const Post = ({
   };
 }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const getPost = async () => {
+  const getArticle = async () => {
     try {
       setLoading(true);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs/${params?.slug}`
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/news/${params?.slug}`
       );
       const response = await res.json();
+      console.log(response)
       setLoading(false);
-      return response?.post;
+      return response?.news;
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
   };
 
-  const [post, setPost] = useState<Blog>((): any => {
-    getPost().then((data) => setPost(data));
+  const [article, setArticle] = useState<News>((): any => {
+    getArticle().then((data) => setArticle(data));
   });
   return (
     <>
-      <Article
-        key={post?.blog_id}
-        article_author={post?.author}
-        article_category={post?.category}
-        article_content={post?.content}
-        article_created_at={post?.created_at}
-        photo_cover_url={post?.photo_cover_url}
-        article_title={post?.title}
-        article_id={post?.blog_id}
-        article_updated_at={post?.updated_at}
-        user_id={post?.user_id}
+      <NewsArticle
+        key={article?.id}
+        article_author={article?.users?.first_name + " " + article?.users?.last_name}
+        article_category={article?.category}
+        article_content={article?.content}
+        article_created_at={article?.created_at}
+        photo_cover_url={article?.photo_cover_url}
+        article_title={article?.title}
+        article_id={article?.id}
+        article_updated_at={article?.updated_at}
+        user_id={article?.user_id}
       />
     </>
   );

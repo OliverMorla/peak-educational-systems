@@ -11,7 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import "./style.scss";
 
-const NewsArticle: React.FunctionComponent<Article> = ({
+const BlogArticle: React.FunctionComponent<Article> = ({
   article_title,
   article_content,
   article_author,
@@ -29,7 +29,7 @@ const NewsArticle: React.FunctionComponent<Article> = ({
   const handleComment = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/comments/news/${article_id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comments/blogs/${article_id}`,
         {
           method: "POST",
           body: JSON.stringify(commentInput),
@@ -50,7 +50,7 @@ const NewsArticle: React.FunctionComponent<Article> = ({
   const getComments = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/comments/news/${article_id}?article_id=${article_id}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comments/blogs/${article_id}?article_id=${article_id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -159,4 +159,4 @@ const NewsArticle: React.FunctionComponent<Article> = ({
   );
 };
 
-export default NewsArticle;
+export default BlogArticle;
