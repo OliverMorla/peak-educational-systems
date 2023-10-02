@@ -28,7 +28,7 @@ const News: React.FunctionComponent = (): JSX.Element => {
   const getCategories = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/blogs/categories`
+        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/news/categories`
       );
       const response = await res.json();
       return response?.categories;
@@ -62,7 +62,7 @@ const News: React.FunctionComponent = (): JSX.Element => {
   } else {
     return (
       <main className="news">
-        <h1>Blogs</h1>
+        <h1>News</h1>
         <aside className="blog__search">
           <section className="search">
             <FontAwesomeIcon icon={faSearch} className="search__icon" />
@@ -84,11 +84,6 @@ const News: React.FunctionComponent = (): JSX.Element => {
               />
             ))}
           </aside>
-        </section>
-        <section className="blog__create-wrapper">
-          <Link href="/auth/blog/create">
-            <button className="blog__create-btn">Create a Blog Post</button>
-          </Link>
         </section>
         <section className="blog__posts">
           <h2>Most Popular </h2>
