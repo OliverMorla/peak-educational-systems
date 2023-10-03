@@ -8,23 +8,36 @@ This prototype was built using a stack comprising of Next.js 13, TypeScript, Rea
 
 The project is currently in progress and under active development.
 
+Old Domain: https://www.peakeducationalsystems.com/ 
+Preview: https://peak-educational-systems.vercel.app/
+
+Note: When project is fully done, it will be transferred over onto the old domain.
+
 ## Features
 
 - **Membership**: Visitors can sign up and become a member for free.
-- **Weekly Newsletters**: Members will receive weekly emails about important events.
-- **Blogging System**: Members can create, update, and delete their own blogs. They can also interact with other's blogs through a comment section.
-- **News Updates**: A dedicated section where the admin can share any new stories or events.
-- **Consulting Appointments**: Exclusive for members, they can schedule consulting appointments with the admin.
+- **Weekly Newsletters**: Members receive weekly emails about crucial events.
+- **Blogging System**: Members of the teacher roles can manage their blogs and engage with others through comments.
+- **News Updates**: A section for admin-driven news, with member interaction via comments.
+- **Consulting Appointments**: Members can schedule sessions with the admin.
+- **Friend System**: Members can add, remove, block, and chat with friends in real-time.
+- **Profile Dashboard**: Members can view and edit their information, as well as delete their account.
+- **Admin Panel**: A dedicated interface for the admin to modify website features and content. 
+- **To-Do List**: Specific to roles like students, parents, and teachers, enabling task management. (Comming Soon)
 
 ## Technology Stack
 
-- **Next.js 13**: For the frontend framework.
+- **Next.js 13/NodeJS**: Frontend & backend framework with ssr and ssg.
+- **Next-Auth**: Authentication solution tailored for Next.js.
 - **TypeScript and React**: Used in conjunction for component logic.
 - **HTML, CSS, and JS**: For structure, styling, and interaction functionalities.
+- **SASS**: CSS preprocessor for advanced styling capabilities.
+- **Framer Motion**: React-focused animation and gesture library.
+- **Prisma**: ORM toolkit for easy database operations in TypeScript and JavaScript.
 - **MySQL**: As the database for storing data.
-- **AWS**: Utilized for online database management and deployment.
-- **Mailchimp and EmailJS**: Integrated for managing and sending emails respectively.
-- **Socket.io: Used for bidirectional and low-latency communication between members.
+- **AWS/PostgreSQL**: Utilized for online database management and deployment.
+- **Mailchimp and EmailJS**: Integrated for managing and sending emails respectively. (Comming Soon)
+- **Socket.io**: Used for bidirectional and low-latency communication between members.
 
 ## Project Status
 
