@@ -18,7 +18,7 @@ const Footer = () => {
   // const [error, setError] = useState<string | undefined>(undefined);
   // const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-  const handleNewsletterForm = async (e) => {
+  const handleNewsletterForm = async (e: any) => {
     e.preventDefault();
     const newsletter_btn = document.querySelector(".newsletter__btn");
 
