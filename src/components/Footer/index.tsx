@@ -14,14 +14,35 @@ import "./style.scss";
 
 const Footer = () => {
   const [newsletterInput, setNewsletterInput] = useState<string>("");
+  console.log(newsletterInput);
   // const [error, setError] = useState<string | undefined>(undefined);
   // const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
-  const handleNewsletterForm = (): void => {
+  const handleNewsletterForm = async (e) => {
+    e.preventDefault();
     const newsletter_btn = document.querySelector(".newsletter__btn");
 
     if (newsletterInput !== "") {
-      alert("Thanks for Subscribing to our Newsletter!");
+      try {
+        const response = await fetch("/api/newsletter", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: newsletterInput,
+          }),
+        });
+        const result = await response.json();
+
+        if (result?.status === "subscribed") {
+          alert("Thank you for subscribing to our newsletter!");
+        } else {
+          alert(result?.title);
+        }
+      } catch (err) {
+        console.log(err instanceof Error ? err.message : err);
+      }
       newsletter_btn?.setAttribute("disabled", "true");
     } else {
       alert("Please enter your email!");
@@ -93,22 +114,25 @@ const Footer = () => {
             </div>
           </section>
           <section className="footer__newsletter">
-            <input
-              type="text"
-              name="newsletter-text"
-              id="footer__newsletter-input"
-              value={newsletterInput}
-              placeholder="Enter your email"
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setNewsletterInput(e.currentTarget.value)
-              }
-            />
-            <button
-              className="footer__newsletter-button"
-              onClick={handleNewsletterForm}
-            >
-              Subscribe
-            </button>
+            <form>
+              <input
+                type="text"
+                name="newsletter-text"
+                id="footer__newsletter-input"
+                value={newsletterInput}
+                placeholder="Enter your email"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setNewsletterInput(e.currentTarget.value)
+                }
+              />
+
+              <button
+                className="footer__newsletter-button"
+                onClick={handleNewsletterForm}
+              >
+                Subscribe
+              </button>
+            </form>
           </section>
         </div>
       </section>
