@@ -3,6 +3,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import Category from "@/components/Inputs/Category";
 import Loading from "@/components/Loading";
 import Card from "@/components/News/Card";
@@ -11,7 +12,10 @@ import "./page.scss";
 
 const Blog: React.FunctionComponent = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [checked, isChecked] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
   const { status, data: session } = useSession();
+  const CurrentCategory = useSearchParams()?.get("category");
 
   const getBlogs = async () => {
     try {
@@ -48,6 +52,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
   const [categories, setCategories] = useState<Category[]>((): any => {
     getCategories().then((data) => setCategories(data));
   });
+
   if (status === "unauthenticated" || status === "loading") {
     return (
       <main className="error">
@@ -70,12 +75,27 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
               type="text"
               className="search__input"
               placeholder="Enter blog name"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearch(e.currentTarget.value)
+              }
             />
           </section>
         </aside>
         <p>Choose a category or Search an article by title.</p>
         <section className="blog__categories-wrapper">
           <aside className="blog__categories">
+            <Link href={`/auth/blog`}>
+              <div className="categories__input">
+                <input
+                  type="checkbox"
+                  className="category__input"
+                  defaultChecked={CurrentCategory === null ? true : false}
+                />
+                <label>
+                  None
+                </label>
+              </div>
+            </Link>
             {categories?.map((category, index) => (
               <Category
                 key={index}
@@ -90,56 +110,142 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
             <button className="blog__create-btn">Create a Blog Post</button>
           </Link>
         </section>
-        <section className="blog__posts">
-          <h2>Most Popular </h2>
-          <section className="blog__overflow">
-            {loading ? (
-              <Loading />
-            ) : (
-              PopularBlogs?.map((post, index) => (
-                <Link href={`/auth/blog/${post.blog_id}`} key={post.blog_id}>
-                  <Card
-                    author={post.author}
-                    title={post.title}
-                    content={post.content}
-                    photo_cover_url={post.photo_cover_url}
-                    number_of_comments={post.number_of_comments || 0}
-                    user_id={post.user_id}
-                    id={post.blog_id}
-                    category={post.category}
-                    created_at={post.created_at}
-                    updated_at={post.updated_at}
-                  />
-                </Link>
-              ))
-            )}
-          </section>
-        </section>
-        <section className="blog__posts">
-          <h2>Latest</h2>
-          <section className="blog__overflow">
-            {loading ? (
-              <Loading />
-            ) : (
-              LatestBlogs?.map((post) => (
-                <Link href={`/auth/blog/${post.blog_id}`} key={post.blog_id}>
-                  <Card
-                    author={post.author}
-                    title={post.title}
-                    content={post.content}
-                    photo_cover_url={post.photo_cover_url}
-                    number_of_comments={post.number_of_comments}
-                    user_id={post.user_id}
-                    id={post.blog_id}
-                    category={post.category}
-                    created_at={post.created_at}
-                    updated_at={post.updated_at}
-                  />
-                </Link>
-              ))
-            )}
-          </section>
-        </section>
+        {search !== "" ? (
+          <>
+            <section className="blog__posts">
+              <h2>Search </h2>
+              <section className="blog__overflow">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  PopularBlogs?.map((post, index) => {
+                    if (
+                      post.title
+                        .toLocaleLowerCase()
+                        .includes(search.toLocaleLowerCase())
+                    ) {
+                      return (
+                        <Link
+                          href={`/auth/blog/${post.blog_id}`}
+                          key={post.blog_id}
+                        >
+                          <Card
+                            author={post.author}
+                            title={post.title}
+                            content={post.content}
+                            photo_cover_url={post.photo_cover_url}
+                            number_of_comments={post.number_of_comments || 0}
+                            user_id={post.user_id}
+                            id={post.blog_id}
+                            category={post.category}
+                            created_at={post.created_at}
+                            updated_at={post.updated_at}
+                          />
+                        </Link>
+                      );
+                    }
+                  })
+                )}
+              </section>
+            </section>
+          </>
+        ) : (
+          <>
+            <section className="blog__posts">
+              <h2>Most Popular </h2>
+              <section className="blog__overflow">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  PopularBlogs?.map((post, index) => (
+                    <Link
+                      href={`/auth/blog/${post.blog_id}`}
+                      key={post.blog_id}
+                    >
+                      <Card
+                        author={post.author}
+                        title={post.title}
+                        content={post.content}
+                        photo_cover_url={post.photo_cover_url}
+                        number_of_comments={post.number_of_comments || 0}
+                        user_id={post.user_id}
+                        id={post.blog_id}
+                        category={post.category}
+                        created_at={post.created_at}
+                        updated_at={post.updated_at}
+                      />
+                    </Link>
+                  ))
+                )}
+              </section>
+            </section>
+            <section className="blog__posts">
+              <h2>Latest</h2>
+              <section className="blog__overflow">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  LatestBlogs?.map((post) => (
+                    <Link
+                      href={`/auth/blog/${post.blog_id}`}
+                      key={post.blog_id}
+                    >
+                      <Card
+                        author={post.author}
+                        title={post.title}
+                        content={post.content}
+                        photo_cover_url={post.photo_cover_url}
+                        number_of_comments={post.number_of_comments}
+                        user_id={post.user_id}
+                        id={post.blog_id}
+                        category={post.category}
+                        created_at={post.created_at}
+                        updated_at={post.updated_at}
+                      />
+                    </Link>
+                  ))
+                )}
+              </section>
+            </section>
+          </>
+        )}
+
+        {CurrentCategory === null ? null : (
+          <>
+            <section className="blog__posts">
+              <h2>{CurrentCategory + " Category"} </h2>
+              <section className="blog__overflow">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  PopularBlogs?.map((post, index) => {
+                    if (post.category == CurrentCategory) {
+                      return (
+                        <Link
+                          href={`/auth/blog/${post.blog_id}`}
+                          key={post.blog_id}
+                        >
+                          <Card
+                            author={post.author}
+                            title={post.title}
+                            content={post.content}
+                            photo_cover_url={post.photo_cover_url}
+                            number_of_comments={post.number_of_comments || 0}
+                            user_id={post.user_id}
+                            id={post.blog_id}
+                            category={post.category}
+                            created_at={post.created_at}
+                            updated_at={post.updated_at}
+                          />
+                        </Link>
+                      );
+                    }
+                  })
+                )}
+              </section>
+            </section>
+          </>
+        )}
       </main>
     );
   }

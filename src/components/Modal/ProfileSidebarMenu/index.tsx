@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
@@ -133,9 +134,61 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
     }
   };
 
-  const blockFriend = async (friend_id: number) => {};
+  const blockFriend = async (friend_id: number) => {
+    const friendData = {
+      // @ts-ignore
+      user_id: session?.user?.id,
+      friend_id: friend_id,
+      status: "blocked",
+    };
+    console.log(friendData);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/friends/block`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(friendData),
+        }
+      );
+      const data = await res.json();
+      if (data.ok) {
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : "An error occured");
+    }
+  };
 
-  const unblockFriend = async (friend_id: number) => {};
+  const unblockFriend = async (friend_id: number) => {
+    const friendData = {
+      // @ts-ignore
+      user_id: session?.user?.id,
+      friend_id: friend_id,
+      status: "accepted",
+    };
+    console.log(friendData);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/friends/unblock`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(friendData),
+        }
+      );
+      const data = await res.json();
+      if (data.ok) {
+        console.log(data.message);
+      }
+    } catch (err) {
+      console.log(err instanceof Error ? err.message : "An error occured");
+    }
+  };
 
   const declineRequest = async (friend_id: number) => {
     const friendData = {
@@ -173,7 +226,6 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
       }
     );
     const data = await res.json();
-    console.log(data);
     setCurrentFriends(data?.currentFriends);
     setBlockedFriends(data?.blockedFriends);
     setPendingFriends(data?.pendingFriends);
@@ -184,10 +236,10 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
   }, [session?.user?.id]);
 
   const handleOpenChatBoxFor = (friend_id: number) => {
-    console.log(friend_id)
+    console.log(friend_id);
     setOpenChatBoxFor(friend_id);
     setOpenChatBox(!openChatBox);
-  }
+  };
 
   return (
     <aside className="profile-sidebar" ref={sidebarRef}>
@@ -211,6 +263,11 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setSearch(e.currentTarget.value)
             }
+            onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
+              if (e.key === "Enter") {
+                searchFriend();
+              }
+            }}
           />
           <button
             className="profile-sidebar__search-btn"
@@ -228,22 +285,22 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
             : currentFriends?.map((friend, index) => {
                 // @ts-ignore
                 if (friend.user_id === session?.user?.id) {
-                  
                   return (
-                    <li
-                      className="profile-sidebar__item"
-                      key={index}
-                    >
-                      <a href="#" className="profile-sidebar__link">
+                    <li className="profile-sidebar__item" key={index}>
+                      <span className="profile-sidebar__link">
                         <FontAwesomeIcon
                           icon={faUser}
                           className="profile-sidebar__photo"
                         />
                         <span className="profile-sidebar__name">
-                          {friend.friend_name}&nbsp;
+                          <Link href={`/auth/user/${friend.friend_id}`}>
+                            {friend.friend_name}&nbsp;
+                          </Link>
                           <button
                             className="profile-sidebar__options-chat"
-                            onClick={() => handleOpenChatBoxFor(friend.friend_id)}
+                            onClick={() =>
+                              handleOpenChatBoxFor(friend.friend_id)
+                            }
                           >
                             <FontAwesomeIcon icon={faMessage} />
                           </button>
@@ -260,22 +317,21 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                             <FontAwesomeIcon icon={faStopCircle} />
                           </button>
                         </span>
-                      </a>
+                      </span>
                     </li>
                   );
                 } else {
                   return (
-                    <li
-                      className="profile-sidebar__item"
-                      key={index}
-                    >
-                      <a href="#" className="profile-sidebar__link">
+                    <li className="profile-sidebar__item" key={index}>
+                      <span className="profile-sidebar__link">
                         <FontAwesomeIcon
                           icon={faUser}
                           className="profile-sidebar__photo"
                         />
                         <span className="profile-sidebar__name">
-                          {friend.user_name}&nbsp;
+                          <Link href={`/auth/user/${friend.user_id}`}>
+                            {friend.user_name}&nbsp;
+                          </Link>
                           <button
                             className="profile-sidebar__options-chat"
                             onClick={() => handleOpenChatBoxFor(friend.user_id)}
@@ -284,24 +340,23 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                           </button>
                           <button
                             className="profile-sidebar__options-decline"
-                            onClick={() => removeFriend(friend.friend_id)}
+                            onClick={() => removeFriend(friend.user_id)}
                           >
                             <FontAwesomeIcon icon={faXmark} />
                           </button>
                           <button
                             className="profile-sidebar__options-block"
-                            onClick={() => setOpenChatBox(!openChatBox)}
+                            onClick={() => blockFriend(friend.user_id)}
                           >
                             <FontAwesomeIcon icon={faStopCircle} />
                           </button>
                         </span>
-                      </a>
-                      
+                      </span>
                     </li>
                   );
                 }
               })}
-              {openChatBox && <Chat friend_id={openChatBoxFor} />}
+          {openChatBox && <Chat friend_id={openChatBoxFor} />}
         </ul>
 
         <ul className="profile-sidebar__list">
@@ -325,9 +380,6 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                             onClick={() => declineRequest(friend.friend_id)}
                           >
                             X
-                          </button>
-                          <button className="profile-sidebar__options-add">
-                            ✔
                           </button>
                         </span>
                       </a>
@@ -375,9 +427,12 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                       className="profile-sidebar__photo"
                     />
                     <span className="profile-sidebar__name">
-                      {friend.friend_name}&nbsp;
-                      <button className="profile-sidebar__options-btn">
-                        ...
+                      {friend.user_name}&nbsp;
+                      <button
+                        className="profile-sidebar__options-decline"
+                        onClick={() => unblockFriend(friend.user_id)}
+                      >
+                        <FontAwesomeIcon icon={faXmark} />
                       </button>
                     </span>
                   </a>

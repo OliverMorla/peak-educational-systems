@@ -2,10 +2,10 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation"
 const Category = ({ name, count }: { name: string; count: string }) => {
+  
   const searchParams = useSearchParams();
   // @ts-ignore
   const category = searchParams.get("category");
-  console.log(category);
   return (
     <Link href={`/auth/blog?category=${name}`}>
       <div className="categories__input">
@@ -13,7 +13,7 @@ const Category = ({ name, count }: { name: string; count: string }) => {
           type="checkbox"
           name={name}
           className="category__input"
-          checked={category === name ? true : false}
+          defaultChecked={category === name ? true : false}
         />
         <label htmlFor={name}>
           {name} ({count})
