@@ -6,17 +6,10 @@ import { fadeEffect } from "@/config/framer.config";
 import { useSession } from "next-auth/react";
 import "./style.scss";
 
-type SessionFormProps = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  reason: string;
-};
-
 const SessionForm: React.FunctionComponent = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
-  const [formInputs, setFormInputs] = useState<SessionFormProps>({
+  const [formInputs, setFormInputs] = useState<SessionFormInputs>({
     first_name: "",
     last_name: "",
     email: "",

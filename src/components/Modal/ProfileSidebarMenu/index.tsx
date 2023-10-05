@@ -293,7 +293,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                           className="profile-sidebar__photo"
                         />
                         <span className="profile-sidebar__name">
-                          <Link href={`/auth/profile/${friend.friend_id}`}>
+                          <Link href={`/auth/profile/${friend.friend_id}`} className="transition-colors duration-150 hover:text-[--primary]">
                             {friend.friend_name}&nbsp;
                           </Link>
                           <button
@@ -329,7 +329,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                           className="profile-sidebar__photo"
                         />
                         <span className="profile-sidebar__name">
-                          <Link href={`/auth/profile/${friend.user_id}`}>
+                          <Link href={`/auth/profile/${friend.user_id}`} className="transition-colors duration-150 hover:text-[--primary]">
                             {friend.user_name}&nbsp;
                           </Link>
                           <button

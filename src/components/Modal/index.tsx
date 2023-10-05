@@ -4,7 +4,7 @@ import { useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWarning } from "@fortawesome/free-solid-svg-icons";
 import "./style.scss";
-const Modal: React.FunctionComponent<Modal> = ({ text, type }) => {
+const Modal: React.FunctionComponent<ModalProps> = ({ text, type }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {

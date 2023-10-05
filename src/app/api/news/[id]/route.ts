@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 type Params = {
@@ -38,8 +37,8 @@ export async function GET(
             first_name: true,
             last_name: true,
           },
-        }
-      }
+        },
+      },
     });
 
     if (news) return NextResponse.json({ status: 200, ok: true, news: news });

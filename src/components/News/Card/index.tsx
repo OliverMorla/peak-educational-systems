@@ -2,17 +2,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment, faUser } from "@fortawesome/free-regular-svg-icons";
 import "./style.scss";
 
-const Card: React.FunctionComponent<PostCardProps> = ({
+const Card: React.FunctionComponent<NewsCardProps> = ({
   id,
   title,
   author,
   number_of_comments,
   photo_cover_url,
-  user_id,
   category,
   created_at,
   updated_at,
-  content,
+  views,
 }) => {
   return (
     <div className="post-card">

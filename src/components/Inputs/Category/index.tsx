@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation"
 const Category = ({ name, count }: { name: string; count: string }) => {
   
@@ -13,7 +14,7 @@ const Category = ({ name, count }: { name: string; count: string }) => {
           type="checkbox"
           name={name}
           className="category__input"
-          defaultChecked={category === name ? true : false}
+          checked={category === name ? true : false}
         />
         <label htmlFor={name}>
           {name} ({count})

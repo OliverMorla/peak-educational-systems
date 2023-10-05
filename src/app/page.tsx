@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import { useEffect, useRef, useState } from "react";
-import { usePathname } from "next/navigation"
+import { usePathname } from "next/navigation";
 import { motion, useInView } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -26,27 +26,28 @@ import Marquee from "react-fast-marquee";
 import Typewriter from "typewriter-effect";
 import Card from "@/components/News/Card";
 import Modal from "@/components/Modal";
-import { useSocket } from "@/contexts/SocketContext";
 import SessionForm from "@/components/Session/Form";
 import { Counter } from "@/components/Counter";
 import ReactGA from "react-ga4";
 import "./page.scss";
 
 const Home: React.FunctionComponent = (): JSX.Element => {
-  const pathname = usePathname()
-  const TrackingID = process.env.NEXT_PUBLIC_GA_TRACKING_ID
-  ReactGA.initialize(TrackingID ?? "")
+  const pathname = usePathname();
+
+  const TrackingID = process.env.NEXT_PUBLIC_GA_TRACKING_ID;
+  ReactGA.initialize(TrackingID ?? "");
   ReactGA.send(pathname);
+
   const [eventSelect, setEventSelect] = useState("Events");
+  const [hasRun, setHasRun] = useState<boolean>(false);
   const [quotes, setQuotes] = useState<Quote[]>();
   const [news, setNews] = useState<News[]>();
+  const [currentQuote, setCurrentQuote] = useState(0);
 
   const getQuotes = async () => {
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_CLIENT_URL}/api/quotes`
-      );
-      const response = await res.json();
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quotes`);
+      const response = (await res.json()) as QuotesResponse;
       if (response?.quotes) return setQuotes(response?.quotes);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
@@ -55,18 +56,14 @@ const Home: React.FunctionComponent = (): JSX.Element => {
 
   const getNews = async () => {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_CLIENT_URL}/api/news/home`);
-      const response = await res.json();
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/news/home`);
+      const response = (await res.json()) as NewsCardResponse;
       if (response?.news) setNews(response?.news);
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
   };
 
-  // On definition, call the getQuotes() to retrieve initial quote on page load
-  const [currentQuote, setCurrentQuote] = useState(0);
-
-  // Quote handling functions
   const nextQuote = async () => {
     setCurrentQuote((prevCurrentQuote) => prevCurrentQuote + 1);
   };
@@ -76,7 +73,6 @@ const Home: React.FunctionComponent = (): JSX.Element => {
       setCurrentQuote((prevCurrentQuote) => prevCurrentQuote - 1);
     }
   };
-  const [hasRun, setHasRun] = useState<boolean>(false);
 
   useEffect(() => {
     if (!hasRun) {
@@ -257,13 +253,12 @@ const Home: React.FunctionComponent = (): JSX.Element => {
               >
                 <Link href={`/auth/news/${news.id}`}>
                   <Card
-                    user_id={news.user_id}
-                    content=""
-                    key={news.id}
                     id={news.id}
+                    views={news.views}
+                    key={news.id}
                     title={news.title}
-                    author={news.author}
-                    number_of_comments={news.number_of_comments}
+                    author={news.users?.first_name}
+                    number_of_comments={news._count?.comments || 0}
                     photo_cover_url={news.photo_cover_url}
                     category={news.category}
                     created_at={news.created_at}

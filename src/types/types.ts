@@ -1,25 +1,28 @@
-// Component Types
-interface Modal {
+// Component Prop Types
+interface ModalProps {
   text: string;
   type: "Success" | "Error" | "Warning" | "Info";
 }
 
-interface PostCardProps {
+interface NewsCardProps {
   id: number;
   author?: string;
-  content?: string;
-  user_id?: number;
   title?: string;
   number_of_comments?: number;
   photo_cover_url?: string;
-  category?: string;
+  category: string;
   created_at: string;
-  updated_at?: string;
+  updated_at: string;
   views?: number;
+
   users?: {
     first_name: string;
     last_name: string;
-  }
+  };
+
+  _count?: {
+    comments: number;
+  };
 }
 
 interface MessageDataProps {
@@ -29,7 +32,28 @@ interface MessageDataProps {
   message_text: string;
 }
 
-interface News extends PostCardProps {}
+interface News{
+  id: number;
+  author?: string;
+  content: string;
+  user_id?: number;
+  title?: string;
+  number_of_comments?: number;
+  photo_cover_url: string;
+  category: string;
+  created_at: string;
+  updated_at: string;
+  views?: number;
+
+  users?: {
+    first_name: string;
+    last_name: string;
+  };
+
+  _count?: {
+    comments: number;
+  };
+}
 
 // API Response Types
 interface Category {
@@ -56,6 +80,19 @@ interface User {
   school_region: string;
   created_at: string;
   role: string;
+}
+
+interface UserProfile {
+  name?: string;
+  first_name: string;
+  last_name: string;
+  role: string;
+  employment_type: string;
+  employment_region: string;
+  child_grade_level: string;
+  school_type: string;
+  school_region: string;
+  created_at: string;
 }
 
 interface Blog {
@@ -90,7 +127,7 @@ interface Article {
   users?: {
     first_name: string;
     last_name: string;
-  }
+  };
 }
 
 interface Comment {
@@ -153,11 +190,34 @@ interface CommentsReponse {
   comments: Comment[];
 }
 
+interface UserProfileResponse {
+  status: number;
+  ok: boolean;
+  user: UserProfile;
+}
+
 interface ChatHistoryResponse {
   ok?: boolean;
   status?: number;
   chatHistory: ChatHistoryMessages[];
 }
+
+interface NewsCardResponse {
+  status: number;
+  ok: boolean;
+  news: News[];
+}
+
+interface QuotesResponse {
+  status: number;
+  ok: boolean;
+  quotes: Quote[];
+}
+
+// Dynamic Pages Params Types
+type UserProfileParams = {
+  user_id: string;
+};
 
 // NextAuth Types
 interface TemporaryUser {
@@ -220,6 +280,13 @@ interface BlogFormInputs {
   user_id: string;
 }
 
+interface SessionFormInputs {
+  first_name: string;
+  last_name: string;
+  email: string;
+  reason: string;
+}
+
 // Context Types
 interface AuthContextTypes {
   loading: boolean;
@@ -229,4 +296,3 @@ interface AuthContextTypes {
 }
 
 interface RegisterRequest extends RegisterInputs {}
-interface PostRequest extends PostCardProps {}

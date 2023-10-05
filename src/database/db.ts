@@ -1,3 +1,4 @@
+// depricated - using prisma instead
 import { Pool } from "pg";
 
 async function PostgreSQL() {

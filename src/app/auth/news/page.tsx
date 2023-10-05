@@ -96,9 +96,7 @@ const News: React.FunctionComponent = (): JSX.Element => {
                   <Card
                     id={article.id}
                     author={article.author}
-                    user_id={article.user_id}
                     title={article.title}
-                    content={article.content}
                     photo_cover_url={article.photo_cover_url}
                     number_of_comments={article.number_of_comments || 0}
                     category={article.category}
@@ -122,10 +120,8 @@ const News: React.FunctionComponent = (): JSX.Element => {
                   <Card
                     author={article.author}
                     title={article.title}
-                    content={article.content}
                     photo_cover_url={article.photo_cover_url}
                     number_of_comments={article.number_of_comments}
-                    user_id={article.user_id}
                     id={article.id}
                     category={article.category}
                     created_at={article.created_at}

@@ -67,7 +67,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
   } else {
     return (
       <main className="blog">
-        <h1>Blogs</h1>
+        <h1 className="text-5xl font-bold ">Blogs</h1>
         <aside className="blog__search">
           <section className="search">
             <FontAwesomeIcon icon={faSearch} className="search__icon" />
@@ -132,10 +132,8 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                           <Card
                             author={post.author}
                             title={post.title}
-                            content={post.content}
                             photo_cover_url={post.photo_cover_url}
                             number_of_comments={post.number_of_comments || 0}
-                            user_id={post.user_id}
                             id={post.blog_id}
                             category={post.category}
                             created_at={post.created_at}
@@ -165,10 +163,8 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                       <Card
                         author={post.author}
                         title={post.title}
-                        content={post.content}
                         photo_cover_url={post.photo_cover_url}
                         number_of_comments={post.number_of_comments || 0}
-                        user_id={post.user_id}
                         id={post.blog_id}
                         category={post.category}
                         created_at={post.created_at}
@@ -193,10 +189,8 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                       <Card
                         author={post.author}
                         title={post.title}
-                        content={post.content}
                         photo_cover_url={post.photo_cover_url}
                         number_of_comments={post.number_of_comments}
-                        user_id={post.user_id}
                         id={post.blog_id}
                         category={post.category}
                         created_at={post.created_at}
@@ -228,10 +222,8 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
                           <Card
                             author={post.author}
                             title={post.title}
-                            content={post.content}
                             photo_cover_url={post.photo_cover_url}
                             number_of_comments={post.number_of_comments || 0}
-                            user_id={post.user_id}
                             id={post.blog_id}
                             category={post.category}
                             created_at={post.created_at}
