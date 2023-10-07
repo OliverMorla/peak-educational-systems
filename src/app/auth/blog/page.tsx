@@ -99,6 +99,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
             {categories?.map((category, index) => (
               <Category
                 key={index}
+                type="blog"
                 name={category?.category}
                 count={category?._count.category}
               />

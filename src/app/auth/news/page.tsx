@@ -85,6 +85,7 @@ const News: React.FunctionComponent = (): JSX.Element => {
             {categories?.map((category, index) => (
               <Category
                 key={index}
+                type="news"
                 name={category?.category}
                 count={category?._count.category}
               />

@@ -2,13 +2,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useSearchParams } from "next/navigation"
-const Category = ({ name, count }: { name: string; count: string }) => {
+const Category = ({ name, count, type }: { name: string; count: string, type: string }) => {
   
   const searchParams = useSearchParams();
   // @ts-ignore
   const category = searchParams.get("category");
   return (
-    <Link href={`/auth/blog?category=${name}`}>
+    <Link href={`/auth/${type}?category=${name}`}>
       <div className="categories__input">
         <input
           type="checkbox"
