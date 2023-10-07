@@ -7,7 +7,7 @@ interface ModalProps {
 interface NewsCardProps {
   id: number;
   author?: string;
-  title?: string;
+  title: string;
   number_of_comments?: number;
   photo_cover_url?: string;
   category: string;
@@ -37,7 +37,7 @@ interface News{
   author?: string;
   content: string;
   user_id?: number;
-  title?: string;
+  title: string;
   number_of_comments?: number;
   photo_cover_url: string;
   category: string;

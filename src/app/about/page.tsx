@@ -34,15 +34,15 @@ const About: React.FunctionComponent = (): JSX.Element => {
         <div className="section__content-text">
           <div className="content-text">
             <h1>Visual</h1>
-            <p>Truth in Every Story</p>
+            <p>Climbing Peaks of Learning</p>
           </div>
           <div className="content-text">
             <h1>Tactile</h1>
-            <p>Empowering Citizens with Knowledge</p>
+            <p>Master Every Sense</p>
           </div>
           <div className="content-text">
             <h1>Auditory</h1>
-            <p>News You Can Trust, Voices You Can Believe</p>
+            <p>Discover, Touch, Listen</p>
           </div>
         </div>
       </Intro>

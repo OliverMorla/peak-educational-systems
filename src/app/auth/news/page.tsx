@@ -1,6 +1,7 @@
 "use client";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import Category from "@/components/Inputs/Category";
@@ -11,6 +12,8 @@ import "./page.scss";
 
 const News: React.FunctionComponent = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false);
+  const CurrentCategory = useSearchParams()?.get("category");
+  const [search, setSearch] = useState<string>("");
   const { status, data: session } = useSession();
 
   const getNews = async () => {
@@ -69,7 +72,10 @@ const News: React.FunctionComponent = (): JSX.Element => {
             <input
               type="text"
               className="search__input"
-              placeholder="Enter blog name"
+              placeholder="Enter news article name"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearch(e.currentTarget.value)
+              }
             />
           </section>
         </aside>
@@ -85,53 +91,132 @@ const News: React.FunctionComponent = (): JSX.Element => {
             ))}
           </aside>
         </section>
-        <section className="blog__posts">
-          <h2>Most Popular </h2>
-          <section className="blog__overflow">
-            {loading ? (
-              <Loading />
-            ) : (
-              PopularNews?.map((article) => (
-                <Link href={`/auth/news/${article.id}`} key={article.id}>
-                  <Card
-                    id={article.id}
-                    author={article.author}
-                    title={article.title}
-                    photo_cover_url={article.photo_cover_url}
-                    number_of_comments={article.number_of_comments || 0}
-                    category={article.category}
-                    views={article.views}
-                    created_at={article.created_at}
-                    updated_at={article.updated_at}
-                  />
-                </Link>
-              ))
-            )}
-          </section>
-        </section>
-        <section className="blog__posts">
-          <h2>Latest</h2>
-          <section className="blog__overflow">
-            {loading ? (
-              <Loading />
-            ) : (
-              LatestNews?.map((article) => (
-                <Link href={`/auth/news/${article.id}`} key={article.id}>
-                  <Card
-                    author={article.author}
-                    title={article.title}
-                    photo_cover_url={article.photo_cover_url}
-                    number_of_comments={article.number_of_comments}
-                    id={article.id}
-                    category={article.category}
-                    created_at={article.created_at}
-                    updated_at={article.updated_at}
-                  />
-                </Link>
-              ))
-            )}
-          </section>
-        </section>
+        {search !== "" ? (
+          <>
+            <section className="blog__posts">
+              <h2>Search </h2>
+              <section className="blog__overflow">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  PopularNews?.map((post, index) => {
+                    if (
+                      post.title?.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+                    ) {
+                      return (
+                        <Link
+                          href={`/auth/news/${post.id}`}
+                          key={post.id}
+                        >
+                          <Card
+                            author={post.author}
+                            title={post.title}
+                            photo_cover_url={post.photo_cover_url}
+                            number_of_comments={post.number_of_comments || 0}
+                            id={post.id}
+                            category={post.category}
+                            created_at={post.created_at}
+                            updated_at={post.updated_at}
+                          />
+                        </Link>
+                      );
+                    }
+                  })
+                )}
+              </section>
+            </section>
+          </>
+        ) : (
+          <>
+            <section className="blog__posts">
+              <h2>Most Popular </h2>
+              <section className="blog__overflow">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  PopularNews?.map((post, index) => (
+                    <Link
+                      href={`/auth/news/${post.id}`}
+                      key={post.id}
+                    >
+                      <Card
+                        author={post.author}
+                        title={post.title}
+                        photo_cover_url={post.photo_cover_url}
+                        number_of_comments={post.number_of_comments || 0}
+                        id={post.id}
+                        category={post.category}
+                        created_at={post.created_at}
+                        updated_at={post.updated_at}
+                      />
+                    </Link>
+                  ))
+                )}
+              </section>
+            </section>
+            <section className="blog__posts">
+              <h2>Latest</h2>
+              <section className="blog__overflow">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  LatestNews?.map((post) => (
+                    <Link
+                      href={`/auth/news/${post.id}`}
+                      key={post.id}
+                    >
+                      <Card
+                        author={post.author}
+                        title={post.title}
+                        photo_cover_url={post.photo_cover_url}
+                        number_of_comments={post.number_of_comments}
+                        id={post.id}
+                        category={post.category}
+                        created_at={post.created_at}
+                        updated_at={post.updated_at}
+                      />
+                    </Link>
+                  ))
+                )}
+              </section>
+            </section>
+          </>
+        )}
+
+        {CurrentCategory === null ? null : (
+          <>
+            <section className="blog__posts">
+              <h2>{CurrentCategory + " Category"} </h2>
+              <section className="blog__overflow">
+                {loading ? (
+                  <Loading />
+                ) : (
+                  PopularNews?.map((post, index) => {
+                    if (post.category == CurrentCategory) {
+                      return (
+                        <Link
+                          href={`/auth/news/${post.id}`}
+                          key={post.id}
+                        >
+                          <Card
+                            author={post.author}
+                            title={post.title}
+                            photo_cover_url={post.photo_cover_url}
+                            number_of_comments={post.number_of_comments || 0}
+                            id={post.id}
+                            category={post.category}
+                            created_at={post.created_at}
+                            updated_at={post.updated_at}
+                          />
+                        </Link>
+                      );
+                    }
+                  })
+                )}
+              </section>
+            </section>
+          </>
+        )}
       </main>
     );
   }

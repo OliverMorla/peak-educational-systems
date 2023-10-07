@@ -9,15 +9,17 @@ import { motion } from "framer-motion";
 import Login from "@/components/Modal/Login";
 import Image from "next/image";
 import Link from "next/link";
+import DropdownProfileMenu from "../DropdownProfileMenu";
 import ProfileSidebarMenu from "../Modal/ProfileSidebarMenu";
 import "./style.scss";
 
 const Header: React.FunctionComponent = (): JSX.Element => {
   const navRef = useRef<HTMLDivElement>(null);
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const path = usePathname();
   const { data: session, update } = useSession();
-  
+
   // debugging purposes
   console.log(session?.user ? "You are logged in" : "You are not logged in");
 
@@ -105,12 +107,14 @@ const Header: React.FunctionComponent = (): JSX.Element => {
               initial={{ opacity: 0, x: 40 }}
               animate={{ opacity: 1, x: 0 }}
               className="nav__item profile-btn"
+              onHoverStart={() => setIsDropdownOpen(true)}
             >
               <Link href={"/auth/dashboard"}>
                 {session?.user?.name === null
                   ? session?.user?.email
                   : session?.user?.name}
               </Link>
+              <motion.div onHoverEnd={() => setIsDropdownOpen(false)}>{isDropdownOpen && <DropdownProfileMenu />}</motion.div>
             </motion.div>
           )}
           {session?.user && (
@@ -128,7 +132,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
           <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
         ) : null}
       </header>
-      {session?.user && <ProfileSidebarMenu session={session} key={1}/>}
+      {session?.user && <ProfileSidebarMenu session={session} key={1} />}
     </>
   );
 };

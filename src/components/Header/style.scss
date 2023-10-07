@@ -110,6 +110,7 @@
     }
 
     .nav__item {
+      position: relative;
       transition: all 0.15s ease-in-out;
 
       &:hover {
