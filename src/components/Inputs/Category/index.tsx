@@ -1,9 +1,16 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { useSearchParams } from "next/navigation"
-const Category = ({ name, count, type }: { name: string; count: string, type: string }) => {
-  
+import { useSearchParams } from "next/navigation";
+const Category = ({
+  name,
+  count,
+  type,
+}: {
+  name: string;
+  count: string;
+  type: string;
+}) => {
   const searchParams = useSearchParams();
   // @ts-ignore
   const category = searchParams.get("category");

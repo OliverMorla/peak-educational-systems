@@ -67,7 +67,7 @@ const Blog: React.FunctionComponent = (): JSX.Element => {
   } else {
     return (
       <main className="blog">
-        <h1 className="text-5xl font-bold ">Blogs</h1>
+        <h1 className="text-5xl font-bold">Blogs</h1>
         <aside className="blog__search">
           <section className="search">
             <FontAwesomeIcon icon={faSearch} className="search__icon" />
