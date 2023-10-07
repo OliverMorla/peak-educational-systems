@@ -1,9 +1,21 @@
 "use client";
 import { useEffect, useState, useRef } from "react";
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { useSocket } from "@/contexts/SocketContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./style.scss";
-const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { fadeEffect2 } from "@/config/framer.config";
+const Chat = ({
+  friend_id,
+  openChatBox,
+  setOpenChatBox,
+}: {
+  friend_id: string | number | undefined;
+  openChatBox: boolean;
+  setOpenChatBox: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
   const { data: session } = useSession();
   const ChatBodyRef = useRef<HTMLDivElement>(null);
   const [chatHistory, setChatHistory] = useState<ChatHistoryMessages[]>([]);
@@ -66,14 +78,25 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
     ChatBodyRef.current?.scrollTo({
       top: ChatBodyRef.current.scrollHeight,
       behavior: "smooth",
-    });    
+    });
   }, [chatHistory]);
 
   return (
-    <div className="chat-box__wrapper">
+    <motion.div
+      variants={fadeEffect2}
+      initial="hidden"
+      animate="visible"
+      className="chat-box__wrapper"
+    >
       <div className="chat-box__header">
         <div className="chat-box__header-left">Chat Room</div>
-        <div className="chat-box__header-right"></div>
+        <div className="chat-box__header-right">
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="bg-[--matteRed] p-1 cursor-pointer hover:bg-red-800 transition-colors"
+            onClick={() => setOpenChatBox(!openChatBox)}
+          />
+        </div>
       </div>
       <div className="chat-box__body" ref={ChatBodyRef}>
         {chatHistory?.map((chat) => {
@@ -129,6 +152,12 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
             name="sender-input"
             className="chat-box__footer-left__input"
             onChange={(e) => setMessage(e.currentTarget.value)}
+            placeholder="Enter a message"
+            onKeyUp={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+              if (e.key === "Enter") {
+                sendMessage();
+              }
+            }}
           ></textarea>
         </div>
         <div className="chat-box__footer-right">
@@ -140,7 +169,7 @@ const Chat = ({ friend_id }: { friend_id: string | number | undefined }) => {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

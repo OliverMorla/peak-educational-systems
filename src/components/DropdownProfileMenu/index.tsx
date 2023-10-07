@@ -21,6 +21,11 @@ const DropdownProfileMenu = () => {
             Todo-List
           </li>
         </Link>
+        <Link href={"/auth/schedule"}>
+            <li className="p-4 hover:bg-slate-900 transition-colors">
+              Schedule
+            </li>
+        </Link>
       </ul>
     </motion.aside>
   );

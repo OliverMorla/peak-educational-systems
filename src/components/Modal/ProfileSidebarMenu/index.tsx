@@ -293,7 +293,10 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                           className="profile-sidebar__photo"
                         />
                         <span className="profile-sidebar__name">
-                          <Link href={`/auth/profile/${friend.friend_id}`} className="transition-colors duration-150 hover:text-[--primary]">
+                          <Link
+                            href={`/auth/profile/${friend.friend_id}`}
+                            className="transition-colors duration-150 hover:text-[--primary]"
+                          >
                             {friend.friend_name}&nbsp;
                           </Link>
                           <button
@@ -329,7 +332,10 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                           className="profile-sidebar__photo"
                         />
                         <span className="profile-sidebar__name">
-                          <Link href={`/auth/profile/${friend.user_id}`} className="transition-colors duration-150 hover:text-[--primary]">
+                          <Link
+                            href={`/auth/profile/${friend.user_id}`}
+                            className="transition-colors duration-150 hover:text-[--primary]"
+                          >
                             {friend.user_name}&nbsp;
                           </Link>
                           <button
@@ -356,7 +362,13 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                   );
                 }
               })}
-          {openChatBox && <Chat friend_id={openChatBoxFor} />}
+          {openChatBox && (
+            <Chat
+              friend_id={openChatBoxFor}
+              openChatBox={openChatBox}
+              setOpenChatBox={setOpenChatBox}
+            />
+          )}
         </ul>
 
         <ul className="profile-sidebar__list">
