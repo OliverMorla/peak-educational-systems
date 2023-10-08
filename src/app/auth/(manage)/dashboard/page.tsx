@@ -1,12 +1,16 @@
 "use client";
 
 import { useSession, signOut } from "next-auth/react";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import "./page.scss";
 
 const Dashboard: React.FunctionComponent = (): JSX.Element => {
+  const defaultUser = "/assets/icons/user-solid.svg";
   const [user, setUser] = useState<User>();
+  const [error, setError] = useState<string>("");
+  const [userAvatar, setUserAvatar] = useState<string>(defaultUser);
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { status, data: session } = useSession();
 
@@ -66,6 +70,21 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
           <div className="modal__content">
             <ul>
               <li>
+                <span>Avatar:</span>
+                <div className="flex items-end gap-2">
+                  <Image
+                    src={userAvatar}
+                    width={128}
+                    height={128}
+                    alt="avatar.png"
+                  />
+                  <button className="bg-amber-700 p-2 cursor-pointer border-none hover:bg-amber-800 text-cyan-50 transition-colors ">
+                    Update Photo
+                  </button>
+                  <input type="file" className="cursor-pointer appearance-none"/>
+                </div>
+              </li>
+              <li>
                 <span>Name:</span>
                 {user?.first_name}
               </li>
@@ -92,6 +111,10 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
               <li>
                 <span>Date of Birth:</span>
                 {user?.date_of_birth}
+              </li>
+              <li>
+                <span>Role:</span>
+                {user?.role}
               </li>
               <li>
                 <span>Title:</span>
