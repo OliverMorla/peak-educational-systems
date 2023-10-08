@@ -17,6 +17,19 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const navRef = useRef<HTMLDivElement>(null);
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const handleWindowSize = () => {
+      setWindowSize({ width: window?.innerWidth, height: window?.innerHeight });
+    };
+    window.addEventListener("resize", handleWindowSize);
+    handleWindowSize();
+    return () => window.removeEventListener("resize", handleWindowSize);
+  }, []);
+  console.log(windowSize.width);
+  const [isProfileSidebarOpen, setIsProfileSidebarOpen] =
+    useState<boolean>(false);
   const path = usePathname();
   const { data: session, update } = useSession();
 
@@ -27,6 +40,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
     const interval = setInterval(() => update(), 1000 * 60 * 60);
     return () => clearInterval(interval);
   }, [update]);
+
   return (
     <>
       <header
@@ -114,7 +128,9 @@ const Header: React.FunctionComponent = (): JSX.Element => {
                   ? session?.user?.email
                   : session?.user?.name}
               </Link>
-              <motion.div onHoverEnd={() => setIsDropdownOpen(false)}>{isDropdownOpen && <DropdownProfileMenu />}</motion.div>
+              <motion.div onHoverEnd={() => setIsDropdownOpen(false)}>
+                {isDropdownOpen && <DropdownProfileMenu />}
+              </motion.div>
             </motion.div>
           )}
           {session?.user && (
@@ -132,7 +148,9 @@ const Header: React.FunctionComponent = (): JSX.Element => {
           <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
         ) : null}
       </header>
-      {session?.user && <ProfileSidebarMenu session={session} key={1} />}
+      {session?.user && window.innerWidth > 400 && (
+        <ProfileSidebarMenu session={session} />
+      )}
     </>
   );
 };

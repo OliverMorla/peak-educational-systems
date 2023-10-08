@@ -23,6 +23,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
 }): JSX.Element | JSX.Element[] => {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
+
   const [openChatBoxFor, setOpenChatBoxFor] = useState<number>(0);
   const [openChatBox, setOpenChatBox] = useState<boolean>(false);
   const [currentFriends, setCurrentFriends] = useState<Friend[]>([]);
