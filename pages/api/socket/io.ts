@@ -10,13 +10,6 @@ export const config = {
   },
 };
 
-const io = require('socket.io')(ServerIO, {
-  cors: {
-    origin: "*", // For testing. In production, replace with your domain
-    methods: ["GET", "POST"]
-  }
-});
-
 const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
   if (!res.socket.server.io) {
     const path = "/api/socket/io";
@@ -24,7 +17,6 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
     const io = new ServerIO(httpServer, {
       path: path,
       addTrailingSlash: false,
-      transports: ["websocket"],
       cors: {
         origin: process.env.NEXT_PUBLIC_CLIENT_URL, // For testing. In production, replace with your domain
         methods: ["GET", "POST"]
