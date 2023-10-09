@@ -149,6 +149,8 @@ interface Friend {
   updated_at: string;
   friend_name?: string;
   user_name?: string;
+  user_profile_photo?: string;
+  friend_profile_photo?: string;
   status: "pending" | "accepted" | "blocked";
 }
 

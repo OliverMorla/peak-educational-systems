@@ -83,7 +83,15 @@
 
       .profile-sidebar__item {
         .profile-sidebar__link {
+          display: flex;
+          gap: 10px;
           .profile-sidebar__photo {
+            width: 35px;
+            height: 35px;
+            background-color: white;
+            object-fit: cover;
+            border-radius: 50%;
+            padding: 1px;
           }
           .profile-sidebar__name {
             .profile-sidebar__options-add,

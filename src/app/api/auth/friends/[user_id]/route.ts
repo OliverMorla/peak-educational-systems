@@ -21,20 +21,24 @@ export async function GET(
     SELECT 
     f.user_id,
     CONCAT(u.first_name, ' ', u.last_name) as user_name,
+    u.avatar_url as user_profile_photo,
     f.friend_id,
     CONCAT(u2.first_name, ' ', u2.last_name) as friend_name,
+    u2.avatar_url as friend_profile_photo,
     f.status,
     f.created_at
     FROM friends f
     LEFT JOIN (
-      SELECT id, first_name, last_name, email
+      SELECT id, first_name, last_name, email, avatar_url
       FROM users
     ) AS u ON f.user_id = u.id
     LEFT JOIN (
-      SELECT id, first_name, last_name, email
+      SELECT id, first_name, last_name, email, avatar_url
       FROM users
     ) AS u2 ON f.friend_id = u2.id
-    WHERE (f.user_id = ${Number(params.user_id)} OR f.friend_id = ${Number(params.user_id)}) AND f.status = 'accepted'`);
+    WHERE (f.user_id = ${Number(params.user_id)} OR f.friend_id = ${Number(
+      params.user_id
+    )}) AND f.status = 'accepted'`);
 
     const pendingFriends = await prisma.$queryRaw(Prisma.sql`
     SELECT 
@@ -53,7 +57,9 @@ export async function GET(
       SELECT id, first_name, last_name, email
       FROM users
     ) AS u2 ON f.friend_id = u2.id
-    WHERE (f.user_id = ${Number(params.user_id)} OR f.friend_id = ${Number(params.user_id)}) AND f.status = 'pending'
+    WHERE (f.user_id = ${Number(params.user_id)} OR f.friend_id = ${Number(
+      params.user_id
+    )}) AND f.status = 'pending'
       
         `);
 
@@ -74,7 +80,9 @@ export async function GET(
       SELECT id, first_name, last_name, email
       FROM users
     ) AS u2 ON f.friend_id = u2.id
-    WHERE (f.user_id = ${Number(params.user_id)} OR f.friend_id = ${Number(params.user_id)}) AND f.status = 'blocked'
+    WHERE (f.user_id = ${Number(params.user_id)} OR f.friend_id = ${Number(
+      params.user_id
+    )}) AND f.status = 'blocked'
         
         `);
 

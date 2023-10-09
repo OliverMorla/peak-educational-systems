@@ -8,7 +8,8 @@ This prototype was built using a stack comprising of Next.js 13, TypeScript, Rea
 
 The project is currently in progress and under active development.
 
-Old Domain: https://www.peakeducationalsystems.com/ 
+Old Domain: https://www.peakeducationalsystems.com/
+
 Preview: https://peak-educational-systems.vercel.app/
 
 Note: When project is fully done, it will be transferred over onto the old domain.
@@ -38,6 +39,7 @@ Note: When project is fully done, it will be transferred over onto the old domai
 - **AWS/PostgreSQL**: Utilized for online database management and deployment.
 - **Mailchimp and EmailJS**: Integrated for managing and sending emails respectively. (Comming Soon)
 - **Socket.io**: Used for bidirectional and low-latency communication between members.
+- **Cloudinary**: Used for file upload, specifically to upload avatar for user profile.
 
 ## Project Status
 

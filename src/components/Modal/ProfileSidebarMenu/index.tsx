@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -241,6 +242,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
     setOpenChatBoxFor(friend_id);
     setOpenChatBox(!openChatBox);
   };
+  const defaultUser = "/assets/icons/user-solid.svg";
 
   return (
     <aside className="profile-sidebar" ref={sidebarRef}>
@@ -289,8 +291,15 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                   return (
                     <li className="profile-sidebar__item" key={index}>
                       <span className="profile-sidebar__link">
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                           icon={faUser}
+                          className="profile-sidebar__photo"
+                        /> */}
+                        <Image 
+                          src={friend.friend_profile_photo ?? defaultUser}
+                          alt={friend.friend_name ?? ""}
+                          width={40}
+                          height={40}
                           className="profile-sidebar__photo"
                         />
                         <span className="profile-sidebar__name">
@@ -328,8 +337,15 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                   return (
                     <li className="profile-sidebar__item" key={index}>
                       <span className="profile-sidebar__link">
-                        <FontAwesomeIcon
+                        {/* <FontAwesomeIcon
                           icon={faUser}
+                          className="profile-sidebar__photo"
+                        /> */}
+                        <Image 
+                          src={friend.user_profile_photo ?? defaultUser}
+                          alt={friend.user_name ?? ""}
+                          width={40}
+                          height={40}
                           className="profile-sidebar__photo"
                         />
                         <span className="profile-sidebar__name">

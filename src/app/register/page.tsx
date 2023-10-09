@@ -381,7 +381,7 @@ const Register = () => {
           <Loading />
         )}
       </motion.form>
-      <Link href="/login" className="register__login-link">
+      <Link href="/" className="register__login-link">
         Already a member, Click here to login!
       </Link>
     </main>
