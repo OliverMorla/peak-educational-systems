@@ -18,8 +18,8 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
       path: path,
       addTrailingSlash: false,
       cors: {
-        origin: process.env.NEXT_PUBLIC_CLIENT_URL, // For testing. In production, replace with your domain
-        methods: ["GET", "POST"]
+        origin: "*",
+        methods: ["GET", "POST"],
       }
     });
     res.socket.server.io = io;

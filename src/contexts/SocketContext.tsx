@@ -24,7 +24,11 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     const newSocket = new (ClientIO as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
       path: "/api/socket/io",
-      addTrailingSlash: true,
+      addTrailingSlash: false,
+      cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
+      }
     });
 
     newSocket.on("connect", () => {
