@@ -19,6 +19,7 @@ export async function GET(
         id: Number(params.id),
       },
       select: {
+        avatar_url: true,
         first_name: true,
         last_name: true,
         role: true,
@@ -28,6 +29,30 @@ export async function GET(
         employment_type: true,
         title: true,
         created_at: true,
+      },
+    });
+
+    if (user) return NextResponse.json({ status: 200, ok: true, user: user });
+  } catch (err) {
+    return NextResponse.json({
+      status: 500,
+      ok: false,
+      message: "Failed to fetch user!",
+      prisma_error: err instanceof Error ? err.message : undefined,
+    });
+  }
+}
+
+export async function PUT(req: NextRequest, { params }: { params: Params }) {
+  const { avatar } = await req.json();
+
+  try {
+    const user = await prisma.users.update({
+      where: {
+        id: Number(params.id),
+      },
+      data: {
+        avatar_url: avatar,
       },
     });
 

@@ -79,6 +79,7 @@ interface User {
   school_type: string;
   school_region: string;
   created_at: string;
+  avatar_url: string;
   role: string;
 }
 
