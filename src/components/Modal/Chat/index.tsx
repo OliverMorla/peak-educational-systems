@@ -153,9 +153,11 @@ const Chat = ({
             className="chat-box__footer-left__input"
             onChange={(e) => setMessage(e.currentTarget.value)}
             placeholder="Enter a message"
+            value={message}
             onKeyUp={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
               if (e.key === "Enter") {
                 sendMessage();
+                setMessage("")
               }
             }}
           ></textarea>
