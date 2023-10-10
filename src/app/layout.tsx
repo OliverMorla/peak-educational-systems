@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import { Roboto } from "next/font/google";
 
-import { AuthProvider } from "@/contexts/AuthContext";
-import { SocketProvider } from "@/contexts/SocketContext";
+import { AuthProvider } from "@/contexts/auth-context";
+import { SocketProvider } from "@/contexts/socket-context";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";

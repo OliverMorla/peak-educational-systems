@@ -56,7 +56,7 @@ const Services: React.FunctionComponent = (): JSX.Element => {
               needed basis.
             </p>
           </motion.div>
-          <motion.div 
+          <motion.div
             variants={fadeEffectDelay2}
             initial="hidden"
             whileInView="visible"
@@ -73,7 +73,7 @@ const Services: React.FunctionComponent = (): JSX.Element => {
               academic challenges and reach their full potential."
             </p>
           </motion.div>
-          <motion.div 
+          <motion.div
             variants={fadeEffectDelay3}
             initial="hidden"
             whileInView="visible"
@@ -110,11 +110,17 @@ const Services: React.FunctionComponent = (): JSX.Element => {
             <h2>Quick Support</h2>
           </div>
           <div className="badge services__badge">
-            <FontAwesomeIcon icon={faBookOpen} className="services__badge-icon" />
+            <FontAwesomeIcon
+              icon={faBookOpen}
+              className="services__badge-icon"
+            />
             <h2>2+ Books Written</h2>
           </div>
           <div className="badge services__badge">
-            <FontAwesomeIcon icon={faFaceGrinBeam} className="services__badge-icon" />
+            <FontAwesomeIcon
+              icon={faFaceGrinBeam}
+              className="services__badge-icon"
+            />
             <h2>100+ Members</h2>
           </div>
         </motion.div>

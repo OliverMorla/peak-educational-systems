@@ -27,7 +27,6 @@ const Header: React.FunctionComponent = (): JSX.Element => {
     handleWindowSize();
     return () => window.removeEventListener("resize", handleWindowSize);
   }, []);
-  console.log(windowSize.width);
   const [isProfileSidebarOpen, setIsProfileSidebarOpen] =
     useState<boolean>(false);
   const path = usePathname();

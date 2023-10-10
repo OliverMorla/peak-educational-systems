@@ -2,7 +2,7 @@ import { Server as NetServer } from "http";
 import { NextApiRequest, NextConfig } from "next";
 import { Server as ServerIO } from "socket.io";
 
-import { NextApiResponseServerIo } from "@/types/SocketTypes";
+import { NextApiResponseServerIo } from "@/types/socket-types";
 
 export const config = {
   api: {
@@ -20,7 +20,7 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
       cors: {
         origin: "*",
         methods: ["GET", "POST"],
-      }
+      },
     });
     res.socket.server.io = io;
   }

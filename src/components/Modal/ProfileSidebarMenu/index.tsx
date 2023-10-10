@@ -24,7 +24,6 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
 }): JSX.Element | JSX.Element[] => {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-
   const [openChatBoxFor, setOpenChatBoxFor] = useState<number>(0);
   const [openChatBox, setOpenChatBox] = useState<boolean>(false);
   const [currentFriends, setCurrentFriends] = useState<Friend[]>([]);
@@ -291,11 +290,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                   return (
                     <li className="profile-sidebar__item" key={index}>
                       <span className="profile-sidebar__link">
-                        {/* <FontAwesomeIcon
-                          icon={faUser}
-                          className="profile-sidebar__photo"
-                        /> */}
-                        <Image 
+                        <Image
                           src={friend.friend_profile_photo ?? defaultUser}
                           alt={friend.friend_name ?? ""}
                           width={40}
@@ -304,7 +299,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                         />
                         <span className="profile-sidebar__name">
                           <Link
-                            href={`/auth/profile/${friend.friend_id}`}
+                            href={`/auth/user-profile/${friend.friend_id}`}
                             className="transition-colors duration-150 hover:text-[--primary]"
                           >
                             {friend.friend_name}&nbsp;
@@ -337,11 +332,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                   return (
                     <li className="profile-sidebar__item" key={index}>
                       <span className="profile-sidebar__link">
-                        {/* <FontAwesomeIcon
-                          icon={faUser}
-                          className="profile-sidebar__photo"
-                        /> */}
-                        <Image 
+                        <Image
                           src={friend.user_profile_photo ?? defaultUser}
                           alt={friend.user_name ?? ""}
                           width={40}
@@ -350,7 +341,7 @@ const ProfileSidebarMenu: React.FunctionComponent<Props> = ({
                         />
                         <span className="profile-sidebar__name">
                           <Link
-                            href={`/auth/profile/${friend.user_id}`}
+                            href={`/auth/user-profile/${friend.user_id}`}
                             className="transition-colors duration-150 hover:text-[--primary]"
                           >
                             {friend.user_name}&nbsp;

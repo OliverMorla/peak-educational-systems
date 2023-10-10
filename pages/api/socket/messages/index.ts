@@ -1,5 +1,5 @@
 import { NextApiRequest } from "next";
-import { NextApiResponseServerIo } from "@/types/SocketTypes";
+import { NextApiResponseServerIo } from "@/types/socket-types";
 import prisma from "@/lib/prisma";
 
 export default async (req: NextApiRequest, res: NextApiResponseServerIo) => {

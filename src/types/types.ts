@@ -172,6 +172,17 @@ interface ChatHistoryMessages {
   timestamp: Date | string;
 }
 
+interface Todo {
+  todo_id: number;
+  todo_text: string;
+  todo_completed: boolean;
+  user_id: number;
+  user_name: string;
+  user_profile_photo: string;
+  created_at: string;
+  updated_at: string;
+}
+
 // For Admin Page
 interface AdminResponse<T> {
   status: number;

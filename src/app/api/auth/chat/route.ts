@@ -1,5 +1,5 @@
-import { Prisma } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
 export async function GET(req: NextRequest) {
@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({
         status: 500,
         ok: false,
-        message: "Failed to fetch chat history",
+        message: "Failed to fetch chat history!",
         prisma_error: err.message,
       });
   }
@@ -51,12 +51,19 @@ export async function POST(req: NextRequest) {
         message_text: message,
       },
     });
+
+    if (chat)
+      return NextResponse.json({
+        status: 200,
+        ok: true,
+        message: "Chat created successfully!",
+      });
   } catch (err) {
     if (err instanceof Error)
       return NextResponse.json({
         status: 500,
         ok: false,
-        message: "Failed to create chat",
+        message: "Failed to create chat!",
         prisma_error: err.message,
       });
   }

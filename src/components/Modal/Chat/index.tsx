@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { useSocket } from "@/contexts/SocketContext";
+import { useSocket } from "@/contexts/socket-context";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./style.scss";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -157,7 +157,7 @@ const Chat = ({
             onKeyUp={(e: React.KeyboardEvent<HTMLTextAreaElement>) => {
               if (e.key === "Enter") {
                 sendMessage();
-                setMessage("")
+                setMessage("");
               }
             }}
           ></textarea>

@@ -16,12 +16,12 @@ const DropdownProfileMenu = () => {
             Dashboard
           </li>
         </Link>
-        <Link href={"/auth/todo"}>
+        <Link href={"/auth/todo-list"}>
           <li className="p-4 hover:bg-slate-900 transition-colors">
-            Todo-List
+            Todo List
           </li>
         </Link>
-        <Link href={"/auth/schedule"}>
+        <Link href={"/auth/schedule-meeting"}>
             <li className="p-4 hover:bg-slate-900 transition-colors">
               Schedule
             </li>
