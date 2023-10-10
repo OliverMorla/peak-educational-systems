@@ -1,3 +1,4 @@
+// Still work in progress!
 "use client";
 import {
   faArrowUpShortWide,
@@ -37,7 +38,7 @@ const TodoList = () => {
       default:
         return state;
     }
-  }
+  };
 
   return (
     <main className="flex w-full h-full pt-[75px] justify-center items-center gap-3 flex-col">
@@ -81,7 +82,7 @@ const TodoList = () => {
 
             <ul className="flex flex-row justify-between items-center mt-2">
               {todos?.map((todo: Todo) => (
-                <li className="flex flex-row items-center border-b-2 border-slate-600 pb-4 gap-2">
+                <li className="flex flex-row items-center border-b-2 border-slate-600 pb-4 gap-2" key={todo.todo_id}>
                   <div className="flex">
                     <p className="font-light bg-slate-200 h-[56px] w-[400px] text-center flex items-center justify-center">
                       {todo?.todo_text}
