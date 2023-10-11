@@ -12,6 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { fadeEffect2, fadeEffectDelay2 } from "@/config/framer.config";
+import DigitalClock from "@/components/DigitalClock";
 
 const TodoList = () => {
   const TestTodo: Todo = {
@@ -64,7 +65,7 @@ const TodoList = () => {
         className="flex w-full h-full pt-[75px] justify-center items-center gap-3 flex-col"
       >
         <section>
-          <h1>Digital Time</h1>
+          <DigitalClock />
         </section>
         <section>
           <h1 className="text-5xl font-bold tracking-tighter">
