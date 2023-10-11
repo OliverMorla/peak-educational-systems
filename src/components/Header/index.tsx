@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSession, signOut } from "next-auth/react";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import Login from "@/components/Modal/Login";
@@ -14,23 +14,37 @@ import ProfileSidebarMenu from "../Modal/ProfileSidebarMenu";
 import "./style.scss";
 
 const Header: React.FunctionComponent = (): JSX.Element => {
+  const { data: session, update } = useSession();
+
+  const path = usePathname();
+
   const navRef = useRef<HTMLDivElement>(null);
+
   const [isLoginOpen, setIsLoginOpen] = useState<boolean>(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
-  useEffect(() => {
-    const handleWindowSize = () => {
-      setWindowSize({ width: window?.innerWidth, height: window?.innerHeight });
+  // debounce function to prevent spamming of events on resize of window 
+  const debouce = (func: any, delay: number) => {
+    let timeoutId: any;
+    return (...args: any[]) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
     };
-    window.addEventListener("resize", handleWindowSize);
+  };
+
+  useEffect(() => {
+    const handleWindowSize = debouce(() => {
+      setWindowSize({ width: window?.innerWidth, height: window?.innerHeight });
+    }, 100);
+    
     handleWindowSize();
+
+    window.addEventListener("resize", handleWindowSize);
     return () => window.removeEventListener("resize", handleWindowSize);
   }, []);
-  const [isProfileSidebarOpen, setIsProfileSidebarOpen] =
-    useState<boolean>(false);
-  const path = usePathname();
-  const { data: session, update } = useSession();
 
   // debugging purposes
   console.log(session?.user ? "You are logged in" : "You are not logged in");
@@ -64,6 +78,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
           icon={faBars}
           className="header__toggle-btn"
           width={25}
+          height={25}
           onClick={() => navRef.current?.classList.toggle("open")}
         />
         <nav className="header__nav" ref={navRef}>
@@ -77,19 +92,19 @@ const Header: React.FunctionComponent = (): JSX.Element => {
             About
           </Link>
           {session?.user && (
-            <Link href="/auth/blog" className="nav__item">
-              Blog
-            </Link>
-          )}
-          {session?.user && (
-            <Link href="/auth/news" className="nav__item">
-              News
-            </Link>
+            <>
+              <Link href="/auth/blog" className="nav__item">
+                Blog
+              </Link>
+              <Link href="/auth/news" className="nav__item">
+                News
+              </Link>
+            </>
           )}
           <Link href="/contact" className="nav__item">
             Contact
           </Link>
-          {session?.user === undefined && path !== "/about" && (
+          {!session?.user && path !== "/about" && (
             <div
               className="nav__item login-btn"
               onClick={() => setIsLoginOpen(!isLoginOpen)}
@@ -97,30 +112,36 @@ const Header: React.FunctionComponent = (): JSX.Element => {
               Sign In
             </div>
           )}
-          {path === "/about" && session?.user === undefined && (
+          {path === "/about" && !session?.user && (
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="nav__item"
             >
               <Link href={"/register"}>Become a Member</Link>
             </motion.div>
           )}
-          {session?.user?.email === "admin@peakeducationalsystems.com" && (
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="nav__item admin-btn"
-            >
-              <Link href={"/auth/admin"}>Admin Panel</Link>
-            </motion.div>
-          )}
+
+          {session?.user?.email === "admin@peakeducationalsystems.com" &&
+            // @ts-ignore
+            session?.user?.id === 1 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="nav__item admin-btn"
+              >
+                <Link href={"/auth/admin-panel"}>Admin Panel</Link>
+              </motion.div>
+            )}
+
           {session?.user && (
             <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="nav__item profile-btn"
-              onHoverStart={() => setIsDropdownOpen(true)}
+              onHoverStart={() => {
+                if (windowSize.width >= 960) setIsDropdownOpen(true);
+              }}
             >
               <Link href={"/auth/dashboard"}>
                 {session?.user?.name === null
@@ -132,6 +153,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
               </motion.div>
             </motion.div>
           )}
+
           {session?.user && (
             <motion.div
               initial={{ opacity: 0 }}
@@ -143,11 +165,12 @@ const Header: React.FunctionComponent = (): JSX.Element => {
           )}
         </nav>
 
-        {isLoginOpen && session?.user === undefined ? (
+        {isLoginOpen && !session?.user ? (
           <Login isLoginOpen={isLoginOpen} setIsLoginOpen={setIsLoginOpen} />
         ) : null}
       </header>
-      {session?.user && window.innerWidth > 400 && (
+
+      {session?.user && windowSize.width > 400 && (
         <ProfileSidebarMenu session={session} />
       )}
     </>
