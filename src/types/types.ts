@@ -177,8 +177,8 @@ interface Todo {
   todo_text: string;
   todo_completed: boolean;
   user_id: number;
-  user_name: string;
-  user_profile_photo: string;
+  // user_name: string;
+  // user_profile_photo: string;
   created_at: string;
   updated_at: string;
 }

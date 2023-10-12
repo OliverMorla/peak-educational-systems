@@ -80,6 +80,7 @@ model users {
   friends_friends_friend_idTousers                friends[]       @relation("friends_friend_idTousers")
   friends_friends_user_idTousers                  friends[]       @relation("friends_user_idTousers")
   news                                            news[]
+  todo                                            todo[]
 }
 
 model chat_messages {
@@ -103,6 +104,16 @@ model friends {
   users_friends_user_idTousers   users              @relation("friends_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@id([user_id, friend_id])
+}
+
+model todo {
+  todo_id        Int       @id @default(autoincrement())
+  todo_text      String
+  todo_completed Boolean   @default(false)
+  user_id        Int
+  created_at     DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime? @default(now()) @db.Timestamptz(6)
+  users          users     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 enum friendship_status {

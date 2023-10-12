@@ -1,24 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const DigitalClock = () => {
-  const date = new Date();
-
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  const second = date.getSeconds();
+  const [time, setTime] = useState({
+    hour: 0,
+    minute: 0,
+    second: 0,
+  });
 
   useEffect(() => {
-    const interval = setInterval(() => {}, 1000);
+    const interval = setInterval(() => {
+      const date = new Date();
+      setTime({
+        hour: date.getHours(),
+        minute: date.getMinutes(),
+        second: date.getSeconds(),
+      });
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div>
-      <h1>Digital Clock</h1>
+    <div className="flex justify-center items-center flex-col shadow-md p-4">
+      <h1 className="text-lg font-bold">Digital Clock</h1>
       <div className="flex">
-        <h2>{hour}:</h2>
-        <h2>{minute}:</h2>
-        <h2>{second}</h2>
+        <h2>{time.hour.toString().padStart(2, "0")}:</h2>
+        <h2>{time.minute.toString().padStart(2, "0")}:</h2>
+        <h2>{time.second.toString().padStart(2, "0")}</h2>
+        <h2 className="opacity-60 ml-1">{time.hour >= 12 ? "PM" : "AM"}</h2>
       </div>
     </div>
   );
