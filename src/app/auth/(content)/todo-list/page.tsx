@@ -23,7 +23,7 @@ const TodoList = () => {
     user_id: 1,
     user_name: "Sydney",
     updated_at: "July 10, 2021",
-    user_profile_photo: "https://picsum.photos/200/300",
+    user_avatar_url: "https://picsum.photos/200/300",
   };
   const { data: session } = useSession();
   const [todos, setTodos] = useState<any>([TestTodo]);
