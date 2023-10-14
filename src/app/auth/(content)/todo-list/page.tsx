@@ -18,7 +18,7 @@ type TodoReducerActionType = {
   type: string;
   payload: any;
 };
- 
+
 const todoReducer = (todos: any, action: TodoReducerActionType) => {
   switch (action.type) {
     case "ADD_TODO":
@@ -44,8 +44,6 @@ const TodoList = () => {
   const [todos, dispatch] = useReducer(todoReducer, [TestTodo]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-
-  console.log(todos);
 
   if (!session?.user) {
     return (
