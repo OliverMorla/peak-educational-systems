@@ -15,6 +15,7 @@ import "./style.scss";
 
 const Header: React.FunctionComponent = (): JSX.Element => {
   const { data: session, update } = useSession();
+  console.log(session)
 
   const path = usePathname();
 

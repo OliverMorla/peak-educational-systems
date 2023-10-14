@@ -14,6 +14,19 @@ import Link from "next/link";
 import { fadeEffect2, fadeEffectDelay2 } from "@/config/framer.config";
 import DigitalClock from "@/components/DigitalClock";
 
+type TodoReducerActionType = {
+  type: string;
+  payload: any;
+};
+ 
+const todoReducer = (todos: any, action: TodoReducerActionType) => {
+  switch (action.type) {
+    case "ADD_TODO":
+      return [...todos, action.payload];
+      break;
+  }
+};
+
 const TodoList = () => {
   const TestTodo: Todo = {
     created_at: "July 10, 2021",
@@ -25,26 +38,15 @@ const TodoList = () => {
     updated_at: "July 10, 2021",
     user_avatar_url: "https://picsum.photos/200/300",
   };
+
   const { data: session } = useSession();
-  const [todos, setTodos] = useState<any>([TestTodo]);
+  // const [todos, setTodos] = useState<any>([TestTodo]);
+  const [todos, dispatch] = useReducer(todoReducer, [TestTodo]);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const todoReducer = async (state: any, action: any) => {
-    switch (action.type) {
-      case "ADD_TODO":
-        const res = await fetch("");
-        return [...state, action.payload];
-      case "DELETE_TODO":
-        return state.filter((todo: any) => todo.id !== action.payload);
-      case "UPDATE_TODO":
-        return state.map((todo: any) =>
-          todo.id === action.payload.id ? action.payload : todo
-        );
-      default:
-        return state;
-    }
-  };
+  console.log(todos);
+
   if (!session?.user) {
     return (
       <main className="error">
@@ -62,18 +64,22 @@ const TodoList = () => {
         variants={fadeEffect2}
         initial={"hidden"}
         animate={"visible"}
-        className="flex w-full h-full pt-[75px] justify-center items-center gap-3 flex-col"
+        className="flex w-full h-auto pt-[75px] justify-center items-center gap-3 flex-col pb-4"
       >
         <section>
           <DigitalClock />
         </section>
         <section>
           <h1 className="text-5xl font-bold tracking-tighter">
-            Welcome to the <motion.span 
-            variants={fadeEffectDelay2}
-            initial={"hidden"}
-            animate={"visible"}
-            className="text-[--primary] underline">Todo List</motion.span>
+            Welcome to the{" "}
+            <motion.span
+              variants={fadeEffectDelay2}
+              initial={"hidden"}
+              animate={"visible"}
+              className="text-[--primary] underline"
+            >
+              Todo List
+            </motion.span>
           </h1>
         </section>
         <section className="flex flex-row items-center gap-2">
@@ -83,12 +89,20 @@ const TodoList = () => {
             className=" pl-4 h-16 appearance-none border-b-2 border-slate-400 w-full focus:outline-none focus:border-slate-700 transition-colors w-[400px]"
             placeholder="Enter a task!"
           />
-          <button className="bg-slate-600 h-16 w-16 appearance-none border-none hover:bg-slate-700 transition-colors text-red-200">
+          <button
+            className="bg-slate-600 h-16 w-16 appearance-none border-none hover:bg-slate-700 transition-colors text-red-200"
+            onClick={() => {
+              dispatch({
+                type: "ADD_TODO",
+                payload: TestTodo,
+              });
+            }}
+          >
             Add
           </button>
         </section>
         <section className="h-auto">
-          {todos.length === 0 ? (
+          {todos?.length === 0 ? (
             <p className="flex justify-center items-center h-full p-4">
               You have no todos yet!
             </p>
@@ -106,10 +120,10 @@ const TodoList = () => {
                 </button>
               </div>
 
-              <ul className="flex flex-row justify-between items-center mt-2">
+              <ul className="flex flex-col justify-between items-center mt-2">
                 {todos?.map((todo: Todo) => (
                   <li
-                    className="flex flex-row items-center border-b-2 border-slate-600 pb-4 gap-2"
+                    className="flex flex-row items-center border-b-2 border-slate-600 pb-4 pt-4 gap-2 "
                     key={todo.todo_id}
                   >
                     <div className="flex">

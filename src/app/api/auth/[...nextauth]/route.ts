@@ -74,14 +74,31 @@ const handler = NextAuth({
         },
         select: {
           role: true,
-        }
+        },
       });
 
-      //@ts-ignore
+      // @ts-ignore
       session.user.id = Number(token.sub);
-      //@ts-ignore
+      // @ts-ignore
       session.user.role = User.role;
       return session;
+    },
+
+    async jwt({ token, account, profile }) {
+      const user = await prisma.users.findUnique({
+        where: {
+          id: Number(token.sub),
+        },
+        select: {
+          role: true,
+          avatar_url: true,
+        },
+      });
+
+      token.picture = user?.avatar_url;
+      token.role = user?.role;
+
+      return token;
     },
   },
 });
