@@ -62,6 +62,22 @@ const todoReducer = (todos: Todo[], action: TodoReducerActionType) => {
         }
       });
       break;
+    case "MARK_ALL_TODO_AS_COMPLETED":
+      return todos.map((todo) => {
+        if (todo.todo_completed === false) {
+          return {
+            ...todo,
+            todo_completed: true,
+          };
+        } else {
+          return { ...todo };
+        }
+      });
+      break;
+    case "DELETE_ALL_TODOS":
+      return [];
+      break;
+
     default:
       return todos;
       break;
@@ -93,7 +109,7 @@ const TodoList = () => {
 
   const handleTodo = async (
     action: string,
-    todo_id: number | string,
+    todo_id: number | string | undefined,
     todo_completed: boolean | undefined
   ) => {
     switch (action) {
@@ -207,6 +223,58 @@ const TodoList = () => {
                 "Content-Type": "application/json",
               },
               body: JSON.stringify({ todo_id, todo_completed }),
+            }
+          );
+          const data = await res.json();
+          if (data.ok) {
+            dispatch({
+              type: action,
+              payload: todo_id,
+            });
+          }
+        } catch (err) {
+          console.log(err instanceof Error ? err.message : "Network error");
+        }
+        break;
+      case "MARK_ALL_TODO_AS_COMPLETED":
+        try {
+          const markAllTodosCompleted = true;
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/todo`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                markAllTodosCompleted,
+              }),
+            }
+          );
+          const data = await res.json();
+          if (data.ok) {
+            dispatch({
+              type: action,
+              payload: todo_id,
+            });
+          }
+        } catch (err) {
+          console.log(err instanceof Error ? err.message : "Network error");
+        }
+        break;
+      case "DELETE_ALL_TODOS":
+        try {
+          const deleteAllTodos = true;
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/auth/todo`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                deleteAllTodos,
+              }),
             }
           );
           const data = await res.json();
@@ -337,10 +405,24 @@ const TodoList = () => {
                 <button className="bg-slate-300 p-3 appearance-none border-none hover:bg-slate-400 transition-colors">
                   Date Sort <FontAwesomeIcon icon={faArrowUpShortWide} />
                 </button>
-                <button className="bg-[--matteRed] p-3 appearance-none border-none hover:bg-[--matteRed-hover] transition-colors text-[white]">
+                <button
+                  className="bg-[--matteRed] p-3 appearance-none border-none hover:bg-[--matteRed-hover] transition-colors text-[white]"
+                  onClick={() => {
+                    handleTodo("DELETE_ALL_TODOS", undefined, undefined);
+                  }}
+                >
                   Delete All <FontAwesomeIcon icon={faTrash} />
                 </button>
-                <button className="bg-green-500 p-4 w-fit appearance-none border-none hover:bg-green-600 transition-colors">
+                <button
+                  className="bg-green-500 p-4 w-fit appearance-none border-none hover:bg-green-600 transition-colors"
+                  onClick={() => {
+                    handleTodo(
+                      "MARK_ALL_TODO_AS_COMPLETED",
+                      undefined,
+                      undefined
+                    );
+                  }}
+                >
                   Mark All as Completed <FontAwesomeIcon icon={faCheck} />
                 </button>
               </div>

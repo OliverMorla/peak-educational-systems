@@ -123,7 +123,7 @@ export async function PUT(req: NextRequest) {
   const body = await req.json();
 
   if (authorizedUser) {
-    if (body.todo_id !== undefined || "") {
+    if (body.todo_id !== undefined && body.todo_text !== "") {
       try {
         const todo = await prisma.todo.update({
           where: {
@@ -133,6 +133,53 @@ export async function PUT(req: NextRequest) {
             todo_text: body.todo_text,
           },
         });
+
+        if (todo) {
+          return NextResponse.json({
+            ok: true,
+            status: 200,
+            message: "Todo updated successfully!",
+          });
+        }
+      } catch (err) {
+        return NextResponse.json({
+          status: 500,
+          ok: false,
+          message: "Failed to update todo!",
+          prisma_error:
+            err instanceof Error ? err.message : "An Internal Error Occurred!",
+        });
+      }
+    } else if (body.markAllTodosCompleted) {
+      try {
+        const todo = await prisma.todo.updateMany({
+          where: {
+            todo_completed: false,
+          },
+          data: {
+            todo_completed: true,
+          },
+        });
+
+        if (todo) {
+          return NextResponse.json({
+            ok: true,
+            status: 200,
+            message: "Todo updated successfully!",
+          });
+        }
+      } catch (err) {
+        return NextResponse.json({
+          status: 500,
+          ok: false,
+          message: "Failed to update todo!",
+          prisma_error:
+            err instanceof Error ? err.message : "An Internal Error Occurred!",
+        });
+      }
+    } else if (body.deleteAllTodos) {
+      try {
+        const todo = await prisma.todo.deleteMany({});
 
         if (todo) {
           return NextResponse.json({
