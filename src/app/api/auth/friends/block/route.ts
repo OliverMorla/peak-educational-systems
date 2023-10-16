@@ -43,7 +43,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       });
     }
 
-    console.log(friendRequest);
   } catch (err) {
     return NextResponse.json({
       status: 500,

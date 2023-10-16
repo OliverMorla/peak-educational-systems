@@ -12,8 +12,6 @@ export async function GET(
     };
   }
 ) {
-  // testing
-  console.log("params", params);
   if (!params.user_id)
     return NextResponse.json({ error: "User id is required" }, { status: 400 });
   try {

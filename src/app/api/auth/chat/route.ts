@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
             CONCAT(us.first_name, ' ', us.last_name) as receiver_name,
             cm.message_text,
             cm.timestamp
-            FROM chat_messages cm
+        FROM chat_messages cm
         LEFT JOIN (
             SELECT id, first_name, last_name
             FROM users

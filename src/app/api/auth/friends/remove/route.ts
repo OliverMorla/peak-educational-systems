@@ -8,7 +8,6 @@ type FriendRequestRemoveProps = {
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const { friend_id, user_id } = await req.json();
-  console.log(friend_id, user_id);
   if (!friend_id)
     return NextResponse.json(
       {
@@ -32,11 +31,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
             status: "accepted",
             user_id: user_id,
             friend_id: friend_id,
-          }
+          },
         ],
-      },                       
+      },
     });
-    console.log(friendRequest);
     if (friendRequest)
       return NextResponse.json({
         status: 200,

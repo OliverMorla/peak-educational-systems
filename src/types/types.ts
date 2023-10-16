@@ -32,7 +32,7 @@ interface MessageDataProps {
   message_text: string;
 }
 
-interface News{
+interface News {
   id: number;
   author?: string;
   content: string;
@@ -299,6 +299,24 @@ interface SessionFormInputs {
   last_name: string;
   email: string;
   reason: string;
+}
+
+interface TodoInputs {
+  todo_id: string | number;
+  todo_text: string;
+  todo_completed: boolean;
+  user_id: number;
+  users?: {
+    first_name: string;
+    last_name: string;
+  };
+  created_at: Date | string;
+  updated_at: Date | string;
+}
+
+interface TodoReducerActionType {
+  type: string;
+  payload: any;
 }
 
 // Context Types

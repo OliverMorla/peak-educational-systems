@@ -27,9 +27,6 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    // Debugging Purposes
-    // console.log(body);
-
     const existingUser = await prisma.users.findFirst({
       where: {
         email: body.email,
