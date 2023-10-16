@@ -103,7 +103,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
           viewport={{ margin: "-150px -150px -150px -150px", once: true }}
           className="about-author__summary"
         >
-          <h1 className="about-author__summary-heading">About the author</h1>
+          <h1 className="about-author__summary-heading">About the owner</h1>
           <p className="about-author__summary-desc">
             Sydney W. Joshua knows all about what it takes to balance a career
             and her role as a mother. After graduating from college, she went to
