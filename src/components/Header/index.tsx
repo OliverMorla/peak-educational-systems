@@ -15,7 +15,6 @@ import "./style.scss";
 
 const Header: React.FunctionComponent = (): JSX.Element => {
   const { data: session, update } = useSession();
-  console.log(session)
 
   const path = usePathname();
 
@@ -25,7 +24,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
 
-  // debounce function to prevent spamming of events on resize of window 
+  // debounce function to prevent spamming of events on resize of window
   const debouce = (func: any, delay: number) => {
     let timeoutId: any;
     return (...args: any[]) => {
@@ -40,7 +39,7 @@ const Header: React.FunctionComponent = (): JSX.Element => {
     const handleWindowSize = debouce(() => {
       setWindowSize({ width: window?.innerWidth, height: window?.innerHeight });
     }, 100);
-    
+
     handleWindowSize();
 
     window.addEventListener("resize", handleWindowSize);

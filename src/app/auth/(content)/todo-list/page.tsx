@@ -1,6 +1,6 @@
 // Still work in progress!
 "use client";
-import { useState, useReducer, useEffect, useRef } from "react";
+import { useState, useReducer, useEffect, useRef, createRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
@@ -34,7 +34,7 @@ const todoReducer = (todos: Todo[], action: TodoReducerActionType) => {
             todo_text: action.payload.todo_text,
           };
         } else {
-          return todos;
+          return { ...todo };
         }
       });
       break;
@@ -70,7 +70,7 @@ const todoReducer = (todos: Todo[], action: TodoReducerActionType) => {
 
 const TodoList = () => {
   const { data: session } = useSession();
-  const todoInputRef = useRef<HTMLInputElement>(null);
+  const todoInputRefs = useRef<HTMLInputElement[]>([]);
   const [todos, dispatch] = useReducer(todoReducer, []);
   const [todoEditText, setTodoEditText] = useState<string>("");
   const [todoEditID, setTodoEditID] = useState<number>();
@@ -85,6 +85,7 @@ const TodoList = () => {
     updated_at: new Date().toLocaleString(),
     // @ts-ignore
     user_id: session?.user.id,
+    isEditing: false,
   });
 
   console.log(todoEditID);
@@ -242,6 +243,18 @@ const TodoList = () => {
     fetchTodos();
   }, []);
 
+  // console.log(todoInputRefs.current[8]?.value);
+  // console.log(todoInputRefs);
+
+  const toggleEdit = (todoEdit: Todo) => {
+    const updatedTodos = todos.map((todo: Todo) =>
+      todo.todo_id === todoEdit.todo_id
+        ? { ...todo, isEditing: !todo.isEditing }
+        : { ...todo, isEditing: false }
+    );
+    dispatch({ type: "FETCH_TODOS", payload: updatedTodos });
+  };
+
   if (!session?.user) {
     return (
       <main className="error">
@@ -324,7 +337,7 @@ const TodoList = () => {
                 <button className="bg-slate-300 p-3 appearance-none border-none hover:bg-slate-400 transition-colors">
                   Date Sort <FontAwesomeIcon icon={faArrowUpShortWide} />
                 </button>
-                <button className="bg-[--matteRed] p-3 appearance-none border-none hover:bg-[--matteRed:hover] transition-colors text-[white]">
+                <button className="bg-[--matteRed] p-3 appearance-none border-none hover:bg-[--matteRed-hover] transition-colors text-[white]">
                   Delete All <FontAwesomeIcon icon={faTrash} />
                 </button>
                 <button className="bg-green-500 p-4 w-fit appearance-none border-none hover:bg-green-600 transition-colors">
@@ -339,29 +352,54 @@ const TodoList = () => {
                     initial={"hidden"}
                     animate={"visible"}
                     className="flex flex-row items-center border-b-2 border-slate-600 pb-4 pt-4 gap-2 "
-                    key={todo?.todo_id}
+                    key={todo.todo_id}
                   >
                     <div className="flex">
-                      <input
-                        type="text"
-                        className="font-light bg-slate-200 h-[56px] w-[400px] text-center flex items-center justify-center transition-all hover:line-through"
-                        value={todo?.todo_text}
-                        onKeyUp={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                          if (e.key === "Enter") {
-                            handleTodo(
-                              "EDIT_TODO",
-                              todo?.todo_id,
-                              todo?.todo_completed
-                            );
-                            setTodoEditText("");
-                          }
-                        }}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                          setTodoEditText(e.target.value);
-                        }}
-                        ref={todoInputRef}
-                        readOnly
-                      />
+                      {todo.isEditing ? (
+                        <>
+                          <input
+                            type="text"
+                            className="font-light bg-slate-200 h-[56px] w-[400px] text-center flex items-center justify-center transition-all hover:line-through"
+                            value={todoEditText}
+                            onKeyUp={(
+                              e: React.KeyboardEvent<HTMLInputElement>
+                            ) => {
+                              if (e.key === "Enter") {
+                                handleTodo(
+                                  "EDIT_TODO",
+                                  todo?.todo_id,
+                                  todo?.todo_completed
+                                );
+                                setTodoEditText("");
+                                toggleEdit(todo);
+                              }
+                            }}
+                            onChange={(
+                              e: React.ChangeEvent<HTMLInputElement>
+                            ) => {
+                              setTodoEditText(e.target.value);
+                            }}
+                            ref={(todoInputRef) =>
+                              (todoInputRefs.current[todo.todo_id] =
+                                todoInputRef as HTMLInputElement)
+                            }
+                            readOnly={false}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <input
+                            type="text"
+                            className="font-light bg-slate-200 h-[56px] w-[400px] text-center flex items-center justify-center transition-all hover:line-through"
+                            value={todo?.todo_text}
+                            ref={(todoInputRef) =>
+                              (todoInputRefs.current[todo.todo_id] =
+                                todoInputRef as HTMLInputElement)
+                            }
+                            readOnly
+                          />
+                        </>
+                      )}
 
                       <p className=" flex flex-col bg-slate-200 font-light h-[56px] text-center">
                         Created:
@@ -386,9 +424,9 @@ const TodoList = () => {
                       </button>
                       <button
                         className="bg-orange-500 p-4 appearance-none border-none hover:bg-orange-600 transition-colors"
-                        onClick={() => {}}
+                        onClick={() => toggleEdit(todo)}
                       >
-                        {todoEditText === "" ? "Edit" : "Save"}{" "}
+                        {todo.isEditing ? "Save" : "Edit"}{" "}
                         <FontAwesomeIcon icon={faPencilSquare} />
                       </button>
                       <button

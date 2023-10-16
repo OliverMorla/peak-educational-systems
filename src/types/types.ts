@@ -181,6 +181,7 @@ interface Todo {
   user_avatar_url?: string;
   created_at: string;
   updated_at: string;
+  isEditing?: boolean;
 }
 
 // For Admin Page
@@ -312,6 +313,7 @@ interface TodoInputs {
   };
   created_at: Date | string;
   updated_at: Date | string;
+  isEditing: boolean;
 }
 
 interface TodoReducerActionType {
