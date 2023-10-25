@@ -127,7 +127,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
           </p>
         </motion.div>
       </section>
-      <section className="about-books">
+      {/* <section className="about-books">
         <motion.section
           variants={fadeEffectLeft}
           initial={"hidden"}
@@ -200,7 +200,7 @@ const About: React.FunctionComponent = (): JSX.Element => {
             </div>
           </div>
         </motion.section>
-      </section>
+      </section> */}
     </main>
   );
 };
