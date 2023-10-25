@@ -161,10 +161,10 @@ const Header: React.FunctionComponent = (): JSX.Element => {
               className="nav__item logout-btn"
             >
               <button
-                onClick={() =>
-                  signOut({
-                    redirect: true,
-                    callbackUrl: process.env.NEXT_PUBLIC_CLIENT_URL,
+                onClick={async () =>
+                  await signOut({
+                    redirect: false,
+                    callbackUrl: "/",
                   })
                 }
               >
