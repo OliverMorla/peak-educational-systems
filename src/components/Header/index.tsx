@@ -160,7 +160,16 @@ const Header: React.FunctionComponent = (): JSX.Element => {
               animate={{ opacity: 1 }}
               className="nav__item logout-btn"
             >
-              <button onClick={() => signOut()}>Log Out</button>
+              <button
+                onClick={async () =>
+                  await signOut({
+                    redirect: false,
+                    callbackUrl: "/",
+                  })
+                }
+              >
+                Log Out
+              </button>
             </motion.div>
           )}
         </nav>
