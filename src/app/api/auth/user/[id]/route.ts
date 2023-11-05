@@ -18,6 +18,7 @@ export async function GET(
       where: {
         id: Number(params.id),
       },
+
       select: {
         avatar_url: true,
         first_name: true,
@@ -32,7 +33,10 @@ export async function GET(
       },
     });
 
-    if (user) return NextResponse.json({ status: 200, ok: true, user: user });
+    if (user) {
+      return NextResponse.json({ status: 200, ok: true, user: user });
+    }
+    
   } catch (err) {
     return NextResponse.json({
       status: 500,

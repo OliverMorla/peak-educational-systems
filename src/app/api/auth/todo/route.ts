@@ -4,13 +4,12 @@ import prisma from "@/lib/prisma";
 
 // Get all todos for a user
 export async function GET(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.OAUTH_SECRET });
-
-  if (token) {
+  const user = await getToken({ req, secret: process.env.OAUTH_SECRET });
+  if (user) {
     try {
       const todos = await prisma.todo.findMany({
         where: {
-          user_id: Number(token?.sub),
+          user_id: Number(user.sub),
         },
       });
 
@@ -30,23 +29,28 @@ export async function GET(req: NextRequest) {
           err instanceof Error ? err.message : "An Internal Error Occurred!",
       });
     }
+  } else {
+    return NextResponse.json({
+      status: 401,
+      ok: false,
+      message: "Please login to view your todos!",
+    });
   }
 }
 
 // Create a todo for a user
 export async function POST(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.OAUTH_SECRET });
-
+  const user = await getToken({ req, secret: process.env.OAUTH_SECRET });
   const body = await req.json();
 
-  if (token) {
+  if (user) {
     if (body.todo_text !== "") {
       try {
         const todo = await prisma.todo.create({
           data: {
             todo_text: body.todo_text,
             todo_completed: false,
-            user_id: Number(token?.sub),
+            user_id: Number(user?.sub),
           },
         });
 
@@ -78,14 +82,11 @@ export async function POST(req: NextRequest) {
 
 // Delete a todo for a user
 export async function DELETE(req: NextRequest) {
-  const authorizedUser = await getToken({
-    req,
-    secret: process.env.OAUTH_SECRET,
-  });
-
+  const user = await getToken({ req, secret: process.env.OAUTH_SECRET });
   const body = await req.json();
-  if (authorizedUser) {
-    if (body.todo_id !== undefined || "") {
+
+  if (user) {
+    if (body.todo_id !== undefined || body.todo_id !== "") {
       try {
         const todo = await prisma.todo.delete({
           where: {
@@ -110,19 +111,21 @@ export async function DELETE(req: NextRequest) {
         });
       }
     }
+  } else {
+    return NextResponse.json({
+      status: 401,
+      ok: false,
+      message: "Please login to delete a todo!",
+    });
   }
 }
 
 // Update a todo for a user
 export async function PUT(req: NextRequest) {
-  const authorizedUser = await getToken({
-    req,
-    secret: process.env.OAUTH_SECRET,
-  });
-
+  const user = await getToken({ req, secret: process.env.OAUTH_SECRET });
   const body = await req.json();
 
-  if (authorizedUser) {
+  if (user) {
     if (body.todo_id !== undefined && body.todo_text !== "") {
       try {
         const todo = await prisma.todo.update({
@@ -198,19 +201,21 @@ export async function PUT(req: NextRequest) {
         });
       }
     }
+  } else {
+    return NextResponse.json({
+      status: 401,
+      ok: false,
+      message: "Please login to update a todo!",
+    });
   }
 }
 
 // Toggle a todo for a user
 export async function PATCH(req: NextRequest) {
-  const authorizedUser = await getToken({
-    req,
-    secret: process.env.OAUTH_SECRET,
-  });
-
+  const user = await getToken({ req, secret: process.env.OAUTH_SECRET });
   const body = await req.json();
 
-  if (authorizedUser) {
+  if (user) {
     if (body.todo_id !== undefined || "") {
       if (body.todo_completed === true) {
         try {
@@ -272,5 +277,11 @@ export async function PATCH(req: NextRequest) {
         }
       }
     }
+  } else {
+    return NextResponse.json({
+      status: 401,
+      ok: false,
+      message: "Please login to toggle a todo!",
+    });
   }
 }

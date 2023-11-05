@@ -107,6 +107,10 @@ interface Blog {
   created_at: string;
   updated_at: string;
   number_of_comments?: number;
+
+  _count?: {
+    comments: number;
+  };
 }
 
 interface Quote {
@@ -137,9 +141,23 @@ interface Comment {
   content: string;
   created_at: string;
   updated_at: string;
+
   blog_id?: number;
   news_id?: number;
   first_name?: string;
+
+  users?: {
+    first_name: string;
+    last_name: string;
+  };
+
+  blogs?: {
+    title: string;
+  };
+
+  news?: {
+    title: string;
+  };
 }
 
 interface Friend {

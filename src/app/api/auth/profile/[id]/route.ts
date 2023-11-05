@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 import prisma from "@/lib/prisma";
 
 type Params = {
@@ -14,24 +15,35 @@ export async function GET(
   }
 ) {
   try {
-    const user = await prisma.users.findUnique({
-      where: {
-        id: Number(params.id),
-      },
-      select: {
-        first_name: true,
-        last_name: true,
-        role: true,
-        school_region: true,
-        school_type: true,
-        employment_region: true,
-        employment_type: true,
-        title: true,
-        created_at: true,
-      },
+    const userToken = await getToken({
+      req,
+      secret: process.env.OAUTH_SECRET,
     });
+    
+    const isSignedIn = userToken ? true : false;
 
-    if (user) return NextResponse.json({ status: 200, ok: true, user: user });
+    if (isSignedIn) {
+      const user = await prisma.users.findUnique({
+        where: {
+          id: Number(params.id),
+        },
+        select: {
+          avatar_url: true,
+          first_name: true,
+          last_name: true,
+          role: true,
+          school_region: true,
+          school_type: true,
+          employment_region: true,
+          employment_type: true,
+          title: true,
+          created_at: true,
+        },
+      });
+      if (user) {
+        return NextResponse.json({ status: 200, ok: true, user: user });
+      }
+    }
   } catch (err) {
     return NextResponse.json({
       status: 500,

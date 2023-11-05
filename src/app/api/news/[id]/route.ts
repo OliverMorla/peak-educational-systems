@@ -41,7 +41,9 @@ export async function GET(
       },
     });
 
-    if (news) return NextResponse.json({ status: 200, ok: true, news: news });
+    if (news) {
+      return NextResponse.json({ status: 200, ok: true, news: news });
+    }
   } catch (err) {
     return NextResponse.json({
       status: 500,

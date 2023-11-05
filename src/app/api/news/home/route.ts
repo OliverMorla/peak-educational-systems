@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
         title: true,
         views: true,
         photo_cover_url: true,
+        created_at: true,
         users: {
           select: {
             first_name: true,
@@ -24,7 +25,9 @@ export async function GET(req: NextRequest) {
         },
       },
     });
-    if (news) return NextResponse.json({ status: 200, ok: true, news: news });
+    if (news) {
+      return NextResponse.json({ status: 200, ok: true, news: news });
+    }
   } catch (err) {
     return NextResponse.json({
       status: 500,

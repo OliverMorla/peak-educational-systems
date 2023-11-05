@@ -22,7 +22,9 @@ export default async function UserProfile({
   const { user } = await getUser(params.user_id);
   return (
     <main className="w-full flex h-screen items-center justify-center flex-col">
-      <h1 className="text-3xl font-bold text-[--matteBlack] pt-20">User Profile</h1>
+      <h1 className="text-3xl font-bold text-[--matteBlack] pt-20">
+        User Profile
+      </h1>
       <section className="w-full flex items-center justify-center flex-col">
         <div className="flex gap-2">
           <span className="font-bold">Name:</span>

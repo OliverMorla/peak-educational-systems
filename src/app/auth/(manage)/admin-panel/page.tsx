@@ -157,7 +157,11 @@ const Panel = () => {
         break;
     }
   };
-  if (session?.user?.email !== "admin@peakeducationalsystems.com") {
+  if (
+    session?.user?.email !== "admin@peakeducationalsystems.com" &&
+    // @ts-ignore
+    session?.user?.sub !== 1
+  ) {
     return (
       <main className="error">
         <h1>You have to sign in!</h1>
@@ -185,11 +189,6 @@ const Panel = () => {
                     <th> email </th>
                     <th> date_of_birth </th>
                     <th> title </th>
-                    <th> emp_type </th>
-                    <th> emp_region </th>
-                    <th> child_grade_level </th>
-                    <th> school_type </th>
-                    <th> school_region </th>
                     <th> role </th>
                     <th> created_at </th>
                   </tr>
@@ -208,13 +207,10 @@ const Panel = () => {
                         <td>{user.first_name}</td>
                         <td>{user.last_name}</td>
                         <td>{user.email}</td>
-                        <td>{user.date_of_birth}</td>
+                        <td>
+                          {new Date(user.date_of_birth).toLocaleDateString()}
+                        </td>
                         <td>{user.title}</td>
-                        <td>{user.employment_type}</td>
-                        <td>{user.employment_region}</td>
-                        <td>{user.child_grade_level}</td>
-                        <td>{user.school_type}</td>
-                        <td>{user.school_region}</td>
                         <td>{user.role}</td>
                         <td>{new Date(user.created_at).toDateString()}</td>
                         <td>
@@ -246,9 +242,8 @@ const Panel = () => {
                     <th> title </th>
                     <th> author </th>
                     <th> number_of_comments </th>
-                    <th> author </th>
                     <th> category </th>
-                    <th> photo_cover_url </th>
+                    <th> views </th>
                     <th> created_at </th>
                   </tr>
                 </thead>
@@ -264,11 +259,15 @@ const Panel = () => {
                       <tr key={news.id}>
                         <td>{news.id}</td>
                         <td>{news.title}</td>
-                        <td>{news.author}</td>
-                        <td>{news.number_of_comments}</td>
-                        <td>{news.author}</td>
+                        <td>
+                          {news.users?.first_name.concat(
+                            " ",
+                            news.users.last_name
+                          )}
+                        </td>
+                        <td>{news._count?.comments}</td>
                         <td>{news.category}</td>
-                        <td>{news.photo_cover_url}</td>
+                        <td>{news.views}</td>
                         <td>{new Date(news.created_at).toDateString()}</td>
                         <td>
                           <button
@@ -298,9 +297,9 @@ const Panel = () => {
                     <th> blog_id </th>
                     <th> author </th>
                     <th> title </th>
-                    <th> photo_cover_url </th>
                     <th> category </th>
                     <th> created_at </th>
+                    <th> number_of_comments </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -316,10 +315,11 @@ const Panel = () => {
                         <td>{blog.blog_id}</td>
                         <td>{blog.author}</td>
                         <td>{blog.title}</td>
-                        <td>{blog.photo_cover_url}</td>
                         <td>{blog.category}</td>
-                        <td>{blog.created_at}</td>
-                        <td>{new Date(blog.created_at).toDateString()}</td>
+                        <td>
+                          {new Date(blog.created_at).toLocaleDateString()}
+                        </td>
+                        <td>{blog?._count?.comments}</td>
                         <td>
                           <button
                             name="blog-delete-btn"
@@ -389,8 +389,9 @@ const Panel = () => {
                 <thead>
                   <tr>
                     <th> id </th>
-                    <th> fist_name </th>
+                    <th> name </th>
                     <th> content </th>
+                    <th> title </th>
                     <th> created_at </th>
                   </tr>
                 </thead>
@@ -405,8 +406,14 @@ const Panel = () => {
                     comments?.map((comment) => (
                       <tr key={comment.id}>
                         <td>{comment.id}</td>
-                        <td>{comment.first_name}</td>
+                        <td>
+                          {comment.users?.first_name.concat(
+                            " ",
+                            comment.users?.last_name
+                          )}
+                        </td>
                         <td>{comment.content}</td>
+                        <td>{comment.news?.title || comment.blogs?.title}</td>
                         <td>{new Date(comment.created_at).toDateString()}</td>
                         <td>
                           <button

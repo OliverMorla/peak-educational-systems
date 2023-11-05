@@ -1,7 +1,9 @@
-import prisma from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
+// get all categories for blogs
 export async function GET(req: NextRequest) {
+  
   try {
     const categories = await prisma.blogs.groupBy({
       by: "category",
@@ -10,12 +12,13 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    if (categories)
+    if (categories) {
       return NextResponse.json({
         status: 200,
         ok: true,
         categories: categories,
       });
+    }
   } catch (err) {
     return NextResponse.json({
       status: 500,

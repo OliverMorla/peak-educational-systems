@@ -64,6 +64,7 @@ export async function POST(req: NextRequest) {
           school_region: body.school_region,
         },
       });
+      
       if (user) {
         return NextResponse.json({
           status: 201,
