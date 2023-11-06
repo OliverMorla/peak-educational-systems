@@ -16,8 +16,6 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { status, data: session } = useSession();
 
-  console.log(userAvatar);
-
   const handleAvatar = async (e: React.MouseEvent<HTMLButtonElement>) => {
     uploadBtnRef.current?.click();
   };
@@ -94,7 +92,6 @@ const Dashboard: React.FunctionComponent = (): JSX.Element => {
 
   useEffect(() => {
     getUser();
-    console.log("UseEffect ran!");
     return () => undefined;
     // @ts-ignorets-ignore
   }, [session?.user?.id]);

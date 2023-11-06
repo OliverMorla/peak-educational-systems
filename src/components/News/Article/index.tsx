@@ -8,6 +8,7 @@ import {
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import "./style.scss";
 
@@ -23,7 +24,10 @@ const NewsArticle: React.FunctionComponent<Article> = ({
   article_updated_at,
 }) => {
   const [commentInput, setCommentInput] = useState<string>("");
-  const [hasRun, setHasRun] = useState<boolean>(false);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const { data: session } = useSession();
+
+  console.log(comments);
 
   // function to post a new comment
   const handleComment = async () => {
@@ -38,27 +42,35 @@ const NewsArticle: React.FunctionComponent<Article> = ({
           },
         }
       );
-      const response = await res.json();
-      alert(response.message);
+      const response = (await res.json()) as CommentCreateResponse;
+      if (response.ok) {
+        alert(response.message);
+        window.location.reload();
+      } else {
+        throw new Error(response.message);
+      }
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
   };
 
-  const [comments, setComments] = useState<Comment[]>([]);
   // function to get all comments
   const getComments = async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/comments/news/${article_id}?article_id=${article_id}`,
+        `/api/comments/news/${article_id}?article_id=${article_id}`,
         {
           headers: {
             "Content-Type": "application/json",
           },
         }
       );
-      const response = await res.json() as CommentsReponse;
-      setComments(response?.comments);
+      const response = (await res.json()) as CommentsReponse;
+      if (response.ok) {
+        setComments(response?.comments);
+      } else {
+        throw new Error(response?.message);
+      }
     } catch (err) {
       if (err instanceof Error) return console.log(err.message);
     }
@@ -73,7 +85,7 @@ const NewsArticle: React.FunctionComponent<Article> = ({
     return () => {
       isMounted = false;
     };
-  }, [article_id]);
+  }, [article_id, session?.user]);
 
   return (
     <main className="article">
@@ -132,10 +144,12 @@ const NewsArticle: React.FunctionComponent<Article> = ({
       <section className="article__comments">
         <h2>Comments</h2>
         <section className="comments">
-          {comments.length === 0 ? (
-            <div className="comment-status"> No comments yet! </div>
+          {!session?.user && comments?.length === 0 ? (
+            <div className="comment-status">
+              Please sign in to view comments!
+            </div>
           ) : (
-            comments.map((comment) => (
+            comments?.map((comment) => (
               <div className="comment" key={comment.id}>
                 <div className="comment__header">
                   <div className="comment__header--info">

@@ -10,11 +10,12 @@ import {
   faLinkedin,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import { useSession } from "next-auth/react";
 import "./style.scss";
 
 const Footer = () => {
   const [newsletterInput, setNewsletterInput] = useState<string>("");
-  console.log(newsletterInput);
+  const { data: session } = useSession();
   // const [error, setError] = useState<string | undefined>(undefined);
   // const [isDisabled, setIsDisabled] = useState<boolean>(false);
 
@@ -102,6 +103,19 @@ const Footer = () => {
           <Link href="" className="features__item">
             Blogs
           </Link>
+          {session?.user && (
+            <>
+              <Link href={"/auth/todo-list"} className="features__item">
+                Todo List
+              </Link>
+              <Link href={"/auth/dashboard"} className="features__item">
+                Dashboard
+              </Link>
+              <Link href={"/auth/schedule-meeting"} className="features__item">
+                Schedule
+              </Link>
+            </>
+          )}
         </div>
         <div className="footer__socials">
           <section className="footer__contact">

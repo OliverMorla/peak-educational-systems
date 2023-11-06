@@ -17,9 +17,9 @@ export async function GET(req: NextRequest) {
           _count: {
             select: {
               comments: true,
-            }
-          }
-        }
+            },
+          },
+        },
       });
       if (blogs) {
         return NextResponse.json({ status: 200, ok: true, blogs: blogs });

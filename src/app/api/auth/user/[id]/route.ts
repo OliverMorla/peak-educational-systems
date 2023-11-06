@@ -5,6 +5,7 @@ type Params = {
   id: string | number | undefined;
 };
 
+// get user by id for dashboard
 export async function GET(
   req: NextRequest,
   {

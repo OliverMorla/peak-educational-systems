@@ -220,7 +220,14 @@ type FriendsAdminResponse = AdminResponse<Friend>;
 interface CommentsReponse {
   status: number;
   ok: boolean;
+  message?: string;
   comments: Comment[];
+}
+
+interface CommentCreateResponse {
+  status: number;
+  ok: boolean;
+  message?: string;
 }
 
 interface UserProfileResponse {
