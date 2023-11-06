@@ -2,23 +2,22 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import Intro from "@/components/Home/Intro";
 import { About as Details } from "@/components/Home/About";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Scrollbar } from "swiper/modules";
-import { motion } from "framer-motion";
+import { fadeEffectLeft, fadeEffectRight } from "@/config/framer.config";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "./page.scss";
-import { fadeEffectLeft, fadeEffectRight } from "@/config/framer.config";
 
 const About: React.FunctionComponent = (): JSX.Element => {
   return (
